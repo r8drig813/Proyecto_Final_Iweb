@@ -27,8 +27,14 @@ public class LoginServlet extends HttpServlet {
 
                 Cuentas cuentas = (Cuentas) session.getAttribute("usuarioLog");
 
-                if(cuentas.getIdCuentas()>0){ //estoy loggedIn
-                    resp.sendRedirect(req.getContextPath() + "/UsuariosJuegosServlet");
+                if(cuentas.getIdCuentas()>0 ){//estoy loggedIn
+                    if(cuentas.getIdRol() == 1){
+                        resp.sendRedirect(req.getContextPath() + "/AdminJuegosServlet");
+                    }if(cuentas.getIdRol() == 2){
+                        resp.sendRedirect(req.getContextPath() + "/ManagerJuegosServlet");
+                    }if(cuentas.getIdRol() == 3){
+                        resp.sendRedirect(req.getContextPath() + "/UsuariosJuegosServlet");
+                    }
                 }else{ // no estoy loggedId
                     RequestDispatcher dispatcher = req.getRequestDispatcher("loginPage.jsp");
                     dispatcher.forward(req, resp);
