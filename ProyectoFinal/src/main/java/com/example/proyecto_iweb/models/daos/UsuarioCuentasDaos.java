@@ -119,20 +119,15 @@ public class UsuarioCuentasDaos extends DaoBase{
     public Cuentas listar(String id) {
         Cuentas cuentas = null;
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
 
         String sql = "select * from cuenta where idCuenta = ?";
-        String url = "jdbc:mysql://localhost:3306/mydb";
-        try (Connection connection = DriverManager.getConnection(url, "root", "root");
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-            preparedStatement.setString(1, id);
+        try (Connection conn = this.getConection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            try (ResultSet rs = preparedStatement.executeQuery()) {
+            pstmt.setString(1, id);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     cuentas = new Cuentas();
                     cuentas.setIdCuentas(rs.getInt(1));
@@ -141,7 +136,10 @@ public class UsuarioCuentasDaos extends DaoBase{
                     cuentas.setNickname(rs.getString(4));
                     cuentas.setDireccion(rs.getString(5));
                     cuentas.setCorreo(rs.getString(6));
+                    cuentas.setFoto(rs.getString(7));
                     cuentas.setDescripcion(rs.getString(8));
+                    cuentas.setPasswordHashed(rs.getString(11));
+
                 }
             }
 
@@ -160,15 +158,15 @@ public class UsuarioCuentasDaos extends DaoBase{
         }
 
         String url = "jdbc:mysql://localhost:3306/mydb";
-        String sql = "UPDATE cuentas SET descripcion = ?,direccion = ?,correo = ?, contrasenia = ? WHERE idCuentas = ?";
+        String sql = "UPDATE cuenta SET descripcion = ?,direccion = ?,correo = ? WHERE idCuenta = ?";
         try (Connection connection = DriverManager.getConnection(url, "root", "root");
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setString(1, cuentas.getDescripcion());
             pstmt.setString(2, cuentas.getDireccion());
             pstmt.setString(3,cuentas.getCorreo());
-            pstmt.setString(4,cuentas.getCorreo());
-            pstmt.setInt(5, cuentas.getIdCuentas());
+            //pstmt.setString(4,cuentas.getPasswordHashed());
+            pstmt.setInt(4, cuentas.getIdCuentas());
 
             pstmt.executeUpdate();
 
@@ -276,5 +274,41 @@ public class UsuarioCuentasDaos extends DaoBase{
 
     }
 
+    /*public ArrayList<Cuentas> perfil(int idCuenta){
+
+        ArrayList<Cuentas> lista = new ArrayList<>();
+
+
+        String sql = "SELECT * FROM cuenta where idRol = 3 and idCuenta = ?";
+
+        try (Connection conn = this.getConection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            ResultSet resultSet = pstmt.executeQuery();
+            pstmt.setInt(1, idCuenta);
+
+            while(resultSet.next()){
+                Cuentas cuentas = new Cuentas();
+                cuentas.setIdCuentas(resultSet.getInt(1));
+                cuentas.setNombre(resultSet.getString(2));
+                cuentas.setApellido(resultSet.getString(3));
+                cuentas.setNickname(resultSet.getString(4));
+                cuentas.setDireccion(resultSet.getString(5));
+                cuentas.setCorreo(resultSet.getString(6));
+                cuentas.setFoto(resultSet.getString(7));
+                cuentas.setDescripcion(resultSet.getString(8));
+                cuentas.setDesabilitado(resultSet.getBoolean(9));
+                cuentas.setIdRol(resultSet.getInt(10));
+                cuentas.setPasswordHashed(resultSet.getString(11));
+
+                lista.add(cuentas);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return lista;
+    }*/
 }
 

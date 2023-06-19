@@ -5,10 +5,10 @@
 <%@ page import="com.example.proyecto_iweb.models.beans.CompraUsuario" %>
 <%@ page import="com.example.proyecto_iweb.models.beans.VentaUsuario" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="cuentas" scope="request" type="com.example.proyecto_iweb.models.beans.Cuentas"/>
-<%    ArrayList<CompraUsuario> listaNotificaciones = (ArrayList<CompraUsuario>) request.getAttribute("lista4");
+<%    //ArrayList<CompraUsuario> listaNotificaciones = (ArrayList<CompraUsuario>) request.getAttribute("lista4");
   //ArrayList<VentaUsuario> listaNotificaciones1  = (ArrayList<VentaUsuario>) request.getAttribute("lista4");
 %>
+<jsp:useBean id="cuentas" scope="request" type="com.example.proyecto_iweb.models.beans.Cuentas"/>
 <jsp:useBean id="usuarioLog" scope="session" type="com.example.proyecto_iweb.models.beans.Cuentas"
              class="com.example.proyecto_iweb.models.beans.Cuentas"/>
 <html lang="en">
@@ -43,166 +43,9 @@
 <body>
 
 <!-- ======= Header ======= -->
-<header id="header" class="header fixed-top d-flex align-items-center bg-primary">
-  <div class="d-flex align-items-center justify-content-between">
-    <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listar" class="logo d-flex align-items-center">
-      <img src="img/sistema/logoUsuario.png" alt="">
-      <span class="d-none d-lg-block text-light">JA-VAGOS</span>
-    </a>
-  </div>
-
-
-
-  <nav class="header-nav ms-auto">
-    <ul class="d-flex align-items-center">
-      <!--BUSCADOR -->
-      <li class="nav-item d-block d-lg-none">
-        <a class="nav-link nav-icon search-bar-toggle " href="#">
-          <i class="bi bi-search"></i>
-        </a>
-      </li>
-
-      <!-- ICONO DE TIENDA Y NOTIFICACIÓN-->
-      <li class="nav-item">
-        <a class="nav-link nav-icon" href="carritoUsuario.html">
-          <i class="bi bi-cart text-light"></i>
-          <span class="badge bg-success badge-number"></span>
-        </a>
-      </li>
-
-      <li class="nav-item dropdown">
-        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-          <i class="bi bi-chat-left-text text-light"></i>
-          <span class="badge bg-danger badge-number"><%=listaNotificaciones.size()%></span>
-        </a><!-- End Messages Icon -->
-
-        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-          <li class="dropdown-header">
-            Tienes <%=listaNotificaciones.size()%> mensajes nuevos ! ! !
-            <!--
-            <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">Ver todo</span></a>
-            -->
-          </li>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
-
-          <li class="dropdown-footer">
-            <a  href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones">Ver todo los mensajes</a>
-          </li>
-
-        </ul>
-
-      </li>
-
-
-      <li class="nav-item dropdown pe-3">
-
-        <div class="form-inline font-italic my-2 my-lg-0">
-          <% if (usuarioLog.getIdCuentas() > 0) { //esto logueado %>
-          <span></span>
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="img/usuario/usuario1.webp" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2 text-light"><%=usuarioLog.getNombre() + " " + usuarioLog.getApellido()%>  </span>
-          </a><!-- End Profile Iamge Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header">
-              <h6><%=usuarioLog.getNombre() + " " + usuarioLog.getApellido()%> </h6>
-              <span>Usuario</span>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=perfil">
-                <i class="bi bi-person"></i>
-                <span>Mi Perfil</span>
-
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="#profile-edit">
-                <i class="bi bi-gear"></i>
-                <span>Configuración</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="cerrarLoguinOficial.html">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </a>
-            </li>
-            <a href="<%=request.getContextPath()%>/login?action=logout">(Cerrar sesión)</a>
-              <% } else { //no estoy loggedIn %>
-            <a class="nav-link" style="color: white;" href="<%=request.getContextPath()%>/login">
-              (Iniciar Sesión)
-            </a>
-              <% } %>
-        </div>
-
-        </ul><!-- End Profile Dropdown Items -->
-      </li><!-- End Profile Nav -->
-
-    </ul>
-  </nav><!-- End Icons Navigation -->
-
-</header>
-
-
-<!--ACABO EL HEADER-->
-
-
-
-
-
-<!-- ======= Sidebar ======= -->
-<aside id="sidebar" class="sidebar">
-
-  <ul class="sidebar-nav" id="sidebar-nav">
-
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listar">
-        <i class="bi bi-grid"></i>
-        <span>Disponibles</span>
-      </a>
-    </li><!-- End Dashboard Nav -->
-
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listar1">
-        <i class="bi bi-arrow-up-square"></i>
-        <span>Postear</span>
-      </a>
-    </li><!-- End Profile Page Nav -->
-
-
-
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=vendidos">
-        <i class="bi bi-bag"></i>
-        <span>Vendidos</span>
-      </a>
-    </li><!-- End F.A.Q Page Nav -->
-
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=comprados">
-        <i class="bi bi-shop"></i>
-        <span>Comprados</span>
-      </a>
-    </li><!-- End Contact Page Nav -->
-
-  </ul>
-
-</aside><!-- End Sidebar-->
+<jsp:include page="../includes/narvar.jsp">
+  <jsp:param name="currentPage" value=""/>
+</jsp:include>
 
 <main id="main" class="main">
 
@@ -290,11 +133,6 @@
                 </div>
 
                 <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Phone</div>
-                  <div class="col-lg-9 col-md-8">(436) 486-3538 x29071</div>
-                </div>
-
-                <div class="row">
                   <div class="col-lg-3 col-md-4 label">Email</div>
                   <div class="col-lg-9 col-md-8"><%=cuentas.getCorreo()%></div>
                 </div>
@@ -329,16 +167,9 @@
                   </div>
 
                   <div class="row mb-3">
-                    <label for="direcion" class="col-md-4 col-lg-3 col-form-label">Address</label>
+                    <label for="direccion" class="col-md-4 col-lg-3 col-form-label">Address</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="direcion" type="text" class="form-control" id="direcion" value="<%=cuentas.getDireccion()%>">
-                    </div>
-                  </div>
-
-                  <div class="row mb-3">
-                    <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
-                    <div class="col-md-8 col-lg-9">
-                      <input name="phone" type="text" class="form-control" id="Phone" value="(436) 486-3538 x29071" >
+                      <input name="direccion" type="text" class="form-control" id="direccion" value="<%=cuentas.getDireccion()%>">
                     </div>
                   </div>
 
@@ -361,11 +192,10 @@
               <!-- Cambio de contrasenia -->
               <div class="tab-pane fade pt-3" id="profile-change-password">
                 <form>
-
                   <div class="row mb-3">
-                    <label for="contrasenia" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                    <label for="password" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="contrasenia" type="password" class="form-control" id="contrasenia" value="<%//=cuentas.getContrasenia()%>">
+                      <input name="password" type="password" class="form-control" id="password" value="<%=cuentas.getPasswordHashed()%>">
                     </div>
                   </div>
 

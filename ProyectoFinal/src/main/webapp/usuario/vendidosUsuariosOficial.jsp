@@ -3,13 +3,13 @@
 <%@ page import="com.example.proyecto_iweb.models.beans.Cuentas" %>
 <%@ page import="com.example.proyecto_iweb.models.beans.VentaUsuario" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <%
     ArrayList<VentaUsuario> listaVendidos = (ArrayList<VentaUsuario>) request.getAttribute("lista2");
     //ArrayList<Cuentas> listaPerfil = (ArrayList<Cuentas>) request.getAttribute("perfil");
     //ArrayList<ComprasVentas> listaNotificaciones = (ArrayList<ComprasVentas>) request.getAttribute("lista4");
 %>
-<jsp:useBean id="usuarioLog" scope="session" type="com.example.proyecto_iweb.models.beans.Cuentas"
-             class="com.example.proyecto_iweb.models.beans.Cuentas"/>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,9 +43,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
 </head>
-
 <body>
-
 <jsp:include page="../includes/narvar.jsp">
     <jsp:param name="currentPage" value="vendidos"/>
 </jsp:include>

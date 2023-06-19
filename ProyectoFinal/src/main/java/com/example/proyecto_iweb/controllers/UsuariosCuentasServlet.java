@@ -39,13 +39,15 @@ public class UsuariosCuentasServlet extends HttpServlet {
 
                 break;
             case "vendidos":
-                request.setAttribute("listar2", usuarioJuegosDaos.listarVendidos());
+                String idCuenta1 = request.getParameter("id");
+                request.setAttribute("listar2", usuarioJuegosDaos.listarVendidos(idCuenta1));
                 //request.setAttribute("perfil", usuarioCuentasDaos.perfil());
 
                 request.getRequestDispatcher("usuario/vendidosUsuariosOficial.jsp").forward(request, response);
                 break;
             case "comprados":
-                request.setAttribute("listar3", usuarioJuegosDaos.listarComprados());
+                String idCuenta2 = request.getParameter("id");
+                request.setAttribute("listar3", usuarioJuegosDaos.listarComprados(idCuenta2));
                 //request.setAttribute("perfil", usuarioCuentasDaos.perfil());
 
                 request.getRequestDispatcher("usuario/compradosUsuariosOficial.jsp").forward(request, response);

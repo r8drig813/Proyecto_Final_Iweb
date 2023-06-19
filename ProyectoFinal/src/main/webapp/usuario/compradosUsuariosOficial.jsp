@@ -9,8 +9,6 @@
     //ArrayList<ComprasVentas> listaNotificaciones = (ArrayList<ComprasVentas>) request.getAttribute("lista4");
 
 %>
-<jsp:useBean id="usuarioLog" scope="session" type="com.example.proyecto_iweb.models.beans.Cuentas"
-             class="com.example.proyecto_iweb.models.beans.Cuentas"/>
 <!DOCTYPE html>
 <html lang="en">
 

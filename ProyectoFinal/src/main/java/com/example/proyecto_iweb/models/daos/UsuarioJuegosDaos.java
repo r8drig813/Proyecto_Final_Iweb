@@ -6,8 +6,9 @@ import com.example.proyecto_iweb.models.dtos.Generos;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 
-public class UsuarioJuegosDaos {
+public class UsuarioJuegosDaos extends DaoBase {
     /*-------------------USUARIOS----------------------------*/
 
     public ArrayList<Juegos> listarJuegos(){
@@ -224,25 +225,21 @@ public class UsuarioJuegosDaos {
         return lista;
     }
 
-    public ArrayList<VentaUsuario> listarVendidos(/*int id*/) {
+    public ArrayList<VentaUsuario> listarVendidos(String id) {
 
-        ArrayList<Juegos> lista = new ArrayList<>();
         ArrayList<VentaUsuario> lista2 = new ArrayList<>();
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+
 
         String sql = "SELECT * FROM ventausuario vu\n" +
                 "inner join juego j on j.idJuego = vu.idJuego\n" +
                 "inner join estados e on vu.idEstados = e.idEstados\n" +
-                "where vu.idUsuario = 114 and vu.idEstados != 8;";
+                "where vu.idEstados != 8 and vu.idUsuario = ?";
 
-        String url = "jdbc:mysql://localhost:3306/mydb";
-        try (Connection connection = DriverManager.getConnection(url, "root", "root");
-             Statement stmt = connection.createStatement();
-             ResultSet resultSet = stmt.executeQuery(sql)) {
+        try (Connection conn = this.getConection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            ResultSet resultSet = pstmt.executeQuery();
+            pstmt.setString(1, id);
 
             while (resultSet.next()) {
                 VentaUsuario ventaUsuario = new VentaUsuario();
@@ -265,30 +262,27 @@ public class UsuarioJuegosDaos {
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
         return lista2;
     }
 
-    public ArrayList<CompraUsuario> listarComprados(/*int id*/) {
-        ArrayList<Juegos> lista = new ArrayList<>();
-        ArrayList<CompraUsuario> lista2 = new ArrayList<>();
+    public ArrayList<CompraUsuario> listarComprados(String id) {
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        ArrayList<CompraUsuario> lista3 = new ArrayList<>();
+
 
         String sql = "SELECT * FROM comprausuario cu\n" +
                 "inner join juego j on j.idJuego = cu.idJuego\n" +
                 "inner join estados e on cu.idEstados = e.idEstados\n" +
-                "where cu.idUsuario = 114;";
-        String url = "jdbc:mysql://localhost:3306/mydb";
-        try (Connection connection = DriverManager.getConnection(url, "root", "root");
-             Statement stmt = connection.createStatement();
-             ResultSet resultSet = stmt.executeQuery(sql)) {
+                "where cu.idUsuario = ?;";
+
+        try (Connection conn = this.getConection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            ResultSet resultSet = pstmt.executeQuery();
+            pstmt.setString(1, id);
 
             while (resultSet.next()) {
                 CompraUsuario compraUsuario = new CompraUsuario();
@@ -311,14 +305,14 @@ public class UsuarioJuegosDaos {
                 estados.setEstados(resultSet.getString(22));
                 compraUsuario.setEstados(estados);
 
-                lista2.add(compraUsuario);
+                lista3.add(compraUsuario);
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
-        return lista2;
+        return lista3;
     }
 
     public void actualizarEstadoVenta(String idVenta) {

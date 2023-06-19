@@ -247,20 +247,10 @@
               </li>
 
               <li>
-                <a class="dropdown-item d-flex align-items-center" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=perfil">
+                <a class="dropdown-item d-flex align-items-center" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=perfil&id=<%=usuarioLog.getIdCuentas()%>">
                   <i class="bi bi-person"></i>
                   <span>Mi Perfil</span>
 
-                </a>
-              </li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-
-              <li>
-                <a class="dropdown-item d-flex align-items-center" href="#profile-edit">
-                  <i class="bi bi-gear"></i>
-                  <span>Configuración</span>
                 </a>
               </li>
               <li>
@@ -310,14 +300,14 @@
 
 
       <li class="nav-item">
-        <a class="nav-link  collapsed<%=currentPage.equals("vendidos") ? "active" : ""%> " href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=vendidos">
+        <a class="nav-link  collapsed<%=currentPage.equals("vendidos") ? "active" : ""%> " href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=vendidos&id=<%=usuarioLog.getIdCuentas()%>">
           <i class="bi bi-bag"></i>
           <span>Vendidos</span>
         </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed<%=currentPage.equals("comprados") ? "active" : ""%> " href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=comprados">
+        <a class="nav-link collapsed<%=currentPage.equals("comprados") ? "active" : ""%> " href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=comprados&id=<%=usuarioLog.getIdCuentas()%>">
           <i class="bi bi-shop"></i>
           <span>Comprados</span>
         </a>
