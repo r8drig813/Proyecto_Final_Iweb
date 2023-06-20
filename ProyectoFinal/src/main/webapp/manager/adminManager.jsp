@@ -1,12 +1,14 @@
 
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.example.proyecto_iweb.models.beans.EmpleadosTabla" %>
+<%@ page import="com.example.proyecto_iweb.models.dtos.EmpleadosTabla" %>
 <%@ page import="com.example.proyecto_iweb.models.beans.Cuentas" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% ArrayList<EmpleadosTabla> listaEmpleados = (ArrayList<EmpleadosTabla>) request.getAttribute("listaEmpleados");
 %>
-<% ArrayList<Cuentas> listaCuentas = (ArrayList<Cuentas>) request.getAttribute("listaCuentas");
-%>
+
+<jsp:useBean id="usuarioLog" scope="session" type="com.example.proyecto_iweb.models.beans.Cuentas"
+             class="com.example.proyecto_iweb.models.beans.Cuentas"/>
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -41,193 +43,9 @@
 <body>
 
 <!-- ======= Header ======= -->
-<header id="header" class="header fixed-top d-flex align-items-center bg-warning">
-
-    <div class="d-flex align-items-center justify-content-between">
-        <a href="indexManagerOficial.html" class="logo d-flex align-items-center">
-            <img src="img/sistema/logoUsuario.png" alt="">
-            <span class="d-none d-lg-block">JA-VAGOS</span>
-        </a>
-    </div><!-- End Logo -->
-
-
-
-    <nav class="header-nav ms-auto">
-        <ul class="d-flex align-items-center">
-
-            <!--BUSCADOR -->
-            <li class="nav-item d-block d-lg-none">
-                <a class="nav-link nav-icon search-bar-toggle " href="#">
-                    <i class="bi bi-search"></i>
-                </a>
-            </li><!-- End Search Icon-->
-
-            <!-- ICONO DE TIENDA Y NOTIFICACIÓN-->
-
-            <li class="nav-item dropdown">
-
-                <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-                    <i class="bi bi-chat-left-text"></i>
-                    <span class="badge bg-danger badge-number">3</span>
-                </a><!-- End Messages Icon -->
-
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-                    <li class="dropdown-header">
-                        Tienes 3 mensajes nuevos ! ! !
-                        <!--
-                        <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">Ver todo</span></a>
-                        -->
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li class="message-item">
-                        <a href="#">
-                            <img src="assets/img/messages-1.jpg" alt="" class="rounded-circle">
-                            <div>
-                                <h4>Maria Hudson</h4>
-                                <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                                <p>4 hrs. ago</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li class="message-item">
-                        <a href="#">
-                            <img src="assets/img/messages-2.jpg" alt="" class="rounded-circle">
-                            <div>
-                                <h4>Anna Nelson</h4>
-                                <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                                <p>6 hrs. ago</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li class="message-item">
-                        <a href="#">
-                            <img src="assets/img/messages-3.jpg" alt="" class="rounded-circle">
-                            <div>
-                                <h4>David Muldon</h4>
-                                <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                                <p>8 hrs. ago</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li class="dropdown-footer">
-                        <a href="notificacionesManagerOficial.html">Ver todo los mensajes</a>
-                    </li>
-
-                </ul><!-- End Messages Dropdown Items -->
-
-            </li><!-- End Messages Nav -->
-
-
-
-
-
-
-
-
-
-
-            <li class="nav-item dropdown pe-3">
-
-                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <img src="/img/manager/manager1.jpg" alt="Profile" class="rounded-circle">
-                    <span class="d-none d-md-block dropdown-toggle ps-2">L. Stuardo</span>
-                </a><!-- End Profile Iamge Icon -->
-
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                    <li class="dropdown-header">
-                        <h6>L. Stuardo</h6>
-                        <span>Manager</span>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li>
-                        <a class="dropdown-item d-flex align-items-center" href="miPerfilManagerOficial.html">
-                            <i class="bi bi-person"></i>
-                            <span>Mi Perfil</span>
-                        </a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li>
-                        <a class="dropdown-item d-flex align-items-center" href="miPerfilManagerOficial.html">
-                            <i class="bi bi-gear"></i>
-                            <span>Configuración</span>
-                        </a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-
-                    <li>
-                        <a class="dropdown-item d-flex align-items-center" href="cerrarLoguinOficial.html">
-                            <i class="bi bi-box-arrow-right"></i>
-                            <span>Sign Out</span>
-                        </a>
-                    </li>
-
-                </ul>
-            </li>
-
-        </ul>
-    </nav>
-
-</header>
-<!--ACABO EL HEADER-->
-
-
-
-
-
-<!-- ======= Sidebar ======= -->
-<aside id="sidebar" class="sidebar">
-
-    <ul class="sidebar-nav" id="sidebar-nav">
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="<%=request.getContextPath()%>/usuarioManager">
-                <i class="bi bi-person-circle"></i>
-                <span>Usuarios</span>
-            </a>
-        </li><!-- End Dashboard Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link text-warning" href="<%=request.getContextPath()%>/empleados">
-                <i class="bi bi-person-bounding-box text-warning"></i>
-                <span>Administradores</span>
-            </a>
-        </li><!-- End Profile Page Nav -->
-
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="<%=request.getContextPath()%>/JuegosManager">
-                <i class="bi bi-playstation"></i>
-                <span>Juegos</span>
-            </a>
-        </li><!-- End F.A.Q Page Nav -->
-
-    </ul>
-
-</aside><!-- End Sidebar-->
+<jsp:include page="../includes/narvar.jsp">
+    <jsp:param name="currentPage" value="ListaEmpleados"/>
+</jsp:include>
 
 <main id="main" class="main">
     <div class="container">
@@ -242,7 +60,7 @@
             <div class="col-lg-8 border border-3 rounded-4">
                 <h2 class="m-2 text-center">El mejor empleado del mes</h2>
                 <div class="col-lg-6 mx-auto">
-                    <img src="/img/manager/manager1.jpg" class="img-fluid rounded-circle">
+                    <img src=<%=listaEmpleados.get(0).getFoto()%> class="img-fluid rounded-circle>
                 </div>
                 <br>
                 <h5 class="text-center">¡¡¡Felicitaciones!!!</h5>
@@ -272,37 +90,20 @@
                 <tbody>
                 <% for (EmpleadosTabla e : listaEmpleados) { %>
                 <tr>
-                    <th scope="row"> <a href="perfilAdminManagerOficial.html"><%=e.getNombre()%></a> </th>
+                    <th scope="row"> <a href="<%=request.getContextPath()%>/AdminManager?a=perfil&id=<%=e.getIdCuenta()%>"><%=e.getNombre()%></a> </th>
+
                     <td><%=e.getJuegosVendidos()%></td>
                     <td><%=e.getJuegosComprados()%></td>
                     <td><%=e.getDineroGanado()%></td>
                     <td><%=e.getDineroGastado()%></td>
                     <td>
-                        <a href="" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Despedir</a>
+                        <a onclick="return confirm('Esta seguro de desea despedir a este trabajador')" href="<%=request.getContextPath()%>/AdminManager?a=eliminar&id2=<%=e.getIdCuenta()%>" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Despedir</a>
                     </td>
                 </tr>
                 <% } %>
                 </tbody>
 
                 <!--MODAL DE ADVERTENCIA PARA TODOS-->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Despedir</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p>¿Está seguro de desea Despedir al administrador "Nombre"?</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-primary">Despedir</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </table>
             <div class="col-lg-2"></div>
         </div>

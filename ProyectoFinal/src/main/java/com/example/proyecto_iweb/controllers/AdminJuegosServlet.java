@@ -80,7 +80,9 @@ public class AdminJuegosServlet extends HttpServlet {
                 if(juegos == null){
                     adminJuegosDaos.crearJuego(nombre, descripcion, precio, stock, consola, genero, foto);
                 }else {
-                    //adminJuegosDaos.actualizarJuego(nombre, descripcion, precio, stock, consola, genero, foto, idJuego);
+
+                   // adminJuegosDaos.actualizarJuego(nombre, descripcion, precio, stock, consola, genero, foto, idJuego);
+
                 }
 
 
