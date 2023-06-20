@@ -324,7 +324,6 @@
 <%}%>
 
 
-
 <!-- ======= ADMIN ======= -->
 <%if(usuarioLog.getIdRol()==2) { %>
   <header id="header" class="header fixed-top d-flex align-items-center bg-danger">
@@ -366,9 +365,6 @@
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
             <li class="dropdown-header">
               Tienes 2 mensajes nuevos ! ! !
-              <!--
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">Ver todo</span></a>
-              -->
             </li>
             <li>
               <hr class="dropdown-divider">

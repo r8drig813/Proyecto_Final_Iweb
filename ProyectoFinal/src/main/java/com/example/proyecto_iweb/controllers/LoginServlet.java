@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
+@WebServlet(name = "LoginServlet", urlPatterns = {"/login", ""})
 public class LoginServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,21 +28,21 @@ public class LoginServlet extends HttpServlet {
                 Cuentas cuentas = (Cuentas) session.getAttribute("usuarioLog");
 
                 if(cuentas.getIdCuentas()>0 ){//estoy loggedIn
-                    if(cuentas.getIdRol() == 1){
+                    if(cuentas.getIdRol() == 2){
                         resp.sendRedirect(req.getContextPath() + "/AdminJuegosServlet");
-                    }if(cuentas.getIdRol() == 2){
+                    }if(cuentas.getIdRol() == 1){
                         resp.sendRedirect(req.getContextPath() + "/ManagerJuegosServlet");
                     }if(cuentas.getIdRol() == 3){
                         resp.sendRedirect(req.getContextPath() + "/UsuariosJuegosServlet");
                     }
-                }else{ // no estoy loggedId
-                    RequestDispatcher dispatcher = req.getRequestDispatcher("loginPage.jsp");
+                }else{
+                    RequestDispatcher dispatcher = req.getRequestDispatcher("/loginPage.jsp");
                     dispatcher.forward(req, resp);
                 }
             }
         }else{ //logout
             req.getSession().invalidate();
-            resp.sendRedirect(req.getContextPath());
+            resp.sendRedirect(req.getContextPath() + "/UsuariosJuegosServlet");
         }
     }
 

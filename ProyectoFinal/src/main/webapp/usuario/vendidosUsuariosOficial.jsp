@@ -4,6 +4,7 @@
 <%@ page import="com.example.proyecto_iweb.models.beans.VentaUsuario" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+
 <%
     ArrayList<VentaUsuario> listaVendidos = (ArrayList<VentaUsuario>) request.getAttribute("lista2");
     //ArrayList<Cuentas> listaPerfil = (ArrayList<Cuentas>) request.getAttribute("perfil");
@@ -47,7 +48,6 @@
 <jsp:include page="../includes/narvar.jsp">
     <jsp:param name="currentPage" value="vendidos"/>
 </jsp:include>
-
 <main id="main" class="main">
 
     <div class="pagetitle">
@@ -61,11 +61,11 @@
                 <table class="table table-stripped">
                     <thead>
                     <tr>
-                        <th>Nombre</th>
-                        <th>Precio de Venta</th>
-                        <th>Estado</th>
-                        <th>Opciones</th>
-                        <th>Ver Formulario</th>
+                        <th>Nombre </th>
+                        <th>Precio de Venta </th>
+                        <th>Estado  </th>
+                        <th>Opciones </th>
+                        <th>Ver Formulario </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -121,124 +121,9 @@
 
 
 <!-- ======= Footer ======= -->
-<footer id="footer" class="footer">
-
-    <!-- Section: Social media -->
-    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
-        <!-- Left -->
-        <div class="me-5 d-none d-lg-block">
-            <span>Conéctate con nosotras en las redes sociales:</span>
-        </div>
-        <!-- Left -->
-
-        <!-- Right -->
-        <div>
-            <a href="" class="me-4 link-secondary">
-                <i class="bi bi-facebook"></i>
-            </a>
-            <a href="" class="me-4 link-secondary">
-                <i class="bi bi-twitter"></i>
-            </a>
-            <a href="" class="me-4 link-secondary">
-                <i class="bi bi-instagram"></i>
-            </a>
-            <a href="" class="me-4 link-secondary">
-                <i class="bi bi-linkedin"></i>
-            </a>
-
-        </div>
-        <!-- Right -->
-    </section>
-    <!-- Section: Social media -->
-
-
-    <!-- Section: Links  -->
-    <section class="">
-        <div class="container text-center text-md-start mt-5">
-            <!-- Grid row -->
-            <div class="row mt-3">
-                <!-- Grid column -->
-                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                    <!-- Content -->
-                    <h6 class="text-uppercase fw-bold mb-4">
-                        <i class="fas fa-gem me-3 text-secondary"></i>Nombre de la compañia
-                    </h6>
-                    <p>
-                        Ja-Vagos, somos un grupo de estudiantes que quiere aprobar el curso de Ing. Web para Telecomunicaciones...
-                    </p>
-                </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
-                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                    <!-- Links -->
-                    <h6 class="text-uppercase fw-bold mb-4">
-                        Productos
-                    </h6>
-                    <p>
-                        <a href="#!" class="text-reset">Angular</a>
-                    </p>
-                    <p>
-                        <a href="#!" class="text-reset">React</a>
-                    </p>
-                    <p>
-                        <a href="#!" class="text-reset">Vue</a>
-                    </p>
-                    <p>
-                        <a href="#!" class="text-reset">Laravel</a>
-                    </p>
-                </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
-                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                    <!-- Links -->
-                    <h6 class="text-uppercase fw-bold mb-4">
-                        Links
-                    </h6>
-                    <p>
-                        <a href="#!" class="text-reset">Pricing</a>
-                    </p>
-                    <p>
-                        <a href="#!" class="text-reset">Settings</a>
-                    </p>
-                    <p>
-                        <a href="#!" class="text-reset">Orders</a>
-                    </p>
-                    <p>
-                        <a href="#!" class="text-reset">Help</a>
-                    </p>
-                </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
-                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                    <!-- Links -->
-                    <h6 class="text-uppercase fw-bold mb-4">Contacto</h6>
-                    <p><i class="bi bi-geo-alt me-3 text-secondary"></i>Av. Universitaria 1801, San Miguel</p>
-                    <p>
-                        <i class="bi bi-envelope me-3 text-secondary"></i>
-                        javagos@pucp.edu.pe
-                    </p>
-                    <p><i class="bi bi-phone me-3 text-secondary"></i> + 51 987 654 321</p>
-                    <p><i class="bi bi-telephone me-3 text-secondary"></i> + 01 765 567 21</p>
-                </div>
-                <!-- Grid column -->
-            </div>
-            <!-- Grid row -->
-        </div>
-    </section>
-    <!-- Section: Links  -->
-
-
-
-    <div class="copyright">
-        &copy; Copyright <strong><span>NiceAdmin</span></strong>. Todos los derechos reservados
-    </div>
-    <div class="credits">
-        Designed by <a href="#">Ja-Vagos</a>
-    </div>
-</footer><!-- End Footer -->
+<jsp:include page="/includes/footer.jsp">
+    <jsp:param name="title" value=""/>
+</jsp:include>
 
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
         class="bi bi-arrow-up-short"></i></a>

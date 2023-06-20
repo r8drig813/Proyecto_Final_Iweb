@@ -11,7 +11,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "UsuariosCuentasServlet", value = "/UsuariosCuentasServlet")
+@WebServlet(name = "UsuariosCuentasServlet", urlPatterns = {"/UsuariosCuentasServlet"})
 public class UsuariosCuentasServlet extends HttpServlet {
 
     @Override
@@ -86,7 +86,7 @@ public class UsuariosCuentasServlet extends HttpServlet {
 
                 try {
                     usuarioCuentasDaos.guardarUsuario(cuentas1);
-                    response.sendRedirect("/login");
+                    response.sendRedirect("/Proyecto_IWEB_war_exploded/UsuariosJuegosServlet");
 
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
