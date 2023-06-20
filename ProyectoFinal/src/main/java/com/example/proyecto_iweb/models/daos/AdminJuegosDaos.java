@@ -139,7 +139,7 @@ public class AdminJuegosDaos  extends DaoBase{
 
         return juegos;
     }
-
+/*  arreglar la funcion actualizarJuego , no deja correr el programa
     public void actualizarJuego(String nombre, String descripcion, double precio, int stock, String consola, String genero, String foto, int idJuego){
         String sql = "UPDATE juego SET nombre = ?,descripcion = ?,precio = ?, descuento = ?, consola = ?, genero = ?, stock = ? WHERE idJuego = ?";
         try (Connection connection = this.getConection()){
@@ -160,5 +160,6 @@ public class AdminJuegosDaos  extends DaoBase{
             throw new RuntimeException(e);
         }
     }
+*/
 
 }
