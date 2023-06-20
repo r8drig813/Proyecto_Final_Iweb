@@ -233,36 +233,37 @@ public class UsuarioJuegosDaos extends DaoBase {
         String sql = "SELECT * FROM ventausuario vu\n" +
                 "inner join juego j on j.idJuego = vu.idJuego\n" +
                 "inner join estados e on vu.idEstados = e.idEstados\n" +
-                "where vu.idEstados != 8 and vu.idUsuario = ?";
+                "where  vu.idEstados != 8  and vu.idUsuario = ?";
 
         try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            ResultSet resultSet = pstmt.executeQuery();
             pstmt.setString(1, id);
 
-            while (resultSet.next()) {
-                VentaUsuario ventaUsuario = new VentaUsuario();
-                ventaUsuario.setIdVenta(resultSet.getInt(1));
-                ventaUsuario.setPrecioVenta(resultSet.getInt(4));
-                ventaUsuario.setMensajeAdmin(resultSet.getString(5));
+            try (ResultSet rs = pstmt.executeQuery()){
+                while (rs.next()) {
+                    VentaUsuario ventaUsuario = new VentaUsuario();
+                    ventaUsuario.setIdVenta(rs.getInt(1));
+                    ventaUsuario.setPrecioVenta(rs.getInt(4));
+                    ventaUsuario.setMensajeAdmin(rs.getString(5));
 
-                Juegos juegos = new Juegos();
-                juegos.setIdJuegos(resultSet.getInt(8));
-                juegos.setNombre(resultSet.getString(9));
-                juegos.setFoto(resultSet.getString(13));
-                ventaUsuario.setJuegos(juegos);
+                    Juegos juegos = new Juegos();
+                    juegos.setIdJuegos(rs.getInt(8));
+                    juegos.setNombre(rs.getString(9));
+                    juegos.setFoto(rs.getString(13));
+                    ventaUsuario.setJuegos(juegos);
 
-                Estados estados = new Estados();
-                estados.setIdEstados(resultSet.getInt(19));
-                estados.setEstados(resultSet.getString(20));
-                ventaUsuario.setEstados(estados);
-
-                lista2.add(ventaUsuario);
+                    Estados estados = new Estados();
+                    estados.setIdEstados(rs.getInt(19));
+                    estados.setEstados(rs.getString(20));
+                    ventaUsuario.setEstados(estados);
+                    lista2.add(ventaUsuario);
+                }
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+
         }
 
         return lista2;
@@ -276,37 +277,40 @@ public class UsuarioJuegosDaos extends DaoBase {
         String sql = "SELECT * FROM comprausuario cu\n" +
                 "inner join juego j on j.idJuego = cu.idJuego\n" +
                 "inner join estados e on cu.idEstados = e.idEstados\n" +
-                "where cu.idUsuario =114;";
+                "where cu.idUsuario =?";
 
         try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            ResultSet resultSet = pstmt.executeQuery();
             pstmt.setString(1, id);
 
-            while (resultSet.next()) {
-                CompraUsuario compraUsuario = new CompraUsuario();
-                compraUsuario.setIdCompra(resultSet.getInt(1));
-                compraUsuario.setCantidad(resultSet.getInt(4));
-                compraUsuario.setFechaCompra(resultSet.getDate(5));
-                compraUsuario.setDireccion(resultSet.getString(6));
-                compraUsuario.setPrecioCompra(resultSet.getDouble(8));
+            try(ResultSet rs = pstmt.executeQuery()){
 
+                while (rs.next()) {
+                    CompraUsuario compraUsuario = new CompraUsuario();
+                    compraUsuario.setIdCompra(rs.getInt(1));
+                    compraUsuario.setCantidad(rs.getInt(4));
+                    compraUsuario.setFechaCompra(rs.getDate(5));
+                    compraUsuario.setDireccion(rs.getString(6));
+                    compraUsuario.setPrecioCompra(rs.getDouble(8));
 
-                Juegos juegos = new Juegos();
-                juegos.setIdJuegos(resultSet.getInt(10));
-                juegos.setNombre(resultSet.getString(11));
-                juegos.setFoto(resultSet.getString(15));
+                    Juegos juegos = new Juegos();
+                    juegos.setIdJuegos(rs.getInt(10));
+                    juegos.setNombre(rs.getString(11));
+                    juegos.setDescripcion(rs.getString(12));
+                    juegos.setFoto(rs.getString(15));
 
-                compraUsuario.setJuegos(juegos);
+                    compraUsuario.setJuegos(juegos);
 
-                Estados estados = new Estados();
-                estados.setIdEstados(resultSet.getInt(21));
-                estados.setEstados(resultSet.getString(22));
-                compraUsuario.setEstados(estados);
+                    Estados estados = new Estados();
+                    estados.setIdEstados(rs.getInt(21));
+                    estados.setEstados(rs.getString(22));
+                    compraUsuario.setEstados(estados);
 
-                lista3.add(compraUsuario);
+                    lista3.add(compraUsuario);
+                }
             }
+
 
         } catch (SQLException e) {
             e.printStackTrace();
