@@ -3,6 +3,7 @@ package com.example.proyecto_iweb.models.daos;
 import com.example.proyecto_iweb.models.beans.*;
 import com.example.proyecto_iweb.models.dtos.Consolas;
 import com.example.proyecto_iweb.models.dtos.Generos;
+import jakarta.servlet.http.HttpSession;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -426,7 +427,7 @@ public class UsuarioJuegosDaos extends DaoBase {
         }
     }
 
-   public void guardar(Juegos juegos ) {
+   public void guardar(Juegos juegos,int idUsuario ) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -450,12 +451,34 @@ public class UsuarioJuegosDaos extends DaoBase {
             pstmt.executeUpdate();
             ResultSet rsKeys= pstmt.getGeneratedKeys();
             int idJuego = rsKeys.getInt(1);
+            guardarVenta(idJuego,juegos.getPrecio(),idUsuario);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
+    public void guardarVenta(int idJuego,double precio,int idUsuario) {
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        String url = "jdbc:mysql://localhost:3306/mydb";
+        String sql = "INSERT INTO ventausuario (idUsuario,idJuego,precioVenta,mensajeAdmin,idAdmin,idEstados) VALUES (?,?,?,NULL,NULL,1)";
+        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+             PreparedStatement pstmt = connection.prepareStatement(sql)){
+
+            pstmt.setInt(1, idUsuario);
+            pstmt.setInt(2,idJuego);
+            pstmt.setDouble(3, precio);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public ArrayList<Juegos> generosyconsolas(String consolas,String generos) {
 
         ArrayList<Juegos> lista3 = new ArrayList<>();

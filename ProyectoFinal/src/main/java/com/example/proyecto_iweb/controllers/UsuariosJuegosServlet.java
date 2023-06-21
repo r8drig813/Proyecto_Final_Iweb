@@ -2,6 +2,7 @@ package com.example.proyecto_iweb.controllers;
 
 import java.io.*;
 
+import com.example.proyecto_iweb.models.beans.Cuentas;
 import com.example.proyecto_iweb.models.beans.Juegos;
 import com.example.proyecto_iweb.models.daos.UsuarioCuentasDaos;
 import com.example.proyecto_iweb.models.daos.UsuarioJuegosDaos;
@@ -122,7 +123,9 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 break;
             case "c":
                 Juegos juegos = parseJuegosPosteadosNuevos(request);
-                usuarioJuegosDaos.guardar(juegos);
+                HttpSession session = request.getSession();
+                Cuentas cuentas = (Cuentas) session.getAttribute("usuarioLog");
+                usuarioJuegosDaos.guardar(juegos,cuentas.getIdCuentas());
                 response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar1");
                 break;
             case "gc":
