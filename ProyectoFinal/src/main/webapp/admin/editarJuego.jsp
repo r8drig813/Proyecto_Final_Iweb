@@ -35,8 +35,8 @@
     </div>
 
     <div class="container">
-        <form method="POST" action="<%=request.getContextPath()%>/AdminJuegoServlet?p=actualizar">
-            <input type="hidden" class="form-control" name="idJuegos" id="idJuegos"
+        <form method="POST" action="<%=request.getContextPath()%>/AdminJuegosServlet?p=actualizar">
+            <input type="hidden" class="form-control" name="idJuego" id="idJuego"
                    value="<%=juego.getIdJuegos()%>">
 
             <div class="mb-3">
@@ -64,7 +64,7 @@
                 <div class="col-12">
                     <select name="consola" id="consola" class="form-control">
                         <% for (Consolas c : consolas) { %>
-                        <option value="<%=c.getNombre()%>"><%=juego.getConsola().equals(c.getNombre()) ? "selected" : "" %></option>
+                        <option value="<%=c.getNombre()%>" <%=juego.getConsola().equals(c.getNombre()) ? "selected" : "" %>><%=c.getNombre()%></option>
                         <% } %>
                     </select>
                 </div>
@@ -75,7 +75,7 @@
                 <div class="col-12">
                     <select name="genero" id="genero" class="form-control">
                         <% for (Generos g : generos) { %>
-                        <option value="<%=g.getNombre()%>"><%=juego.getConsola().equals(g.getNombre()) ? "selected" : "" %></option>
+                        <option value="<%=g.getNombre()%>" <%=juego.getGenero().equals(g.getNombre()) ? "selected" : "" %>><%=g.getNombre()%></option>
                         <% } %>
                     </select>
                 </div>
@@ -88,7 +88,7 @@
             </div>
 
 
-            <a class="btn btn-danger" href="<%=request.getContextPath()%>/AdminJuegoServlet">Cancelar</a>
+            <a class="btn btn-danger" href="<%=request.getContextPath()%>/AdminJuegosServlet">Cancelar</a>
             <button type="submit" class="btn btn-primary">Actualizar</button>
         </form>
     </div>

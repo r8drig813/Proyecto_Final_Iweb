@@ -1,6 +1,6 @@
 package com.example.proyecto_iweb.models.daos;
 
-import com.example.proyecto_iweb.models.beans.Juegos;
+import com.example.proyecto_iweb.models.beans.*;
 import com.example.proyecto_iweb.models.dtos.Consolas;
 import com.example.proyecto_iweb.models.dtos.Generos;
 
@@ -8,11 +8,13 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class AdminJuegosDaos  extends DaoBase{
+    /** SECCIÓN DE ROMMEL **/
+    /** Juegos disponibles **/
     /** Listar todos los juegos (View: Index principal del Admin) **/
     public ArrayList<Juegos> listarJuegosDisponibles(){
 
         ArrayList<Juegos> lista = new ArrayList<>();
-        String sql = "select * from juego";
+        String sql = "select * from juego where habilitado = 1";
         String url = "jdbc:mysql://localhost:3306/mydb";
 
         try (Connection connection = this.getConection();
@@ -139,8 +141,8 @@ public class AdminJuegosDaos  extends DaoBase{
 
         return juegos;
     }
-/*  arreglar la funcion actualizarJuego , no deja correr el programa
-    public void actualizarJuego(String nombre, String descripcion, double precio, int stock, String consola, String genero, String foto, int idJuego){
+
+    public void actualizarJuego(int idJuego, String nombre, String descripcion, double precio, double descuento, String consola, String genero, int stock){
         String sql = "UPDATE juego SET nombre = ?,descripcion = ?,precio = ?, descuento = ?, consola = ?, genero = ?, stock = ? WHERE idJuego = ?";
         try (Connection connection = this.getConection()){
 
@@ -149,8 +151,10 @@ public class AdminJuegosDaos  extends DaoBase{
                 pstmt.setString(2, descripcion);
                 pstmt.setDouble(3, precio);
                 pstmt.setDouble(4, descuento);
-                pstmt.setString(5, juegos.getConsola());
-                pstmt.setString(6, juegos.getGenero());
+                pstmt.setString(5, consola);
+                pstmt.setString(6, genero);
+                pstmt.setInt(7, stock);
+                pstmt.setInt(8, idJuego);
 
                 pstmt.executeUpdate();
             }
@@ -160,6 +164,268 @@ public class AdminJuegosDaos  extends DaoBase{
             throw new RuntimeException(e);
         }
     }
-*/
+
+    public void desabilitarJuego(String id) {
+
+        String sql = "UPDATE juego SET habilitado = 0 WHERE idJuego = ?";
+        try (Connection connection = this.getConection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setString(1, id);
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /** Reservas y comprados**/
+    public ArrayList<CompraUsuario> compradosAndReservados(){
+
+        ArrayList<CompraUsuario> lista = new ArrayList<>();
+        String sql1 = "select * from comprausuario cu\n" +
+                "left join estados e on cu.idEstados = e.idestados \n" +
+                "left join cuenta c on cu.idUsuario = c.idCuenta\n" +
+                "left join juego j on cu.idJuego = j.idJuego";
+
+        try (Connection connection = this.getConection();
+             Statement stmt = connection.createStatement();
+             ResultSet resultSet = stmt.executeQuery(sql1)) {
+
+            while(resultSet.next()){
+                CompraUsuario compraUsuario = new CompraUsuario();
+                compraUsuario.setIdCompra(resultSet.getInt(1));
+                compraUsuario.setIdUsuario(resultSet.getInt(2));
+                compraUsuario.setIdJuego(resultSet.getInt(3));
+                compraUsuario.setCantidad(resultSet.getInt(4));
+                compraUsuario.setFechaCompra(resultSet.getDate(5));
+                compraUsuario.setDireccion(resultSet.getString(6));
+                compraUsuario.setIdAdmin(resultSet.getInt(7));
+                compraUsuario.setPrecioCompra(resultSet.getInt(8));
+                compraUsuario.setIdEstados(resultSet.getInt(9));
+
+                Cuentas cuentas = new Cuentas();
+                cuentas.setIdCuentas(resultSet.getInt("c.idCuenta"));
+                cuentas.setNombre(resultSet.getString("c.nombre"));
+                cuentas.setApellido(resultSet.getString("c.apellido"));
+                compraUsuario.setUsuario(cuentas);
+
+                Estados estados = new Estados();
+                estados.setIdEstados(resultSet.getInt("e.idestados"));
+                estados.setEstados(resultSet.getString("e.nombreEstados"));
+                compraUsuario.setEstados(estados);
+
+                Juegos juegos = new Juegos();
+                juegos.setIdJuegos(resultSet.getInt("j.idJuego"));
+                juegos.setNombre(resultSet.getString("j.nombre"));
+                compraUsuario.setJuegos(juegos);
+
+                lista.add(compraUsuario);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return lista;
+    }
+
+    public ArrayList<VentaUsuario> juegosPropuestos(){
+
+        ArrayList<VentaUsuario> lista = new ArrayList<>();
+        String sql1 = "select * from ventausuario v \n" +
+                "left join estados e on v.idEstados = e.idestados \n" +
+                "left join cuenta c on v.idUsuario = c.idCuenta\n" +
+                "left join juego j on v.idJuego = j.idJuego where e.idestados in (1, 3, 4)";
+
+        try (Connection connection = this.getConection();
+             Statement stmt = connection.createStatement();
+             ResultSet resultSet = stmt.executeQuery(sql1)) {
+
+            while(resultSet.next()){
+                VentaUsuario ventaUsuario = new VentaUsuario();
+                ventaUsuario.setIdVenta(resultSet.getInt(1));
+                ventaUsuario.setIdUsuario(resultSet.getInt(2));
+                ventaUsuario.setIdJuego(resultSet.getInt(3));
+                ventaUsuario.setPrecioVenta(resultSet.getDouble(4));
+                ventaUsuario.setMensajeAdmin(resultSet.getString(5));
+                ventaUsuario.setIdEstados(resultSet.getInt(7));
+
+                Cuentas cuentas = new Cuentas();
+                cuentas.setIdCuentas(resultSet.getInt("c.idCuenta"));
+                cuentas.setNombre(resultSet.getString("c.nombre"));
+                ventaUsuario.setUsuario(cuentas);
+
+                Estados estados = new Estados();
+                estados.setIdEstados(resultSet.getInt("e.idestados"));
+                estados.setEstados(resultSet.getString("e.nombreEstados"));
+                ventaUsuario.setEstados(estados);
+
+                Juegos juegos = new Juegos();
+                juegos.setIdJuegos(resultSet.getInt("j.idJuego"));
+                juegos.setNombre(resultSet.getString("j.nombre"));
+                ventaUsuario.setJuegos(juegos);
+
+                lista.add(ventaUsuario);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return lista;
+    }
+    /*
+    public CompraUsuario listarCompra(String id) {
+
+        CompraUsuario compraUsuario = null;
+        String sql = "select * from comprausuario cu\n" +
+                "left join estados e on cu.idEstados = e.idestados \n" +
+                "left join cuenta c on cu.idUsuario = c.idCuenta\n" +
+                "left join juego j on cu.idJuego = j.idJuego";
+
+        try (Connection connection = this.getConection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, id);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    compraUsuario = new CompraUsuario();
+
+                    compraUsuario.setIdCompra(resultSet.getInt(1));
+                    compraUsuario.setIdUsuario(resultSet.getInt(2));
+                    compraUsuario.setIdJuego(resultSet.getInt(3));
+                    compraUsuario.setCantidad(resultSet.getInt(4));
+                    compraUsuario.setFechaCompra(resultSet.getDate(5));
+                    compraUsuario.setDireccion(resultSet.getString(6));
+                    compraUsuario.setIdAdmin(resultSet.getInt(7));
+                    compraUsuario.setPrecioCompra(resultSet.getInt(8));
+                    compraUsuario.setIdEstados(resultSet.getInt(9));
+
+                    Cuentas cuentas = new Cuentas();
+                    cuentas.setIdCuentas(resultSet.getInt("c.idCuenta"));
+                    cuentas.setNombre(resultSet.getString("c.nombre"));
+                    cuentas.setApellido(resultSet.getString("c.apellido"));
+                    compraUsuario.setUsuario(cuentas);
+
+                    Estados estados = new Estados();
+                    estados.setIdEstados(resultSet.getInt("e.idestados"));
+                    estados.setEstados(resultSet.getString("e.nombreEstados"));
+                    compraUsuario.setEstados(estados);
+
+                    Juegos juegos = new Juegos();
+                    juegos.setIdJuegos(resultSet.getInt("j.idJuego"));
+                    juegos.setNombre(resultSet.getString("j.nombre"));
+                    compraUsuario.setJuegos(juegos);
+
+                    lista.add(compraUsuario);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return juego;
+    }
+
+    **/
+
+
+    /** Ofertas **/
+    public ArrayList<Juegos> listarOfertas() {
+
+        ArrayList<Juegos> ofertas = new ArrayList<>();
+        String sql1 = "select * from juego where descuento != 0";
+
+        try (Connection connection = this.getConection();
+             Statement stmt = connection.createStatement();
+             ResultSet resultSet = stmt.executeQuery(sql1)) {
+
+            while (resultSet.next()) {
+                Juegos juegoOferta = new Juegos();
+
+                juegoOferta.setIdJuegos(resultSet.getInt(1));
+                juegoOferta.setNombre(resultSet.getString(2));
+                juegoOferta.setPrecio(resultSet.getInt(4));
+                juegoOferta.setDescuento(resultSet.getInt(5));
+
+                juegoOferta.setFoto(resultSet.getString(6));
+                juegoOferta.setStock(resultSet.getInt(11));
+                ofertas.add(juegoOferta);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return ofertas;
+    }
+
+    public Juegos listarJuegoAdmin(String id) {
+        Juegos juego = null;
+
+        String sql = "select * from juego where idJuego = ?";
+        try (Connection connection = this.getConection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, id);
+
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                if (rs.next()) {
+                    juego = new Juegos();
+                    juego.setIdJuegos(rs.getInt(1));
+                    juego.setNombre(rs.getString(2));
+                    juego.setDescripcion(rs.getString(3));
+                    juego.setPrecio(rs.getDouble(4));
+                    juego.setDescuento(rs.getDouble(5));
+                    juego.setFoto(rs.getString(6));
+                    juego.setExistente(rs.getBoolean(7));
+                    juego.setHabilitado(rs.getBoolean(8));
+                    juego.setConsola(rs.getString(9));
+                    juego.setGenero(rs.getString(10));
+                    juego.setStock(rs.getInt(11));
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return juego;
+    }
+
+    public void eliminarOferta(String id){
+
+        String sql = "UPDATE juego SET descuento = 0 WHERE idJuego = ?";
+        try (Connection connection = this.getConection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+    /** SECCIÓN DE OSCAR **/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

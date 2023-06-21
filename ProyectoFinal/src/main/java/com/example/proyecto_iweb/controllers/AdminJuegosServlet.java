@@ -45,9 +45,49 @@ public class AdminJuegosServlet extends HttpServlet {
                 break;
 
             case "deshabilitarJuego":
+                String id1 = request.getParameter("id");
+                adminJuegosDaos.desabilitarJuego(id1);
+                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
+                break;
 
+            case "reservas":
+                request.setAttribute("lista",adminJuegosDaos.compradosAndReservados());
+                request.getRequestDispatcher("admin/reservasYcomprados.jsp").forward(request, response);
+                break;
+
+            case "propuestos":
+                request.setAttribute("lista",adminJuegosDaos.juegosPropuestos());
+                request.getRequestDispatcher("admin/propuestos.jsp").forward(request, response);
+                break;
+
+            case "ofertas":
+                request.setAttribute("ofertas",adminJuegosDaos.listarOfertas());
+                request.getRequestDispatcher("admin/ofertasJuegos.jsp").forward(request,response);
+                break;
+
+            case "verJuego":
+                String id2 = request.getParameter("id");
+                request.setAttribute("juego", adminJuegosDaos.listarJuegoAdmin(id2));
+                request.getRequestDispatcher("admin/verJuego.jsp").forward(request, response);
+                break;
+
+            case "eliminarOferta":
+                String id3 = request.getParameter("id");
+                adminJuegosDaos.eliminarOferta(id3);
+                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=ofertas");
+                break;
+
+            /** ROMMEL SE QUEDO AQUÍ, TIENE QUE COLOCAR EL ID PARA OBTENER LA COMPRA Y OBTNEER SUS DETALLES **/
+            case "detallesCompra":
+                String id4 = request.getParameter("id");
+                request.setAttribute("compra", adminJuegosDaos.compradosAndReservados());
+                request.getRequestDispatcher("admin/detallesCompra.jsp").forward(request, response);
 
                 break;
+
+
+
+            /** OSCAR COLOCAS AQUÍ TU CÓDIGO O LAS OPCIONES DE SERVLET QUE QUIERAS AÑADIR **/
         }
 
 

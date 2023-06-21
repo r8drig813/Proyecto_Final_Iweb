@@ -21,7 +21,7 @@
 
 <!-- ======= Asidebar ======= -->
 <jsp:include page="/includes/asideAdmin.jsp">
-    <jsp:param name="title" value=""/>
+    <jsp:param name="title" value="disponibles"/>
 </jsp:include>
 
 <!-- ======= Main ======= -->
@@ -40,9 +40,9 @@
                             <h5 class="card-title"><%=j.getNombre()%></h5>
                             <p class="card-text"><%=j.getDescripcion()%></p>
                             <p class="card-text">Precio: <%=j.getPrecio()%></p>
-                            <a href="<%=request.getContextPath()%>/AdminJuegoServlet?a=editarJuego&id=<%=j.getIdJuegos()%>" class="btn btn-primary ml-5">Editar</a>
+                            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=editarJuego&id=<%=j.getIdJuegos()%>" class="btn btn-primary ml-5">Editar</a>
                             <a onclick="return confirm('Esta seguro de desea eliminar el juego')" class="btn btn-danger"
-                               href="<%=request.getContextPath()%>/AdminJuegoServlet?a=deshabilitarJuego&id=<%=j.getIdJuegos()%>">Eliminar</a>
+                               href="<%=request.getContextPath()%>/AdminJuegosServlet?a=deshabilitarJuego&id=<%=j.getIdJuegos()%>">Eliminar</a>
                         </div>
 
                         <br>

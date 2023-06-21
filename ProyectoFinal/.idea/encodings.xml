@@ -7,6 +7,9 @@
     <file url="file://$PROJECT_DIR$/src/main/java/com/example/proyecto_iweb/controllers/InitialServlet.java" charset="US-ASCII" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/example/proyecto_iweb/models/daos/DaoBase.java" charset="US-ASCII" />
 >>>>>>> 2be22e1d543f6723ada9f1e2c4ac2c265092e247
+=======
+    <file url="file://$PROJECT_DIR$/src/main/java/com/example/proyecto_iweb/models/daos/DaoBase.java" charset="UTF-8" />
+>>>>>>> a20cfdb62883d4b60dcb21966581f62e42ab748b
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/includes/narvar.jsp" charset="ISO-8859-1" />
   </component>
