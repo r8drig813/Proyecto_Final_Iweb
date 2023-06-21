@@ -56,63 +56,123 @@
 
     <section class="section faq">
         <div class="row">
+            <%if(listaVendidos.size()==0){%>
+
+            <div class="col-lg-12">
+                <br><br>
+                <div class="col text-center">
+                    <div class="disponibleUsuario">
+                        <div class="col text-center" style="max-width: 1000px;">
+                            <h1>AÚN NO HA VENDIDO NINGÚN JUEGO</h1>
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden" >VENDE JUEGOS ACA </span>
+                            </div>
+                        </div>
+                        <br><br>
+                        <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listar1" class="btn btn-primary">Venda Aquí</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <%}else{%>
             <div class="col-lg-12" >
                 <br><br>
-                <table class="table table-stripped">
+                <table class="table table-stripped" >
                     <thead>
                     <tr>
-                        <th>Nombre </th>
-                        <th>Precio de Venta </th>
-                        <th>Estado  </th>
-                        <th>Opciones </th>
-                        <th>Ver Formulario </th>
+                        <th class="col text-center">Nombre </th>
+                        <th class="col text-center">Precio de Venta </th>
+                        <th class="col text-center">Estado  </th>
+                        <th class="col text-center">Opciones </th>
+                        <th class="col text-center">Ver Formulario </th>
                     </tr>
                     </thead>
                     <tbody>
                     <% for (VentaUsuario vu : listaVendidos) { %>
                     <tr>
-                        <td><%=vu.getJuegos().getNombre()%>
+                        <td class="col text-center"><%=vu.getJuegos().getNombre()%>
                         </td>
-                        <td><%=vu.getPrecioVenta()%>
+                        <td class="col text-center"><%=vu.getPrecioVenta()%>
                         </td>
-                        <td><%=vu.getEstados().getEstados()%>
+                        <td class="col text-center"><%=vu.getEstados().getEstados()%>
                         </td>
-                        <td> <% if (vu.getEstados().getEstados().equals("pendiente")){ %>
+                        <td class="col text-center"> <% if (vu.getEstados().getEstados().equals("pendiente")){ %>
                             <a onclick="return confirm('¿ Estas de retirar tu propuesta ?')" class="btn btn-primary"
-                               href="<%=request.getContextPath()%>/JuegosServlet?a=actualizarVenta&id=<%=vu.getIdVenta()%>">Retirar Propuesta</a>
+                               href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=actualizarVenta&id=<%=vu.getIdVenta()%>">Retirar Propuesta</a>
                             <%}%>
 
                             <% if (vu.getEstados().getEstados().equals("aceptado")){ %>
                             <a onclick="return confirm('¿ Ya vendio el juego pero esta seguro de Eliminar ?')" class="btn btn-primary"
-                               href="<%=request.getContextPath()%>/JuegosServlet?a=eliminarVenta&id=<%=vu.getIdVenta()%>">Eliminar Propuesta</a>
+                               href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=eliminarVenta&id=<%=vu.getIdVenta()%>">Eliminar Propuesta</a>
                             <%}%>
                             <% if (vu.getEstados().getEstados().equals("no aceptado")){ %>
-                            <a href="<%=request.getContextPath()%>/JuegosServlet?a=verjuego&id=<%=vu.getIdVenta()%>" class="btn btn-dark">Ver Precio Sugerido</a>
+                            <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=verjuego&id=<%=vu.getIdVenta()%>" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver Precio Sugerido</a>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">¿Porque el juego no fue aceptado?</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-floating">
+                                                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea1" style="height: 100px"></textarea>
+                                                <label for="floatingTextarea1">Deja un mensaje</label>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Enviar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones" class="btn btn-dark">Modificar Precio</a>
                             <a onclick="return confirm('¿ Estas de retirar tu propuesta ?')" class="btn btn-primary"
-                               href="<%=request.getContextPath()%>/JuegosServlet?a=actualizarVenta&id=<%=vu.getIdVenta()%>">Retirar Propuesta</a>
+                               href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=actualizarVenta&id=<%=vu.getIdVenta()%>">Retirar Propuesta</a>
                             <%}%>
 
                             <% if (vu.getEstados().getEstados().equals("rechazado")){ %>
-                            <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones" class="btn btn-dark" >Ver Motivo</a>
+                            <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal2" >Ver Motivo</a>
+                            <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel2">¿Porque el juego fue rechazado?</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-floating">
+                                                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                                                <label for="floatingTextarea2">Deja un mensaje</label>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Enviar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <a onclick="return confirm('¿ Estas de retirar tu propuesta ?')" class="btn btn-primary"
-                               href="<%=request.getContextPath()%>/JuegosServlet?a=actualizarVenta&id=<%=vu.getIdVenta()%>">Retirar Propuesta</a>
+                               href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=actualizarVenta&id=<%=vu.getIdVenta()%>">Retirar Propuesta</a>
                             <%}%>
 
                             <% if (vu.getEstados().getEstados().equals("retirado")){ %>
                             <a onclick="return confirm('¿ Estas seguro de Eliminar ?')" class="btn btn-primary"
-                               href="<%=request.getContextPath()%>/JuegosServlet?a=eliminarVenta&id=<%=vu.getIdVenta()%>">Eliminar Propuesta</a>
+                               href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=eliminarVenta&id=<%=vu.getIdVenta()%>">Eliminar Propuesta</a>
                             <%}%>
 
                         </td>
-                        <td><a href="<%=request.getContextPath()%>/JuegosServlet?a=verjuego&id=<%=vu.getIdVenta()%>" class="btn btn-dark">Ver Formulario</a>
+                        <td class="col text-center"><a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=verjuego&id=<%=vu.getIdVenta()%>" class="btn btn-dark">Ver Formulario</a>
                         </td>
                     </tr>
                     <% } %>
                     </tbody>
                 </table>
             </div>
-
+            <%}%>
 
         </div>
     </section>
