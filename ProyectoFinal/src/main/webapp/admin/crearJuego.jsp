@@ -77,7 +77,7 @@
         </div>
       </div>
 
-      <a class="btn btn-danger" href="<%=request.getContextPath()%>/AdminJuegoServlet">Cancelar</a>
+      <a class="btn btn-danger" href="<%=request.getContextPath()%>/AdminJuegosServlet">Cancelar</a>
       <button type="submit" class="btn btn-primary">Crear</button>
     </form>
   </div>
