@@ -104,7 +104,6 @@ public class AdminJuegosServlet extends HttpServlet {
 
         switch (action) {
             case "crear":
-                int idJuego = Integer.parseInt(request.getParameter("idJuego"));
                 String nombre = request.getParameter("nombre");
                 String descripcion = request.getParameter("descripcion");
                 double precio = Double.parseDouble(request.getParameter("precio"));
@@ -116,21 +115,22 @@ public class AdminJuegosServlet extends HttpServlet {
                     foto = "img/juegos/juegoNuevo.png";
                 }
 
-                Juegos juegos = adminJuegosDaos.obtenerJuego(String.valueOf(idJuego));
-                if(juegos == null){
-                    adminJuegosDaos.crearJuego(nombre, descripcion, precio, stock, consola, genero, foto);
-                }else {
-
-                   // adminJuegosDaos.actualizarJuego(nombre, descripcion, precio, stock, consola, genero, foto, idJuego);
-
-                }
-
-
+                adminJuegosDaos.crearJuego(nombre, descripcion, precio, stock, consola, genero, foto);
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
                 break;
 
-            case "a":
+            case "actualizar":
+                int idJuego = Integer.parseInt(request.getParameter("idJuego"));
+                String nombreAct = request.getParameter("nombre");
+                String descripcionAct = request.getParameter("descripcion");
+                double precioAct = Double.parseDouble(request.getParameter("precio"));
+                double descuentoAct = Double.parseDouble(request.getParameter("descuento"));
+                String consolaAct = request.getParameter("consola");
+                String generoAct = request.getParameter("genero");
+                int stockAct = Integer.parseInt(request.getParameter("stock"));
 
+                adminJuegosDaos.actualizarJuego(idJuego, nombreAct, descripcionAct, precioAct, descuentoAct, consolaAct, generoAct, stockAct);
+                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
                 break;
 
         }

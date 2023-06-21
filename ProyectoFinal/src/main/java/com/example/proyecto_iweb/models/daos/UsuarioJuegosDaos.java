@@ -479,6 +479,7 @@ public class UsuarioJuegosDaos extends DaoBase {
             throw new RuntimeException(e);
         }
     }
+
     public ArrayList<Juegos> generosyconsolas(String consolas,String generos) {
 
         ArrayList<Juegos> lista3 = new ArrayList<>();
@@ -579,4 +580,54 @@ public class UsuarioJuegosDaos extends DaoBase {
         }
         return lista3;
     }
+
+    public VentaUsuario verVenta(int idVenta) {
+
+        VentaUsuario ventaUsuario = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        String url = "jdbc:mysql://localhost:3306/mydb";
+        String sql = "SELECT * FROM ventausuario vu\n" +
+                "inner join juego j on j.idJuego = vu.idJuego\n" +
+                "where vu.idVenta = ?";
+
+        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setInt(1,idVenta);
+
+            try (ResultSet resultSet = pstmt.executeQuery()) {
+                if (resultSet.next()) {
+                    ventaUsuario = new VentaUsuario();
+                    ventaUsuario.setIdVenta(resultSet.getInt(1));
+                    ventaUsuario.setIdUsuario(resultSet.getInt(2));
+                    ventaUsuario.setIdJuego(resultSet.getInt(3));
+                    ventaUsuario.setPrecioVenta(resultSet.getDouble(4));
+                    ventaUsuario.setMensajeAdmin(resultSet.getString(5));
+                    ventaUsuario.setIdAdmin(resultSet.getBoolean(6));
+                    ventaUsuario.setIdEstados(resultSet.getInt(7));
+
+                    Juegos juegos = new Juegos();
+                    juegos.setIdJuegos(resultSet.getInt(8));
+                    juegos.setNombre(resultSet.getString(9));
+                    juegos.setDescripcion(resultSet.getString(10));
+                    juegos.setGenero(resultSet.getString(16));
+                    juegos.setConsola(resultSet.getString(17));
+                    ventaUsuario.setJuegos(juegos);
+
+                }
+            }
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return ventaUsuario;
+    }
+
+
 }

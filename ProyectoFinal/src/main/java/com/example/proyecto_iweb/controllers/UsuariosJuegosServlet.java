@@ -91,13 +91,19 @@ public class UsuariosJuegosServlet extends HttpServlet {
             case "actualizarVenta":
                 String id3 =request.getParameter("id");
                 usuarioJuegosDaos.actualizarEstadoVenta(id3);
-                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos&id=" + request.getParameter("id") );
+                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos&id" );
                 break;
 
             case "eliminarVenta":
                 String id4 =request.getParameter("id");
                 usuarioJuegosDaos.eliminarVenta(id4);
                 response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos&id");
+                break;
+
+            case "verPrecio":
+                String id5 =request.getParameter("id");
+                usuarioJuegosDaos.verVenta(Integer.parseInt(id5));
+                response.sendRedirect(request.getContextPath() + "usuario/editarPrecio.jsp");
                 break;
 
         }
