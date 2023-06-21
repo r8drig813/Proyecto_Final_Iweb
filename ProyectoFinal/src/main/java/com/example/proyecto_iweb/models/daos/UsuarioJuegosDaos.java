@@ -326,7 +326,7 @@ public class UsuarioJuegosDaos extends DaoBase {
         String sql = "SELECT * FROM ventausuario vu\n" +
                 "inner join juego j on j.idJuego = vu.idJuego\n" +
                 "inner join estados e on vu.idEstados = e.idEstados\n" +
-                "where vu.idEstados != 8 and vu.idUsuario = 114 and vu.mensajeAdmin is not null;";
+                "where vu.idEstados != 8 and vu.idUsuario = ? and vu.mensajeAdmin is not null;";
 
         try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {

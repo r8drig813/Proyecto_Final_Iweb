@@ -186,10 +186,6 @@
 
 <!--ACABO EL HEADER-->
 
-
-
-
-
 <!-- ======= Sidebar ======= -->
 <aside id="sidebar" class="sidebar">
 

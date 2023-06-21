@@ -35,7 +35,7 @@
         <div class="form-inline font-italic my-2 my-lg-0">
           <% if (usuarioLog.getIdCuentas() > 0) { //esto logueado %>
           <span></span>
-          <!-- ICONO DE TIENDA Y NOTIFICACI脫N-->
+          <!-- ICONO DE TIENDA Y NOTIFICACI?N-->
           <li class="nav-item">
             <a class="nav-link nav-icon" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=carrito">
               <i class="bi bi-cart text-light"></i>
@@ -61,7 +61,7 @@
               </li>
 
               <li class="dropdown-footer">
-                <a  href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones">Ver todo los mensajes</a>
+                <a  href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones&id=<%=usuarioLog.getIdCuentas()%>">Ver todo los mensajes</a>
               </li>
 
             </ul>
@@ -95,7 +95,7 @@
             <li>
               <a class="dropdown-item d-flex align-items-center" href="#profile-edit">
                 <i class="bi bi-gear"></i>
-                <span>Configuraci贸n</span>
+                <span>Configuraci?n</span>
               </a>
             </li>
             <li>
@@ -114,7 +114,7 @@
                 Crear cuenta
               </a>
               <a class="nav-link" style="color: white;" href="<%=request.getContextPath()%>/login">
-                (Iniciar Sesi贸n)
+                Iniciar Sesi髇
               </a>
             </div>
               <% } %>
@@ -201,7 +201,7 @@
           <div class="form-inline font-italic my-2 my-lg-0">
             <% if (usuarioLog.getIdCuentas() > 0) { //esto logueado %>
             <span></span>
-            <!-- ICONO DE TIENDA Y NOTIFICACI脫N-->
+            <!-- ICONO DE TIENDA Y NOTIFICACI?N-->
             <li class="nav-item">
               <a class="nav-link nav-icon"  href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=carrito">
                 <i class="bi bi-cart text-light"></i>
@@ -210,7 +210,7 @@
             </li>
 
             <li class="nav-item dropdown">
-              <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+              <a class="nav-link nav-icon" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones&id=<%=usuarioLog.getIdCuentas()%>" data-bs-toggle="dropdown">
                 <i class="bi bi-chat-left-text text-light"></i>
                 <span class="badge bg-danger badge-number"></span>
               </a>
@@ -218,7 +218,7 @@
               <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
 
                 <li class="dropdown-footer">
-                  <a  href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones">Ver todo los mensajes</a>
+                  <a  href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones&id=<%=usuarioLog.getIdCuentas()%>">Ver todo los mensajes</a>
                 </li>
 
               </ul>
@@ -261,7 +261,7 @@
                   (Crear cuenta)
                 </a>
                 <a class="nav-link" style="color: white;" href="<%=request.getContextPath()%>/login">
-                  (Iniciar Sesi贸n)
+                  (Iniciar Sesi?n)
                 </a>
               </div>
                 <% } %>
@@ -344,7 +344,7 @@
           </a>
         </li><!-- End Search Icon-->
 
-        <!-- ICONO DE TIENDA Y NOTIFICACI脫N-->
+        <!-- ICONO DE TIENDA Y NOTIFICACI?N-->
 
 
         <li class="nav-item dropdown">
@@ -433,7 +433,7 @@
             <li>
               <a class="dropdown-item d-flex align-items-center" href="miPerfilAdminOficial.html">
                 <i class="bi bi-gear"></i>
-                <span>Configuraci贸n</span>
+                <span>Configuraci?n</span>
               </a>
             </li>
             <li>
@@ -535,7 +535,7 @@
           </a>
         </li><!-- End Search Icon-->
 
-        <!-- ICONO DE TIENDA Y NOTIFICACI脫N-->
+        <!-- ICONO DE TIENDA Y NOTIFICACI?N-->
 
         <li class="nav-item dropdown">
 
@@ -643,7 +643,7 @@
             <li>
               <a class="dropdown-item d-flex align-items-center" href="miPerfilManagerOficial.html">
                 <i class="bi bi-gear"></i>
-                <span>Configuraci贸n</span>
+                <span>Configuraci?n</span>
               </a>
             </li>
             <li>

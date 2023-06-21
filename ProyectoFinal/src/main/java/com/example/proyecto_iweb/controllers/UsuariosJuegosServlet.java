@@ -57,7 +57,6 @@ public class UsuariosJuegosServlet extends HttpServlet {
             case "comprados":
                 String idCuenta2 = request.getParameter("id");
                 request.setAttribute("lista3", usuarioJuegosDaos.listarComprados(idCuenta2));
-
                 request.getRequestDispatcher("usuario/compradosUsuariosOficial.jsp").forward(request, response);
                 break;
             case  "perfil" :
@@ -73,7 +72,7 @@ public class UsuariosJuegosServlet extends HttpServlet {
             case "listarNotificaciones":
                 String idCuenta3 = request.getParameter("id");
                 request.setAttribute("notificaciones", usuarioJuegosDaos.listarNotificaciones(idCuenta3));
-                request.getRequestDispatcher("includes/narvar.jsp").forward(request,response);
+                request.getRequestDispatcher("usuario/notificacionesUsuarioOficial.jsp").forward(request,response);
                 break;
             case "agregar":
                 request.getRequestDispatcher("usuario/agregarjuegonuevo.jsp").forward(request, response);
