@@ -1,3 +1,4 @@
+<%@ page import="com.example.proyecto_iweb.models.beans.VentaUsuario" %>
 <% String currentPage = request.getParameter("currentPage"); %>
 <jsp:useBean id="usuarioLog" scope="session" type="com.example.proyecto_iweb.models.beans.Cuentas"
              class="com.example.proyecto_iweb.models.beans.Cuentas"/>
@@ -36,7 +37,7 @@
           <span></span>
           <!-- ICONO DE TIENDA Y NOTIFICACIÓN-->
           <li class="nav-item">
-            <a class="nav-link nav-icon" href="usuario/carrito.jsp">
+            <a class="nav-link nav-icon" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=carrito">
               <i class="bi bi-cart text-light"></i>
               <span class="badge bg-success badge-number"></span>
             </a>
@@ -202,7 +203,7 @@
             <span></span>
             <!-- ICONO DE TIENDA Y NOTIFICACIÓN-->
             <li class="nav-item">
-              <a class="nav-link nav-icon" href="usuario/carrito.jsp">
+              <a class="nav-link nav-icon"  href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=carrito">
                 <i class="bi bi-cart text-light"></i>
                 <span class="badge bg-success badge-number"></span>
               </a>
@@ -211,19 +212,10 @@
             <li class="nav-item dropdown">
               <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                 <i class="bi bi-chat-left-text text-light"></i>
-                <span class="badge bg-danger badge-number">2</span>
+                <span class="badge bg-danger badge-number"></span>
               </a>
 
               <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-                <li class="dropdown-header">
-                  Tienes 2 mensajes nuevos ! ! !
-
-                  <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">Ver todo</span></a>
-
-                </li>
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
 
                 <li class="dropdown-footer">
                   <a  href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones">Ver todo los mensajes</a>

@@ -4,8 +4,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% ArrayList<Juegos> lista = (ArrayList<Juegos>) request.getAttribute("lista");
   ArrayList<Cuentas> listaPerfil = (ArrayList<Cuentas>) request.getAttribute("perfil");
-  //ArrayList<ComprasVentas> listaNotificaciones = (ArrayList<ComprasVentas>) request.getAttribute("lista4");
-
 %>
 <jsp:useBean id="vendidos" scope="request" type="com.example.proyecto_iweb.models.beans.JuegosVendidosNuevos"/>
 <jsp:useBean id="usuarioLog" scope="session" type="com.example.proyecto_iweb.models.beans.Cuentas"
@@ -24,7 +22,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
   <!--Importando estilos CSS-->
   <link rel="stylesheet" href="estilos/usuario/filtros.css">
-  <link rel="stylesheet" href="estilos/usuario.css">
+
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -36,6 +34,9 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+
+  <!-- Option 1: Include in HTML -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
 </head>
 
@@ -162,7 +163,7 @@
 <script src="/assets/vendor/php-email-form/validate.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <!-- Template Main JS File -->
-<script src="/assets/js/main.js"></script>
+<script src="assets/js/main.js"></script>
 </body>
 
 </html>

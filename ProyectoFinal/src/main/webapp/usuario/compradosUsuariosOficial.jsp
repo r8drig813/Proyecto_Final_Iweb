@@ -60,6 +60,24 @@
     <section class="section faq">
         <div class="row">
 
+            <% if (listaComprados.size()==0) { %>
+
+            <div class="col-lg-12">
+                <br><br>
+                <div class="col text-center">
+                    <div class="disponibleUsuario">
+                        <div class="col text-center" style="max-width: 1000px;">
+                            <h1>AÚN NO HA COMPRADO NINGÚN JUEGO</h1>
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden" >COMPRA JUEGOS ACA </span>
+                            </div>
+                        </div>
+                        <br><br>
+                        <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listar" class="btn btn-primary">Compre Aquí</a>
+                    </div>
+                </div>
+            </div>
+            <%}else { %>
             <!--Todos los juegos comprados-->
             <div class="col-lg-8">
                 <br><br>
@@ -69,11 +87,11 @@
                         <div class="card mb-10" style="max-width: 1000px;">
                             <div class="row g-0 rounded-4 border border-primary border-2 p-2">
                                 <!--Imagen del juego-->
-                                <div class="col-md-4 d-flex justify-content-center align-items-center">
+                                <div class="col-md-6 d-flex justify-content-center align-items-center">
                                     <img src="<%=cu.getJuegos().getFoto()%>" class="card-img-top" alt="...">
                                 </div>
                                 <!--Descripción del juego-->
-                                <div class="col-md-8">
+                                <div class="col-md-6">
                                     <div class="card-body">
                                         <h6 class="card-title"> <%=cu.getJuegos().getNombre()%> </h6>
                                         <p class="card-text"> Descripcion : <%=cu.getJuegos().getDescripcion()%></p>
@@ -86,7 +104,6 @@
                         </div>
                         <%}%>
                     </div>
-
                 </div>
             </div>
 
@@ -116,9 +133,8 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
+            <%}%>
 
         </div>
     </section>
@@ -147,7 +163,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <!-- Template Main JS File -->
 <script src="assets/js/main.js"></script>
-
 </body>
 
 </html>

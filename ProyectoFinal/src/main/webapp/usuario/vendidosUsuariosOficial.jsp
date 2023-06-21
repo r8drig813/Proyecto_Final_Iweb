@@ -56,28 +56,48 @@
 
     <section class="section faq">
         <div class="row">
+            <%if(listaVendidos.size()==0){%>
+
+            <div class="col-lg-12">
+                <br><br>
+                <div class="col text-center">
+                    <div class="disponibleUsuario">
+                        <div class="col text-center" style="max-width: 1000px;">
+                            <h1>AÚN NO HA VENDIDO NINGÚN JUEGO</h1>
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden" >VENDE JUEGOS ACA </span>
+                            </div>
+                        </div>
+                        <br><br>
+                        <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listar1" class="btn btn-primary">Venda Aquí</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <%}else{%>
             <div class="col-lg-12" >
                 <br><br>
-                <table class="table table-stripped">
+                <table class="table table-stripped" >
                     <thead>
                     <tr>
-                        <th>Nombre </th>
-                        <th>Precio de Venta </th>
-                        <th>Estado  </th>
-                        <th>Opciones </th>
-                        <th>Ver Formulario </th>
+                        <th class="col text-center">Nombre </th>
+                        <th class="col text-center">Precio de Venta </th>
+                        <th class="col text-center">Estado  </th>
+                        <th class="col text-center">Opciones </th>
+                        <th class="col text-center">Ver Formulario </th>
                     </tr>
                     </thead>
                     <tbody>
                     <% for (VentaUsuario vu : listaVendidos) { %>
                     <tr>
-                        <td><%=vu.getJuegos().getNombre()%>
+                        <td class="col text-center"><%=vu.getJuegos().getNombre()%>
                         </td>
-                        <td><%=vu.getPrecioVenta()%>
+                        <td class="col text-center"><%=vu.getPrecioVenta()%>
                         </td>
-                        <td><%=vu.getEstados().getEstados()%>
+                        <td class="col text-center"><%=vu.getEstados().getEstados()%>
                         </td>
-                        <td> <% if (vu.getEstados().getEstados().equals("pendiente")){ %>
+                        <td class="col text-center"> <% if (vu.getEstados().getEstados().equals("pendiente")){ %>
                             <a onclick="return confirm('¿ Estas de retirar tu propuesta ?')" class="btn btn-primary"
                                href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=actualizarVenta&id=<%=vu.getIdVenta()%>">Retirar Propuesta</a>
                             <%}%>
@@ -105,14 +125,14 @@
                             <%}%>
 
                         </td>
-                        <td><a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=verjuego&id=<%=vu.getIdVenta()%>" class="btn btn-dark">Ver Formulario</a>
+                        <td class="col text-center"><a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=verjuego&id=<%=vu.getIdVenta()%>" class="btn btn-dark">Ver Formulario</a>
                         </td>
                     </tr>
                     <% } %>
                     </tbody>
                 </table>
             </div>
-
+            <%}%>
 
         </div>
     </section>

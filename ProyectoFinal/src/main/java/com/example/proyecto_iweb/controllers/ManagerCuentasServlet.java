@@ -4,17 +4,18 @@ import com.example.proyecto_iweb.models.daos.ManagerCuentasDaos;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "UsuarioManagerServlet", value = "/usuarioManager")
-public class ManagerCuentasServlet {
+@WebServlet(name = "ManagerCuentasServlet", value = "/ManagerCuentasServlet")
+public class ManagerCuentasServlet extends HttpServlet {
 
     // bug con el override
 
-    //@Override
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("text/html");
 

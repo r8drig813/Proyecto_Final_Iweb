@@ -319,6 +319,49 @@ public class UsuarioJuegosDaos extends DaoBase {
         return lista3;
     }
 
+    public ArrayList<VentaUsuario> listarNotificaciones(String id) {
+
+        ArrayList<VentaUsuario> lista = new ArrayList<>();
+
+        String sql = "SELECT * FROM ventausuario vu\n" +
+                "inner join juego j on j.idJuego = vu.idJuego\n" +
+                "inner join estados e on vu.idEstados = e.idEstados\n" +
+                "where vu.idEstados != 8 and vu.idUsuario = 114 and vu.mensajeAdmin is not null;";
+
+        try (Connection conn = this.getConection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, id);
+
+            try (ResultSet rs = pstmt.executeQuery()){
+                while (rs.next()) {
+                    VentaUsuario ventaUsuario = new VentaUsuario();
+                    ventaUsuario.setIdVenta(rs.getInt(1));
+                    ventaUsuario.setPrecioVenta(rs.getInt(4));
+                    ventaUsuario.setMensajeAdmin(rs.getString(5));
+
+                    Juegos juegos = new Juegos();
+                    juegos.setIdJuegos(rs.getInt(8));
+                    juegos.setNombre(rs.getString(9));
+                    juegos.setFoto(rs.getString(13));
+                    ventaUsuario.setJuegos(juegos);
+
+                    Estados estados = new Estados();
+                    estados.setIdEstados(rs.getInt(19));
+                    estados.setEstados(rs.getString(20));
+                    ventaUsuario.setEstados(estados);
+                    lista.add(ventaUsuario);
+                }
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+
+        }
+
+        return lista;
+    }
+
     public void actualizarEstadoVenta(String idVenta) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
