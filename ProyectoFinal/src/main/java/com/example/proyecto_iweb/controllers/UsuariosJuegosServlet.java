@@ -100,6 +100,14 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos&id");
                 break;
 
+            case "gc":
+
+                String consola = request.getParameter("consola");
+                String genero = request.getParameter("genero");
+                request.setAttribute("lista", usuarioJuegosDaos.generosyconsolas(consola,genero));
+                request.getRequestDispatcher("usuario/indexUsuarioOficial.jsp").forward(request, response);
+                break;
+
         }
     }
 
@@ -128,15 +136,6 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 usuarioJuegosDaos.guardar(juegos,cuentas.getIdCuentas());
                 response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar1");
                 break;
-            case "gc":
-
-                String consola = request.getParameter("consola");
-                String genero = request.getParameter("genero");
-                request.setAttribute("lista", usuarioJuegosDaos.generosyconsolas(consola,genero));
-                request.getRequestDispatcher("usuario/indexUsuarioOficial.jsp").forward(request, response);
-                break;
-
-
 
             /*case "actualizar":
                 VentaUsuario ventaUsuario = parseVendidos(request);
@@ -174,7 +173,7 @@ public class UsuariosJuegosServlet extends HttpServlet {
         String precio = request.getParameter("precio");
         String consola = request.getParameter("consola");
         String genero = request.getParameter("genero");
-        //String foto = request.getParameter("foto");
+        String foto = request.getParameter("foto");
         String descripcion = request.getParameter("descripcion");
 
         try {
@@ -184,7 +183,7 @@ public class UsuariosJuegosServlet extends HttpServlet {
             juegos.setDescripcion(descripcion);
             juegos.setConsola(consola);
             juegos.setGenero(genero);
-            //juegos.setFoto(foto);
+            juegos.setFoto(foto);
 
             return juegos;
 

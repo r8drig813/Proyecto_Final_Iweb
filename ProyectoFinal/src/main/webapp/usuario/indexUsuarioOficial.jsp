@@ -58,24 +58,26 @@
         <!-- AQUI VAN LOS FILTROS DE CATEGORIAS-->
         <div class="col-lg-12">
             <div class="filtros">
-                <form action="UsuariosJuegosServlet?p=gc" method="POST">
-                    <select name="genero" id="genero">
-                        <option disabled selected="">Genero</option>
+                <div class="dropdown">
+                    <a class="btn btn-secondary dropdown-toggle" role="button" id="genero" data-bs-toggle="dropdown" aria-expanded="false">
+                        Generos
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="genero">
                         <% for (Generos g : generos) {%>
-                        <option value="<%=g.getNombre()%>>"><%=g.getNombre()%></option>
+                        <li><a class="dropdown-item" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=gc&genero=<%=g.getNombre()%>"><%=g.getNombre()%></a></li>
                         <%}%>
-                    </select>
-                </form>
-
-                <form action="UsuariosJuegosServlet?p=gc" method="POST">
-                    <select name="consola" id="consola">
-                        <option disabled selected="">Consola</option>
+                    </ul>
+                </div>
+                <div class="dropdown">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="consola" data-bs-toggle="dropdown" aria-expanded="false">
+                        Consolas
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="consola">
                         <% for (Consolas c : consolas) {%>
-                        <option value="<%=c.getNombre()%>>"><%=c.getNombre()%></option>
+                        <li><a class="dropdown-item" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=gc&consola=<%=c.getNombre()%>"><%=c.getNombre()%></a></li>
                         <%}%>
-                    </select>
-                </form>
-
+                    </ul>
+                </div>
                 <form action="" method="POST">
                     <select name="" id="">
                         <option disabled selected="">Precio</option>
