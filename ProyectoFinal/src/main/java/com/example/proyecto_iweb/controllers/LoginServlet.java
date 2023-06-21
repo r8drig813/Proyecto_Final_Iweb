@@ -60,7 +60,7 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("usuarioLog", cuentas);
 
-            session.setMaxInactiveInterval(300);//en segundos
+            session.setMaxInactiveInterval(3000*60);//en segundos
 
             resp.sendRedirect(req.getContextPath());
         } else { //usuario o password incorrectos

@@ -14,13 +14,8 @@
 </jsp:include>
 <body>
 <!-- ======= Header ======= -->
-<jsp:include page="/includes/headerAdmin.jsp">
-    <jsp:param name="title" value=""/>
-</jsp:include>
-
-<!-- ======= Asidebar ======= -->
-<jsp:include page="/includes/asideAdmin.jsp">
-    <jsp:param name="title" value="disponibles"/>
+<jsp:include page="../includes/narvar.jsp">
+    <jsp:param name="currentPage" value="ofertasJuegos"/>
 </jsp:include>
 
 <!-- ======= Main ======= -->

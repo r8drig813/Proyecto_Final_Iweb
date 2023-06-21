@@ -1,4 +1,4 @@
-
+<%@ page import="com.example.proyecto_iweb.controllers.AdminJuegosServlet" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <aside id="sidebar" class="sidebar">
@@ -6,21 +6,28 @@
   <ul class="sidebar-nav" id="sidebar-nav">
 
     <li class="nav-item">
-      <a class="nav-link text-danger" href="#">
+      <a class="nav-link text-danger " href="<%=request.getContextPath()%>/AdminJuegosServlet">
         <i class="bi bi-grid text-danger"></i>
         <span>Disponibles</span>
       </a>
     </li>
 
     <li class="nav-item">
-      <a class="nav-link collapsed" href="<%=request.getContextPath()%>/AdminServlet">
+      <a class="nav-link collapsed" href="<%=request.getContextPath()%>/AdminJuegosServlet?a=reservas">
         <i class="bi bi-arrow-up-square"></i>
-        <span>Reservas y juegos comprados</span>
+        <span>Reservas o comprados</span>
       </a>
     </li>
 
     <li class="nav-item">
-      <a class="nav-link collapsed" href="<%=request.getContextPath()%>/AdminJuegoServlet?a=Ofertas">
+      <a class="nav-link collapsed" href="<%=request.getContextPath()%>/AdminJuegosServlet?a=propuestos">
+        <i class="bi bi-arrow-up-square"></i>
+        <span>Juegos propuestos</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="<%=request.getContextPath()%>/AdminJuegosServlet?a=ofertas">
         <i class="bi bi-exclamation-square"></i>
         <span>Ofertas</span>
       </a>
