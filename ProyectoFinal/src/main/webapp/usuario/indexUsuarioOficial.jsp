@@ -1,13 +1,16 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto_iweb.models.beans.Juegos" %>
 <%@ page import="com.example.proyecto_iweb.models.beans.Cuentas" %>
+<%@ page import="com.example.proyecto_iweb.models.dtos.Consolas" %>
+<%@ page import="com.example.proyecto_iweb.models.dtos.Generos" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% ArrayList<Juegos> lista = (ArrayList<Juegos>) request.getAttribute("lista");
     ArrayList<Cuentas> listaPerfil = (ArrayList<Cuentas>) request.getAttribute("perfil");
 %>
 <jsp:useBean id="usuarioLog" scope="session" type="com.example.proyecto_iweb.models.beans.Cuentas"
              class="com.example.proyecto_iweb.models.beans.Cuentas"/>
-
+<jsp:useBean id="consolas" type="java.util.ArrayList<com.example.proyecto_iweb.models.dtos.Consolas>" scope="request"/>
+<jsp:useBean id="generos" type="java.util.ArrayList<com.example.proyecto_iweb.models.dtos.Generos>" scope="request"/>
 <html>
 <head>
     <meta charset="utf-8">
@@ -55,26 +58,25 @@
         <!-- AQUI VAN LOS FILTROS DE CATEGORIAS-->
         <div class="col-lg-12">
             <div class="filtros">
-                <form action="">
-                    <select name="" id="">
-                        <option disabled selected="">Categoría</option>
-                        <option value="">Acción</option>
-                        <option value="">Terror</option>
-                        <option value="">Arcade</option>
-                        <option value="">Deporte</option>
+                <form action="UsuariosJuegosServlet?p=gc" method="POST">
+                    <select name="genero" id="genero">
+                        <option disabled selected="">Genero</option>
+                        <% for (Generos g : generos) {%>
+                        <option value="<%=g.getNombre()%>>"><%=g.getNombre()%></option>
+                        <%}%>
                     </select>
                 </form>
 
-                <form action="">
-                    <select name="" id="">
+                <form action="UsuariosJuegosServlet?p=gc" method="POST">
+                    <select name="consola" id="consola">
                         <option disabled selected="">Consola</option>
-                        <option value="">X BOX</option>
-                        <option value="">Play Station</option>
-                        <option value="">PC</option>
+                        <% for (Consolas c : consolas) {%>
+                        <option value="<%=c.getNombre()%>>"><%=c.getNombre()%></option>
+                        <%}%>
                     </select>
                 </form>
 
-                <form action="">
+                <form action="" method="POST">
                     <select name="" id="">
                         <option disabled selected="">Precio</option>
                         <option value="">0-50</option>

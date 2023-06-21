@@ -86,7 +86,7 @@
       </td>
       <td><%=j.getStock()%>
       </td>
-      <td><a href="<%=request.getContextPath()%>/JuegosServlet?a=agregarjuego&id=<%=j.getIdJuegos()%>">Subir este juego</a>
+      <td><a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=agregarjuego&id=<%=j.getIdJuegos()%>">Subir este juego</a>
       </td>
     </tr>
     <% } %>

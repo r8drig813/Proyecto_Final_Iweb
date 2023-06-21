@@ -409,4 +409,104 @@ public class UsuarioJuegosDaos extends DaoBase {
         }
     }
 
+    public ArrayList<Juegos> generosyconsolas(String consolas,String generos) {
+
+        ArrayList<Juegos> lista3 = new ArrayList<>();
+
+        if(generos!=null && consolas==null) {
+            String sql = "SELECT * FROM juego\n " +
+                    "WHERE genero = ?";
+
+            try (Connection conn = this.getConection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+                ResultSet resultSet = pstmt.executeQuery();
+                pstmt.setString(1, generos);
+
+                while (resultSet.next()) {
+
+                    Juegos juegos = new Juegos();
+                    juegos.setIdJuegos(resultSet.getInt(1));
+                    juegos.setNombre(resultSet.getString(2));
+                    juegos.setDescripcion(resultSet.getString(3));
+                    juegos.setPrecio(resultSet.getDouble(4));
+                    juegos.setDescuento(resultSet.getDouble(5));
+                    juegos.setStock(resultSet.getInt(11));
+                    juegos.setFoto(resultSet.getString(6));
+                    juegos.setExistente(resultSet.getBoolean(7));
+                    juegos.setHabilitado(resultSet.getBoolean(8));
+                    juegos.setConsola(resultSet.getString(9));
+                    juegos.setGenero(resultSet.getString(10));
+                    lista3.add(juegos);
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }else if(generos==null && consolas!=null){
+            String sql = "SELECT * FROM juego\n " +
+                    "WHERE consola = ?";
+
+            try (Connection conn = this.getConection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+                ResultSet resultSet = pstmt.executeQuery();
+                pstmt.setString(1, consolas);
+
+                while (resultSet.next()) {
+
+                    Juegos juegos = new Juegos();
+                    juegos.setIdJuegos(resultSet.getInt(1));
+                    juegos.setNombre(resultSet.getString(2));
+                    juegos.setDescripcion(resultSet.getString(3));
+                    juegos.setPrecio(resultSet.getDouble(4));
+                    juegos.setDescuento(resultSet.getDouble(5));
+                    juegos.setStock(resultSet.getInt(11));
+                    juegos.setFoto(resultSet.getString(6));
+                    juegos.setExistente(resultSet.getBoolean(7));
+                    juegos.setHabilitado(resultSet.getBoolean(8));
+                    juegos.setConsola(resultSet.getString(9));
+                    juegos.setGenero(resultSet.getString(10));
+                    lista3.add(juegos);
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }else{
+            String sql = "SELECT * FROM juego\n " +
+                    "WHERE consola = ? AND genero = ?";
+
+            try (Connection conn = this.getConection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+                ResultSet resultSet = pstmt.executeQuery();
+                pstmt.setString(1, consolas);
+                pstmt.setString(2, generos);
+
+                while (resultSet.next()) {
+
+                    Juegos juegos = new Juegos();
+                    juegos.setIdJuegos(resultSet.getInt(1));
+                    juegos.setNombre(resultSet.getString(2));
+                    juegos.setDescripcion(resultSet.getString(3));
+                    juegos.setPrecio(resultSet.getDouble(4));
+                    juegos.setDescuento(resultSet.getDouble(5));
+                    juegos.setStock(resultSet.getInt(11));
+                    juegos.setFoto(resultSet.getString(6));
+                    juegos.setExistente(resultSet.getBoolean(7));
+                    juegos.setHabilitado(resultSet.getBoolean(8));
+                    juegos.setConsola(resultSet.getString(9));
+                    juegos.setGenero(resultSet.getString(10));
+                    lista3.add(juegos);
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return lista3;
+    }
 }

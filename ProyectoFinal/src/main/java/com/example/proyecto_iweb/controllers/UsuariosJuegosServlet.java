@@ -25,6 +25,8 @@ public class UsuariosJuegosServlet extends HttpServlet {
         switch (action) {
             case "listar":
                 request.setAttribute("lista", usuarioJuegosDaos.listarJuegos());
+                request.setAttribute("consolas", usuarioJuegosDaos.consolas());
+                request.setAttribute("generos", usuarioJuegosDaos.generos());
                 //request.setAttribute("perfil", usuarioCuentasDaos.perfil());
                 // request.setAttribute("lista4",usuarioJuegosDaos.listarNotificaciones());
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher("usuario/indexUsuarioOficial.jsp");
@@ -142,21 +144,29 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 request.getRequestDispatcher("usuario/indexUsuarioOficial.jsp").forward(request, response);
                 break;
             case "c":
-
                 Juegos juegos = parseJuegosPosteadosNuevos(request);
                 usuarioJuegosDaos.guardar(juegos);
-
                 response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar1");
                 break;
+            case "gc":
+
+                String consola = request.getParameter("consola");
+                String genero = request.getParameter("genero");
+                request.setAttribute("lista", usuarioJuegosDaos.generosyconsolas(consola,genero));
+                request.getRequestDispatcher("usuario/indexUsuarioOficial.jsp").forward(request, response);
+                break;
+
+
+
             /*case "actualizar":
                 VentaUsuario ventaUsuario = parseVendidos(request);
                 usuarioJuegosDaos.actualizar(ventaUsuario);
                 response.sendRedirect(request.getContextPath()+ "/UsuariosJuegosServlet");
                 break;*/
-
         }
-
     }
+
+
 
     /*public VentaUsuario parseVendidos(HttpServletRequest request)  {
 
