@@ -76,7 +76,7 @@
                 </div>
                 <%}else{%>
                 <div class="row mt-1">
-                    <a class="btn btn-primary text-center" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?p=comprar&id=<%=juegos.getIdJuegos()%>&precio=<%=juegos.getPrecio()%>">Comprar</a>
+                    <a class="btn btn-primary text-center" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=comprar&id=<%=juegos.getIdJuegos()%>&precio=<%=juegos.getPrecio()%>">Comprar</a>
                 </div>
                 <%}%>
             </div>
