@@ -625,6 +625,7 @@ public class UsuarioJuegosDaos extends DaoBase {
         return ventaUsuario;
     }
 
+
     public void actualizarPrecioVenta(VentaUsuario ventaUsuario) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -646,6 +647,7 @@ public class UsuarioJuegosDaos extends DaoBase {
             throw new RuntimeException(e);
         }
     }
+
 
 
 }
