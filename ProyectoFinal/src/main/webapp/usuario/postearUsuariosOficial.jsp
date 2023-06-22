@@ -73,6 +73,7 @@
       <th>Descripcion</th>
       <th>Precio</th>
       <th>Stock</th>
+      <th> </th>
     </tr>
     </thead>
     <tbody>
@@ -86,7 +87,7 @@
       </td>
       <td><%=j.getStock()%>
       </td>
-      <td><a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=agregarjuego&id=<%=j.getIdJuegos()%>">Subir este juego</a>
+      <td><a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=agregarjuego&id=<%=j.getIdJuegos()%>" class="btn btn-primary">Subir este juego</a>
       </td>
     </tr>
     <% } %>

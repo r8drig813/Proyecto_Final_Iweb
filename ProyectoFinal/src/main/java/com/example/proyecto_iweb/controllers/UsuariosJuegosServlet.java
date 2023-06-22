@@ -4,6 +4,7 @@ import java.io.*;
 
 import com.example.proyecto_iweb.models.beans.Cuentas;
 import com.example.proyecto_iweb.models.beans.Juegos;
+import com.example.proyecto_iweb.models.beans.VentaUsuario;
 import com.example.proyecto_iweb.models.daos.UsuarioCuentasDaos;
 import com.example.proyecto_iweb.models.daos.UsuarioJuegosDaos;
 import jakarta.servlet.RequestDispatcher;
@@ -108,11 +109,9 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 request.getRequestDispatcher("usuario/indexUsuarioOficial.jsp").forward(request, response);
 
             case "verPrecio":
-                String id5 =request.getParameter("id");
-                usuarioJuegosDaos.verVenta(Integer.parseInt(id5));
-                response.sendRedirect(request.getContextPath() + "usuario/editarPrecio.jsp");
-
-                break;
+                String id5 = request.getParameter("id");
+                request.setAttribute("verVenta", usuarioJuegosDaos.verVenta(id5));
+                request.getRequestDispatcher("usuario/editarPrecioJuego.jsp").forward(request, response);                break;
 
         }
     }
@@ -141,6 +140,11 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 Cuentas cuentas = (Cuentas) session.getAttribute("usuarioLog");
                 usuarioJuegosDaos.guardar(juegos,cuentas.getIdCuentas());
                 response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar1");
+                break;
+            case "a":
+                VentaUsuario ventaUsuario = parseVentas(request);
+                usuarioJuegosDaos.actualizarPrecioVenta(ventaUsuario);
+                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet");
                 break;
 
             /*case "actualizar":
@@ -197,5 +201,28 @@ public class UsuariosJuegosServlet extends HttpServlet {
 
         }
         return juegos;
+    }
+
+    public VentaUsuario parseVentas(HttpServletRequest request)  {
+
+        VentaUsuario ventaUsuario = new VentaUsuario();
+        String idVenta = request.getParameter("idVentas") != null ? request.getParameter("idVentas") : "";
+        String precio = request.getParameter("precioVenta");
+
+
+        try {
+
+            int id = Integer.parseInt(idVenta);
+
+            ventaUsuario.setIdVenta(id);
+            ventaUsuario.setPrecioVenta(Double.parseDouble(precio));
+
+
+            return ventaUsuario;
+
+        } catch (NumberFormatException e) {
+
+        }
+        return ventaUsuario;
     }
 }
