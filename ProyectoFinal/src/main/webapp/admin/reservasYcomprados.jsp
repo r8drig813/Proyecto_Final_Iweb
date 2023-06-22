@@ -47,7 +47,7 @@
                 <td><%=c.getEstados().getEstados()%></td>
                 <td>
                     <div class="d-flex justify-content-center">
-                        <a href="<%=request.getContextPath()%>/AdminServlet?a=verPerfil" class="btn btn-primary m-1"><i class="bi bi-list-task"></i></a>
+                        <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=detallesCompra&id=<%=c.getIdCompra()%>" class="btn btn-primary m-1"><i class="bi bi-list-task"></i></a>
 
 
                     </div>
