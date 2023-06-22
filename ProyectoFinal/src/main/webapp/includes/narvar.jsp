@@ -36,12 +36,6 @@
           <% if (usuarioLog.getIdCuentas() > 0) { //esto logueado %>
           <span></span>
           <!-- ICONO DE TIENDA Y NOTIFICACI?N-->
-          <li class="nav-item">
-            <a class="nav-link nav-icon" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=carrito">
-              <i class="bi bi-cart text-light"></i>
-              <span class="badge bg-success badge-number"></span>
-            </a>
-          </li>
 
           <li class="nav-item dropdown">
             <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
@@ -202,12 +196,6 @@
             <% if (usuarioLog.getIdCuentas() > 0) { //esto logueado %>
             <span></span>
             <!-- ICONO DE TIENDA Y NOTIFICACI?N-->
-            <li class="nav-item">
-              <a class="nav-link nav-icon"  href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=carrito">
-                <i class="bi bi-cart text-light"></i>
-                <span class="badge bg-success badge-number"></span>
-              </a>
-            </li>
 
             <li class="nav-item dropdown">
               <a class="nav-link nav-icon" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones&id=<%=usuarioLog.getIdCuentas()%>" data-bs-toggle="dropdown">

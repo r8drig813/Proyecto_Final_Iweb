@@ -1,9 +1,11 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto_iweb.models.beans.Juegos" %>
 <%@ page import="com.example.proyecto_iweb.models.beans.Cuentas" %>
+<%@ page import="com.example.proyecto_iweb.models.beans.VentaUsuario" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:useBean id="verJuego" scope="request" type="com.example.proyecto_iweb.models.beans.Juegos"/>
+
 <jsp:useBean id="usuarioLog" scope="session" type="com.example.proyecto_iweb.models.beans.Cuentas"
              class="com.example.proyecto_iweb.models.beans.Cuentas"/>
 
@@ -49,51 +51,36 @@
 
 <main  id="main" class="main">
     <div class="container " >
-        <h1 class='mt-3'>Agregar Juego Existentes</h1>
-        <form  method="POST" action="<%=request.getContextPath()%>/UsuariosJuegosServlet?p=e">
-            <input type="hidden" class="form-control" name="idCuentas" id="idCuentas"
-                   value="">
-            <div class="row mb-3">
-                <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Nombre</label>
-                <div class="col-md-8 col-lg-9">
-                    <input name="fullName" type="text" class="form-control" id="fullName" value="<%=verJuego.getNombre()%>" disabled>
-                </div>
+        <h1 class='mt-3'>Editar Juego Existente</h1>
+        <form method="POST" action="<%=request.getContextPath()%>/UsuariosJuegosServlet?p=e">
+            <input type="hidden" class="form-control" name="idJuego" id="idJuego"
+                   value="<%=verJuego.getIdJuegos()%>">
+            <div class="mb-3">
+                <label for="nombre">Nombre del Juego</label>
+                <input type="text" class="form-control" name="nombre" id="nombre" value="<%=verJuego.getNombre()%>" disabled>
             </div>
-
-            <div class="row mb-3">
-                <label for="descripcion" class="col-md-4 col-lg-3 col-form-label">Descripcion</label>
-                <div class="col-md-8 col-lg-9">
-                    <input name="descripcion" type="text" class="form-control" id="descripcion" value="<%=verJuego.getPrecio()%>">
-                </div>
+            <div class="mb-3">
+                <label for="precioVenta">Precio</label>
+                <input type="text" class="form-control" name="precioVenta" id="precioVenta" value="<%=verJuego.getPrecio()%>">
             </div>
-
-
-            <div class="row mb-3">
-                <label for="Country" class="col-md-4 col-lg-3 col-form-label">Descripcion</label>
-                <div class="col-md-8 col-lg-9">
-                    <input name="country" type="text" class="form-control" id="Country" value="<%=verJuego.getDescripcion()%>" disabled>
-                </div>
+            <div class="mb-3">
+                <label for="descripcion">Descripcion</label>
+                <input type="text" class="form-control" name="descripcion" id="descripcion" value="<%=verJuego.getDescripcion()%>" disabled>
             </div>
-
-            <div class="row mb-3">
-                <label for="direccion" class="col-md-4 col-lg-3 col-form-label">Consola</label>
-                <div class="col-md-8 col-lg-9">
-                    <input name="direccion" type="text" class="form-control" id="direccion" value="<%=verJuego.getConsola()%>" disabled>
-                </div>
+            <div class="mb-3">
+                <label for="consola">Consola</label>
+                <input type="text" class="form-control" name="consola" id="consola" value="<%=verJuego.getConsola()%>" disabled>
             </div>
-
-            <div class="row mb-3">
-                <label for="correo" class="col-md-4 col-lg-3 col-form-label">Genero</label>
-                <div class="col-md-8 col-lg-9">
-                    <input name="correo" type="email" class="form-control" id="correo" value="<%=verJuego.getGenero()%>" disabled>
-                </div>
+            <div class="mb-3">
+                <label for="genero">Genero</label>
+                <input type="text" class="form-control" name="genero" id="genero" value="<%=verJuego.getGenero()%>" disabled>
             </div>
-
-
-            <div class="text-center">
-                <a class="btn btn-danger" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listar1">Cancelar</a>
-                <button type="submit" class="btn btn-primary">Actualizar</button>
+            <div class="mb-3">
+                <label for="foto" class="form-label">Añadir foto del juego</label>
+                <input class="form-control" type="file" id="foto" name="foto"  value="<%=verJuego.getFoto()%>" disabled >
             </div>
+            <a class="btn btn-danger" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listar1">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Cambiar Precio</button>
         </form>
     </div>
 </main>
