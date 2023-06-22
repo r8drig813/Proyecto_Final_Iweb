@@ -3,6 +3,7 @@ package com.example.proyecto_iweb.models.daos;
 import com.example.proyecto_iweb.models.beans.*;
 import com.example.proyecto_iweb.models.dtos.Consolas;
 import com.example.proyecto_iweb.models.dtos.Generos;
+import jakarta.servlet.http.HttpSession;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -426,7 +427,7 @@ public class UsuarioJuegosDaos extends DaoBase {
         }
     }
 
-   public void guardar(Juegos juegos ) {
+   public void guardar(Juegos juegos,int idUsuario) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -438,22 +439,198 @@ public class UsuarioJuegosDaos extends DaoBase {
         try (Connection connection = DriverManager.getConnection(url, "root", "root");
              PreparedStatement pstmt = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
 
-            pstmt.setString(2, juegos.getNombre());
-            pstmt.setString(3,juegos.getDescripcion());
-            pstmt.setDouble(4, juegos.getPrecio());
-            pstmt.setString(5, juegos.getFoto());
-            pstmt.setBoolean(6,juegos.isHabilitado());
-            pstmt.setBoolean(7,juegos.isExistente());
-            pstmt.setString(8,juegos.getConsola());
-            pstmt.setString(9,juegos.getGenero());
+            pstmt.setString(1, juegos.getNombre());
+            pstmt.setString(2,juegos.getDescripcion());
+            pstmt.setDouble(3, juegos.getPrecio());
+            pstmt.setString(4, juegos.getFoto());
+            pstmt.setString(5,juegos.getConsola());
+            pstmt.setString(6,juegos.getGenero());
 
             pstmt.executeUpdate();
             ResultSet rsKeys= pstmt.getGeneratedKeys();
-            int idJuego = rsKeys.getInt(1);
+            int idJuego = 0;
+            if (rsKeys.next()) {
+                idJuego = rsKeys.getInt(1);
+                guardarVenta(idJuego,juegos.getPrecio(),idUsuario);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void guardarVenta(int idJuego,double precio,int idUsuario) {
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        System.out.printf(String.valueOf(idJuego));
+        System.out.printf(String.valueOf(precio));
+        System.out.printf(String.valueOf(idUsuario));
+        String url = "jdbc:mysql://localhost:3306/mydb";
+        String sql = "INSERT INTO ventausuario (idUsuario,idJuego,precioVenta,idEstados) VALUES (?,?,?,1)";
+        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+             PreparedStatement pstmt = connection.prepareStatement(sql)){
+
+            pstmt.setInt(1, idUsuario);
+            pstmt.setInt(2,idJuego);
+            pstmt.setDouble(3, precio);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Juegos> generosyconsolas(String consolas,String generos) {
+
+        ArrayList<Juegos> lista3 = new ArrayList<>();
+
+        if(generos!=null && consolas==null) {
+            String sql = "SELECT * FROM juego\n " +
+                    "WHERE genero = ?";
+
+            try (Connection conn = this.getConection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+                ResultSet resultSet = pstmt.executeQuery();
+                pstmt.setString(1, generos);
+
+                while (resultSet.next()) {
+
+                    Juegos juegos = new Juegos();
+                    juegos.setIdJuegos(resultSet.getInt(1));
+                    juegos.setNombre(resultSet.getString(2));
+                    juegos.setDescripcion(resultSet.getString(3));
+                    juegos.setPrecio(resultSet.getDouble(4));
+                    juegos.setDescuento(resultSet.getDouble(5));
+                    juegos.setStock(resultSet.getInt(11));
+                    juegos.setFoto(resultSet.getString(6));
+                    juegos.setExistente(resultSet.getBoolean(7));
+                    juegos.setHabilitado(resultSet.getBoolean(8));
+                    juegos.setConsola(resultSet.getString(9));
+                    juegos.setGenero(resultSet.getString(10));
+                    lista3.add(juegos);
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }else if(generos==null && consolas!=null){
+            String sql = "SELECT * FROM juego\n " +
+                    "WHERE consola = ?";
+
+            try (Connection conn = this.getConection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+                ResultSet resultSet = pstmt.executeQuery();
+                pstmt.setString(1, consolas);
+
+                while (resultSet.next()) {
+
+                    Juegos juegos = new Juegos();
+                    juegos.setIdJuegos(resultSet.getInt(1));
+                    juegos.setNombre(resultSet.getString(2));
+                    juegos.setDescripcion(resultSet.getString(3));
+                    juegos.setPrecio(resultSet.getDouble(4));
+                    juegos.setDescuento(resultSet.getDouble(5));
+                    juegos.setStock(resultSet.getInt(11));
+                    juegos.setFoto(resultSet.getString(6));
+                    juegos.setExistente(resultSet.getBoolean(7));
+                    juegos.setHabilitado(resultSet.getBoolean(8));
+                    juegos.setConsola(resultSet.getString(9));
+                    juegos.setGenero(resultSet.getString(10));
+                    lista3.add(juegos);
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }else{
+            String sql = "SELECT * FROM juego\n " +
+                    "WHERE consola = ? AND genero = ?";
+
+            try (Connection conn = this.getConection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+                ResultSet resultSet = pstmt.executeQuery();
+                pstmt.setString(1, consolas);
+                pstmt.setString(2, generos);
+
+                while (resultSet.next()) {
+
+                    Juegos juegos = new Juegos();
+                    juegos.setIdJuegos(resultSet.getInt(1));
+                    juegos.setNombre(resultSet.getString(2));
+                    juegos.setDescripcion(resultSet.getString(3));
+                    juegos.setPrecio(resultSet.getDouble(4));
+                    juegos.setDescuento(resultSet.getDouble(5));
+                    juegos.setStock(resultSet.getInt(11));
+                    juegos.setFoto(resultSet.getString(6));
+                    juegos.setExistente(resultSet.getBoolean(7));
+                    juegos.setHabilitado(resultSet.getBoolean(8));
+                    juegos.setConsola(resultSet.getString(9));
+                    juegos.setGenero(resultSet.getString(10));
+                    lista3.add(juegos);
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return lista3;
+    }
+
+    public VentaUsuario verVenta(int idVenta) {
+
+        VentaUsuario ventaUsuario = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        String url = "jdbc:mysql://localhost:3306/mydb";
+        String sql = "SELECT * FROM ventausuario vu\n" +
+                "inner join juego j on j.idJuego = vu.idJuego\n" +
+                "where vu.idVenta = ?";
+
+        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setInt(1,idVenta);
+
+            try (ResultSet resultSet = pstmt.executeQuery()) {
+                if (resultSet.next()) {
+                    ventaUsuario = new VentaUsuario();
+                    ventaUsuario.setIdVenta(resultSet.getInt(1));
+                    ventaUsuario.setIdUsuario(resultSet.getInt(2));
+                    ventaUsuario.setIdJuego(resultSet.getInt(3));
+                    ventaUsuario.setPrecioVenta(resultSet.getDouble(4));
+                    ventaUsuario.setMensajeAdmin(resultSet.getString(5));
+                    ventaUsuario.setIdAdmin(resultSet.getBoolean(6));
+                    ventaUsuario.setIdEstados(resultSet.getInt(7));
+
+                    Juegos juegos = new Juegos();
+                    juegos.setIdJuegos(resultSet.getInt(8));
+                    juegos.setNombre(resultSet.getString(9));
+                    juegos.setDescripcion(resultSet.getString(10));
+                    juegos.setGenero(resultSet.getString(16));
+                    juegos.setConsola(resultSet.getString(17));
+                    ventaUsuario.setJuegos(juegos);
+
+                }
+            }
+            pstmt.executeUpdate();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return ventaUsuario;
     }
+
 
 }

@@ -2,13 +2,13 @@
 <%@ page import="com.example.proyecto_iweb.models.beans.Juegos" %>
 <%@ page import="com.example.proyecto_iweb.models.beans.Cuentas" %>
 <%@ page import="com.example.proyecto_iweb.models.beans.VentaUsuario" %>
+<%@ page import="com.example.proyecto_iweb.models.beans.CompraUsuario" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
 <%
     ArrayList<VentaUsuario> listaVendidos = (ArrayList<VentaUsuario>) request.getAttribute("lista2");
-    //ArrayList<Cuentas> listaPerfil = (ArrayList<Cuentas>) request.getAttribute("perfil");
-    //ArrayList<ComprasVentas> listaNotificaciones = (ArrayList<ComprasVentas>) request.getAttribute("lista4");
+    //ArrayList<CompraUsuario> listaNotificaciones = (ArrayList<CompraUsuario>) request.getAttribute("notificaciones");
 %>
 
 <!DOCTYPE html>
@@ -117,18 +117,18 @@
                                         </div>
                                         <div class="modal-body">
                                             <div class="form-floating">
-                                                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea1" style="height: 100px"></textarea>
-                                                <label for="floatingTextarea1">Deja un mensaje</label>
+                                                <p><%=vu.getMensajeAdmin()%></p>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Enviar</button>
+                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Regresar</button>
+                                            <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones" class="btn btn-dark">Modificar Precio</a>
+                                            <!--<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Modificar Precio</button> -->
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones" class="btn btn-dark">Modificar Precio</a>
+
                             <a onclick="return confirm('¿ Estas de retirar tu propuesta ?')" class="btn btn-primary"
                                href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=actualizarVenta&id=<%=vu.getIdVenta()%>">Retirar Propuesta</a>
                             <%}%>
@@ -144,13 +144,11 @@
                                         </div>
                                         <div class="modal-body">
                                             <div class="form-floating">
-                                                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                                                <label for="floatingTextarea2">Deja un mensaje</label>
+                                                <p><%=vu.getMensajeAdmin()%></p>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Enviar</button>
+                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Regresar</button>
                                         </div>
                                     </div>
                                 </div>

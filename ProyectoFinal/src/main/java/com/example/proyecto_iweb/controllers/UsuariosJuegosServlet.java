@@ -2,6 +2,7 @@ package com.example.proyecto_iweb.controllers;
 
 import java.io.*;
 
+import com.example.proyecto_iweb.models.beans.Cuentas;
 import com.example.proyecto_iweb.models.beans.Juegos;
 import com.example.proyecto_iweb.models.daos.UsuarioCuentasDaos;
 import com.example.proyecto_iweb.models.daos.UsuarioJuegosDaos;
@@ -28,6 +29,12 @@ public class UsuariosJuegosServlet extends HttpServlet {
 
             case "listar":
                 request.setAttribute("lista", usuarioJuegosDaos.listarJuegos());
+
+                request.setAttribute("consolas", usuarioJuegosDaos.consolas());
+                request.setAttribute("generos", usuarioJuegosDaos.generos());
+                //request.setAttribute("perfil", usuarioCuentasDaos.perfil());
+                // request.setAttribute("lista4",usuarioJuegosDaos.listarNotificaciones());
+
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher("usuario/indexUsuarioOficial.jsp");
                 requestDispatcher.forward(request, response);
                 break;
@@ -84,13 +91,27 @@ public class UsuariosJuegosServlet extends HttpServlet {
             case "actualizarVenta":
                 String id3 =request.getParameter("id");
                 usuarioJuegosDaos.actualizarEstadoVenta(id3);
-                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos&id=" + request.getParameter("id") );
+                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos&id" );
                 break;
 
             case "eliminarVenta":
                 String id4 =request.getParameter("id");
                 usuarioJuegosDaos.eliminarVenta(id4);
                 response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos&id");
+                break;
+
+            case "gc":
+
+                String consola = request.getParameter("consola");
+                String genero = request.getParameter("genero");
+                request.setAttribute("lista", usuarioJuegosDaos.generosyconsolas(consola,genero));
+                request.getRequestDispatcher("usuario/indexUsuarioOficial.jsp").forward(request, response);
+
+            case "verPrecio":
+                String id5 =request.getParameter("id");
+                usuarioJuegosDaos.verVenta(Integer.parseInt(id5));
+                response.sendRedirect(request.getContextPath() + "usuario/editarPrecio.jsp");
+
                 break;
 
         }
@@ -116,18 +137,21 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 break;
             case "c":
                 Juegos juegos = parseJuegosPosteadosNuevos(request);
-                usuarioJuegosDaos.guardar(juegos);
+                HttpSession session = request.getSession();
+                Cuentas cuentas = (Cuentas) session.getAttribute("usuarioLog");
+                usuarioJuegosDaos.guardar(juegos,cuentas.getIdCuentas());
                 response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar1");
                 break;
+
             /*case "actualizar":
                 VentaUsuario ventaUsuario = parseVendidos(request);
                 usuarioJuegosDaos.actualizar(ventaUsuario);
                 response.sendRedirect(request.getContextPath()+ "/UsuariosJuegosServlet");
                 break;*/
-
         }
-
     }
+
+
 
     /*public VentaUsuario parseVendidos(HttpServletRequest request)  {
 
@@ -155,7 +179,7 @@ public class UsuariosJuegosServlet extends HttpServlet {
         String precio = request.getParameter("precio");
         String consola = request.getParameter("consola");
         String genero = request.getParameter("genero");
-        //String foto = request.getParameter("foto");
+        String foto = request.getParameter("foto");
         String descripcion = request.getParameter("descripcion");
 
         try {
@@ -165,7 +189,7 @@ public class UsuariosJuegosServlet extends HttpServlet {
             juegos.setDescripcion(descripcion);
             juegos.setConsola(consola);
             juegos.setGenero(genero);
-            //juegos.setFoto(foto);
+            juegos.setFoto(foto);
 
             return juegos;
 

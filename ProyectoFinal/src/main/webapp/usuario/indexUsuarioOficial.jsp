@@ -1,13 +1,16 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto_iweb.models.beans.Juegos" %>
 <%@ page import="com.example.proyecto_iweb.models.beans.Cuentas" %>
+<%@ page import="com.example.proyecto_iweb.models.dtos.Consolas" %>
+<%@ page import="com.example.proyecto_iweb.models.dtos.Generos" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% ArrayList<Juegos> lista = (ArrayList<Juegos>) request.getAttribute("lista");
     ArrayList<Cuentas> listaPerfil = (ArrayList<Cuentas>) request.getAttribute("perfil");
 %>
 <jsp:useBean id="usuarioLog" scope="session" type="com.example.proyecto_iweb.models.beans.Cuentas"
              class="com.example.proyecto_iweb.models.beans.Cuentas"/>
-
+<jsp:useBean id="consolas" type="java.util.ArrayList<com.example.proyecto_iweb.models.dtos.Consolas>" scope="request"/>
+<jsp:useBean id="generos" type="java.util.ArrayList<com.example.proyecto_iweb.models.dtos.Generos>" scope="request"/>
 <html>
 <head>
     <meta charset="utf-8">
@@ -55,26 +58,27 @@
         <!-- AQUI VAN LOS FILTROS DE CATEGORIAS-->
         <div class="col-lg-12">
             <div class="filtros">
-                <form action="">
-                    <select name="" id="">
-                        <option disabled selected="">Categoría</option>
-                        <option value="">Acción</option>
-                        <option value="">Terror</option>
-                        <option value="">Arcade</option>
-                        <option value="">Deporte</option>
-                    </select>
-                </form>
-
-                <form action="">
-                    <select name="" id="">
-                        <option disabled selected="">Consola</option>
-                        <option value="">X BOX</option>
-                        <option value="">Play Station</option>
-                        <option value="">PC</option>
-                    </select>
-                </form>
-
-                <form action="">
+                <div class="dropdown">
+                    <a class="btn btn-secondary dropdown-toggle" role="button" id="genero" data-bs-toggle="dropdown" aria-expanded="false">
+                        Generos
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="genero">
+                        <% for (Generos g : generos) {%>
+                        <li><a class="dropdown-item" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=gc&genero=<%=g.getNombre()%>"><%=g.getNombre()%></a></li>
+                        <%}%>
+                    </ul>
+                </div>
+                <div class="dropdown">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="consola" data-bs-toggle="dropdown" aria-expanded="false">
+                        Consolas
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="consola">
+                        <% for (Consolas c : consolas) {%>
+                        <li><a class="dropdown-item" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=gc&consola=<%=c.getNombre()%>"><%=c.getNombre()%></a></li>
+                        <%}%>
+                    </ul>
+                </div>
+                <form action="" method="POST">
                     <select name="" id="">
                         <option disabled selected="">Precio</option>
                         <option value="">0-50</option>
