@@ -9,8 +9,7 @@
 %>
 <jsp:useBean id="usuarioLog" scope="session" type="com.example.proyecto_iweb.models.beans.Cuentas"
              class="com.example.proyecto_iweb.models.beans.Cuentas"/>
-<jsp:useBean id="consolas" type="java.util.ArrayList<com.example.proyecto_iweb.models.dtos.Consolas>" scope="request"/>
-<jsp:useBean id="generos" type="java.util.ArrayList<com.example.proyecto_iweb.models.dtos.Generos>" scope="request"/>
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -52,42 +51,12 @@
 
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Juegos Disponibles</h1>
+        <h1 class="mb-4">Juegos Disponibles</h1>
+
     </div>
     <div class="row">
         <!-- AQUI VAN LOS FILTROS DE CATEGORIAS-->
-        <div class="col-lg-12">
-            <div class="filtros">
-                <div class="dropdown">
-                    <a class="btn btn-secondary dropdown-toggle" role="button" id="genero" data-bs-toggle="dropdown" aria-expanded="false">
-                        Generos
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="genero">
-                        <% for (Generos g : generos) {%>
-                        <li><a class="dropdown-item" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=gc&genero=<%=g.getNombre()%>"><%=g.getNombre()%></a></li>
-                        <%}%>
-                    </ul>
-                </div>
-                <div class="dropdown">
-                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="consola" data-bs-toggle="dropdown" aria-expanded="false">
-                        Consolas
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="consola">
-                        <% for (Consolas c : consolas) {%>
-                        <li><a class="dropdown-item" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=gc&consola=<%=c.getNombre()%>"><%=c.getNombre()%></a></li>
-                        <%}%>
-                    </ul>
-                </div>
-                <form action="" method="POST">
-                    <select name="" id="">
-                        <option disabled selected="">Precio</option>
-                        <option value="">0-50</option>
-                        <option value="">50-100</option>
-                        <option value="">100-150</option>
-                    </select>
-                </form>
-            </div>
-        </div>
+
 
         <!--DENTRO DE UN DIV-->
         <div class="container">

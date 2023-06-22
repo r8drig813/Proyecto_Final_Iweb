@@ -110,8 +110,8 @@ public class UsuariosJuegosServlet extends HttpServlet {
             case "verPrecio":
                 String id5 =request.getParameter("id");
                 usuarioJuegosDaos.verVenta(Integer.parseInt(id5));
+                request.setAttribute("verVenta", usuarioCuentasDaos.listar(id5));
                 response.sendRedirect(request.getContextPath() + "usuario/editarPrecio.jsp");
-
                 break;
 
         }

@@ -122,7 +122,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Regresar</button>
-                                            <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones" class="btn btn-dark">Modificar Precio</a>
+                                            <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=verPrecio&id=<%=vu.getIdVenta()%>" class="btn btn-dark">Modificar Precio</a>
                                             <!--<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Modificar Precio</button> -->
                                         </div>
                                     </div>
