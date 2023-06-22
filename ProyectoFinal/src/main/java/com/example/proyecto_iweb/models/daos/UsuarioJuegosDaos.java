@@ -21,7 +21,8 @@ public class UsuarioJuegosDaos extends DaoBase {
             e.printStackTrace();
         }
 
-        String sql = "select * from juego ";
+        String sql = "select * from juego\n" +
+                "where existente=1";
         String url = "jdbc:mysql://localhost:3306/mydb";
         try (Connection connection = DriverManager.getConnection(url, "root", "root");
              Statement stmt = connection.createStatement();
@@ -496,6 +497,29 @@ public class UsuarioJuegosDaos extends DaoBase {
             pstmt.setInt(2,juegos.getIdJuegos());
             pstmt.setDouble(3, juegos.getPrecio());
             pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void guardarCompra(int idJuego,int idUsuario,double precio,String direccion) {
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        String url = "jdbc:mysql://localhost:3306/mydb";
+        String sql = "INSERT INTO comprausuario (idUsuario,idJuego,cantidad,fechaCompra,direccion,idAdmin,precioCompra,idEstados) VALUES (?,?,1,current_date(),?,10,?,1)";
+        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+             PreparedStatement pstmt = connection.prepareStatement(sql)){
+
+            pstmt.setInt(1, idUsuario);
+            pstmt.setInt(2,idJuego);
+            pstmt.setDouble(3, precio);
+            pstmt.setString(4,direccion);
+            pstmt.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

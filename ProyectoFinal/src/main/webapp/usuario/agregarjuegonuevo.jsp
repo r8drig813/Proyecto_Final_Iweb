@@ -92,7 +92,7 @@
             </div>
             <a class="btn btn-danger" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listar1">Cancelar</a>
             <button type="submit" class="btn btn-primary">Subir Juego</button>
-            <% if (request.getParameter("msg") != null) {%>
+            <% if (session.getAttribute("msg") != null) {%>
             <div class="form-group text-danger mb-3">¡Cuidado! Ingresa un nombre y apellido válidos :)</div>
             <% }%>
         </form>

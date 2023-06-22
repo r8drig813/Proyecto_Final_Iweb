@@ -64,7 +64,7 @@
                     <h3><%=juegos.getNombre()%></h3>
                     <div id="descripcion_juego">
                         <p><%=juegos.getDescripcion()%></p>
-                        <p>Raiting:  </p>
+                        <p>Precio: <%= juegos.getPrecio()%></p>
                         <p>Stock: <%=juegos.getStock()%></p>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                 </div>
                 <%}else{%>
                 <div class="row mt-1">
-                    <a class="btn btn-primary text-center" >Comprar</a>
+                    <a class="btn btn-primary text-center" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?p=comprar&id=<%=juegos.getIdJuegos()%>&precio=<%=juegos.getPrecio()%>">Comprar</a>
                 </div>
                 <%}%>
             </div>
