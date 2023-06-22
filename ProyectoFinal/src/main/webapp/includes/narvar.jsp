@@ -464,17 +464,17 @@
         </a>
         <ul id="icons-nav" class="nav-content" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="<%=request.getContextPath()%>/AdminJuegoServlet?a=nuevos">
+            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=nuevos">
               <i class="bi bi-circle"></i><span>Nuevo</span>
             </a>
           </li>
           <li>
-            <a href="<%=request.getContextPath()%>/AdminJuegoServlet?a=existentes">
+            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=existentes">
               <i class="bi bi-circle"></i><span>Existente</span>
             </a>
           </li>
           <li>
-            <a href="<%=request.getContextPath()%>/AdminJuegoServlet?a=listarcola">
+            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=listarcola">
               <i class="bi bi-circle"></i><span>Cola</span>
             </a>
           </li>

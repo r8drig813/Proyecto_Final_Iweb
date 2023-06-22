@@ -458,16 +458,9 @@ public class AdminJuegosDaos  extends DaoBase{
 
         ArrayList<Juegos> lista = new ArrayList<>();
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
         String sql =   "select * from juego where existente=0";
 
-        String url = "jdbc:mysql://localhost:3306/mydb";
-        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+        try (Connection connection = this.getConection();
              Statement stmt = connection.createStatement();
              ResultSet resultSet = stmt.executeQuery(sql)) {
 
@@ -478,12 +471,12 @@ public class AdminJuegosDaos  extends DaoBase{
                 juegos.setDescripcion(resultSet.getString(3));
                 juegos.setPrecio(resultSet.getDouble(4));
                 juegos.setDescuento(resultSet.getDouble(5));
-                juegos.setStock(resultSet.getInt(6));
-                juegos.setFoto(resultSet.getString(7));
+                juegos.setStock(resultSet.getInt(11));
+                juegos.setFoto(resultSet.getString(6));
+                juegos.setExistente(resultSet.getBoolean(7));
                 juegos.setHabilitado(resultSet.getBoolean(8));
-                juegos.setExistente(resultSet.getBoolean(9));
-                juegos.setConsola(resultSet.getString(10));
-                juegos.setGenero(resultSet.getString(11));
+                juegos.setConsola(resultSet.getString(9));
+                juegos.setGenero(resultSet.getString(10));
                 lista.add(juegos);
             }
 
@@ -495,19 +488,12 @@ public class AdminJuegosDaos  extends DaoBase{
     }
 
     public ArrayList<Juegos> listarexistentes(){
-
         ArrayList<Juegos> lista = new ArrayList<>();
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
 
         String sql =   "select * from juego where existente=1";
 
         String url = "jdbc:mysql://localhost:3306/mydb";
-        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+        try (Connection connection = this.getConection();
              Statement stmt = connection.createStatement();
              ResultSet resultSet = stmt.executeQuery(sql)) {
 
@@ -518,12 +504,12 @@ public class AdminJuegosDaos  extends DaoBase{
                 juegos.setDescripcion(resultSet.getString(3));
                 juegos.setPrecio(resultSet.getDouble(4));
                 juegos.setDescuento(resultSet.getDouble(5));
-                juegos.setStock(resultSet.getInt(6));
-                juegos.setFoto(resultSet.getString(7));
+                juegos.setStock(resultSet.getInt(11));
+                juegos.setFoto(resultSet.getString(6));
+                juegos.setExistente(resultSet.getBoolean(7));
                 juegos.setHabilitado(resultSet.getBoolean(8));
-                juegos.setExistente(resultSet.getBoolean(9));
-                juegos.setConsola(resultSet.getString(10));
-                juegos.setGenero(resultSet.getString(11));
+                juegos.setConsola(resultSet.getString(9));
+                juegos.setGenero(resultSet.getString(10));
                 lista.add(juegos);
             }
 
@@ -533,8 +519,49 @@ public class AdminJuegosDaos  extends DaoBase{
 
         return lista;
     }
+    public void cambiarestadoaceptar(String idventa){
 
+        String sql = "UPDATE ventausuario SET idEstados = 2 WHERE idVenta = ?;";
+        try (Connection connection = this.getConection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
+            preparedStatement.setString(1, idventa);
 
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void cambiarestadonoaceptar(String idventa){
+
+        String sql = "UPDATE ventausuario SET idEstados = 3 WHERE idVenta = ?;";
+        try (Connection connection = this.getConection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, idventa);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void cambiarestadorechazar(String idventa){
+
+        String sql = "UPDATE ventausuario SET idEstados = 4 WHERE idVenta = ?;";
+        try (Connection connection = this.getConection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, idventa);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

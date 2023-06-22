@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "AdminJuegosServlet", value = "/AdminJuegosServlet")
+    @WebServlet(name = "AdminJuegosServlet", value = "/AdminJuegosServlet")
 
 public class AdminJuegosServlet extends HttpServlet {
 
@@ -78,7 +78,7 @@ public class AdminJuegosServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=ofertas");
                 break;
 
-            /** ROMMEL SE QUEDO AQU√ç, TIENE QUE COLOCAR EL ID PARA OBTENER LA COMPRA Y OBTNEER SUS DETALLES **/
+            /** ROMMEL SE QUEDO AQUÕ, TIENE QUE COLOCAR EL ID PARA OBTENER LA COMPRA Y OBTNEER SUS DETALLES **/
             case "detallesCompra":
                 String id4 = request.getParameter("id");
                 request.setAttribute("compra", adminJuegosDaos.compradosAndReservados());
@@ -88,7 +88,7 @@ public class AdminJuegosServlet extends HttpServlet {
 
 
 
-            /** OSCAR COLOCAS AQU√ç TU C√ìDIGO O LAS OPCIONES DE SERVLET QUE QUIERAS A√ëADIR **/
+            /** OSCAR COLOCAS AQUÕ TU C”DIGO O LAS OPCIONES DE SERVLET QUE QUIERAS A—ADIR **/
             case "listarcola":
                 request.setAttribute("lista", adminJuegosDaos.listarCola());
                 RequestDispatcher requestDispatcher2 = request.getRequestDispatcher("admin/juegosColaAdminOficial.jsp");
@@ -105,6 +105,23 @@ public class AdminJuegosServlet extends HttpServlet {
                 request.getRequestDispatcher("admin/juegosExistentesAdminOficial.jsp").forward(request, response);
                 break;
 
+            case "cambiarestadoaceptar":
+                String id5 = request.getParameter("idventa");
+                adminJuegosDaos.cambiarestadoaceptar(id5);
+                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=listarcola");
+                break;
+
+            case "cambiarestadonoaceptar":
+                String id6 = request.getParameter("idventa");
+                adminJuegosDaos.cambiarestadonoaceptar(id6);
+                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=listarcola");
+                break;
+
+            case "cambiarestadorechazar":
+                String id7 = request.getParameter("idventa");
+                adminJuegosDaos.cambiarestadorechazar(id7);
+                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=listarcola");
+                break;
 
         }
 
