@@ -584,24 +584,18 @@ public class UsuarioJuegosDaos extends DaoBase {
         return lista3;
     }
 
-    public VentaUsuario verVenta(int idVenta) {
+    public VentaUsuario verVenta(String idVenta) {
 
         VentaUsuario ventaUsuario = null;
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
 
-        String url = "jdbc:mysql://localhost:3306/mydb";
         String sql = "SELECT * FROM ventausuario vu\n" +
                 "inner join juego j on j.idJuego = vu.idJuego\n" +
                 "where vu.idVenta = ?";
 
-        try (Connection connection = DriverManager.getConnection(url, "root", "root");
-             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+        try (Connection conn = this.getConection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1,idVenta);
+            pstmt.setString(1,idVenta);
 
             try (ResultSet resultSet = pstmt.executeQuery()) {
                 if (resultSet.next()) {
@@ -624,12 +618,33 @@ public class UsuarioJuegosDaos extends DaoBase {
 
                 }
             }
-            pstmt.executeUpdate();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return ventaUsuario;
+    }
+
+    public void actualizarPrecioVenta(VentaUsuario ventaUsuario) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        String url = "jdbc:mysql://localhost:3306/mydb";
+        String sql = "UPDATE ventaUsuario SET precioVenta = ?, idEstados = 1 WHERE idVenta = ?";
+        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setDouble(1, ventaUsuario.getPrecioVenta());
+            pstmt.setInt(2, ventaUsuario.getIdVenta());
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
