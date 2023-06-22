@@ -2,12 +2,12 @@
 <%@ page import="com.example.proyecto_iweb.models.beans.Juegos" %>
 <%@ page import="com.example.proyecto_iweb.models.beans.Cuentas" %>
 <%@ page import="com.example.proyecto_iweb.models.beans.CompraUsuario" %>
+<%@ page import="com.example.proyecto_iweb.models.dtos.GeneroMasComprado" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
     ArrayList<CompraUsuario> listaComprados = (ArrayList<CompraUsuario>) request.getAttribute("lista3");
-   //ArrayList<Cuentas> listaPerfil = (ArrayList<Cuentas>) request.getAttribute("perfil");
-    //ArrayList<ComprasVentas> listaNotificaciones = (ArrayList<ComprasVentas>) request.getAttribute("lista4");
+    ArrayList<GeneroMasComprado> listaGenero = (ArrayList<GeneroMasComprado>) request.getAttribute("generoMasComprado");
 
 %>
 <!DOCTYPE html>
@@ -56,6 +56,18 @@
     <div class="pagetitle">
         <h1>Historial de juegos comprados</h1>
     </div>
+    <div class="row g-0">
+        <br><br>
+        <div class="col-md-6 offset-md-3 bg-primary border rounded-4 p-4">
+            <div class="text-light text-center">
+                <h4>Género Más Comprado</h4>
+                <%for (GeneroMasComprado g : listaGenero){%>
+                <h3><%=g.getGeneroComprado()%></h3>
+                <%}%>
+            </div>
+        </div>
+
+    </div>
 
     <section class="section faq">
         <div class="row">
@@ -79,7 +91,7 @@
             </div>
             <%}else { %>
             <!--Todos los juegos comprados-->
-            <div class="col-lg-8">
+            <div class="col-lg-12">
                 <br><br>
                 <div class="container">
                     <div class="disponibleUsuario">
@@ -97,8 +109,7 @@
                                         <p class="card-text"> Descripcion : <%=cu.getJuegos().getDescripcion()%></p>
                                         <p class="card-text"> Precio : $ <%=cu.getPrecioCompra()%> </p>
                                         <p class="fw-bold"> Estado :  <%=cu.getEstados().getEstados()%> </p>
-                                        <a href="<%=request.getContextPath()%>/JuegosServlet?a=verjuego&id=<%=cu.getJuegos().getIdJuegos()%>" class="btn btn-dark">Ver juego</a>
-                                    </div>
+                                        <!--<a href="<%=request.getContextPath()%>/JuegosServlet?a=verjuego&id=<%=cu.getJuegos().getIdJuegos()%>" class="btn btn-dark">Ver juego</a>-->
                                 </div>
                             </div>
                         </div>
@@ -109,20 +120,9 @@
 
             <!--Genero más comprado-->
             <div class="col-lg-4">
-                <br><br>
-                <div class="row g-0">
-                    <div class="col-md-12 bg-primary border rounded-4 p-4">
-                        <div class="text-light text-center">
-                            <h4>Género Más Comprado</h4>
-                        </div>
-                        <h1></h1>
 
-                    </div>
-                </div>
 
-                <br><br>
-
-                <div class="row g-0">
+                <!--<div class="row g-0">
                     <div class="col-md-12 bg-primary border rounded-4 p-4">
                         <div class="text-light text-center">
                             <h4>Recomendaciones</h4>
@@ -132,13 +132,12 @@
                             <img src="img/usuario/snipeer.jpg" width="50%" alt="">
                         </div>
                     </div>
-                </div>
+                </div>-->
             </div>
             <%}%>
 
         </div>
     </section>
-
 </main>
 
 <br>

@@ -3,13 +3,16 @@
 <%@ page import="com.example.proyecto_iweb.models.beans.Cuentas" %>
 <%@ page import="com.example.proyecto_iweb.models.beans.VentaUsuario" %>
 <%@ page import="com.example.proyecto_iweb.models.beans.CompraUsuario" %>
+<%@ page import="com.example.proyecto_iweb.models.dtos.GeneroMasComprado" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
 <%
     ArrayList<VentaUsuario> listaVendidos = (ArrayList<VentaUsuario>) request.getAttribute("lista2");
-    //ArrayList<CompraUsuario> listaNotificaciones = (ArrayList<CompraUsuario>) request.getAttribute("notificaciones");
 %>
+
+<jsp:useBean id="usuarioLog" scope="session" type="com.example.proyecto_iweb.models.beans.Cuentas"
+             class="com.example.proyecto_iweb.models.beans.Cuentas"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -56,7 +59,7 @@
 
     <section class="section faq">
         <div class="row">
-            <%if(listaVendidos.size()==0){%>
+            <%if(listaVendidos.isEmpty()){%>
 
             <div class="col-lg-12">
                 <br><br>
@@ -85,7 +88,6 @@
                         <th class="col text-center">Precio de Venta </th>
                         <th class="col text-center">Estado  </th>
                         <th class="col text-center">Opciones </th>
-                        <th class="col text-center">Ver Formulario </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -161,10 +163,6 @@
                             <a onclick="return confirm('¿ Estas seguro de Eliminar ?')" class="btn btn-primary"
                                href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=eliminarVenta&id=<%=vu.getIdVenta()%>">Eliminar Propuesta</a>
                             <%}%>
-
-                        </td>
-                        <td class="col text-center"><a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=verjuego&id=<%=vu.getIdVenta()%>" class="btn btn-dark">Ver Formulario</a>
-                        </td>
                     </tr>
                     <% } %>
                     </tbody>

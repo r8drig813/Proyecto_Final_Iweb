@@ -2,6 +2,7 @@ package com.example.proyecto_iweb.models.daos;
 
 import com.example.proyecto_iweb.models.beans.*;
 import com.example.proyecto_iweb.models.dtos.Consolas;
+import com.example.proyecto_iweb.models.dtos.GeneroMasComprado;
 import com.example.proyecto_iweb.models.dtos.Generos;
 import jakarta.servlet.http.HttpSession;
 
@@ -428,7 +429,7 @@ public class UsuarioJuegosDaos extends DaoBase {
         }
     }
 
-   public void guardar(Juegos juegos,int idUsuario) {
+    public void guardar(Juegos juegos,int idUsuario) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -668,7 +669,6 @@ public class UsuarioJuegosDaos extends DaoBase {
         return ventaUsuario;
     }
 
-
     public void actualizarPrecioVenta(VentaUsuario ventaUsuario) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -689,6 +689,44 @@ public class UsuarioJuegosDaos extends DaoBase {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public ArrayList<GeneroMasComprado> generoMasComprado(String id) {
+
+        ArrayList<GeneroMasComprado> lista = new ArrayList<>();
+
+        String sql = "SELECT genero, COUNT(*) AS total_compras\n" +
+                "FROM juego\n" +
+                "JOIN compraUsuario ON juego.idJuego = compraUsuario.idJuego\n" +
+                "where comprausuario.idUsuario = ?\n" +
+                "GROUP BY genero\n" +
+                "ORDER BY total_compras DESC\n" +
+                "LIMIT 1;\n";
+
+        try (Connection conn = this.getConection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)){
+
+            pstmt.setString(1, id);
+
+            try(ResultSet rs = pstmt.executeQuery()){
+                while (rs.next()) {
+
+                    GeneroMasComprado generoMasComprado = new GeneroMasComprado();
+
+                    // Obtenemos los valores
+                    generoMasComprado.setGeneroComprado(rs.getString(1));
+                    generoMasComprado.setCantidadComrado(rs.getInt(2));
+                    lista.add(generoMasComprado);
+                }
+
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
     }
 
 

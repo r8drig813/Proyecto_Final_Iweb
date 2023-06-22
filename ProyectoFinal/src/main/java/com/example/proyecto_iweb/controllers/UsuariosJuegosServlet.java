@@ -46,12 +46,16 @@ public class UsuariosJuegosServlet extends HttpServlet {
             case "vendidos":
                 String idCuenta1 = request.getParameter("id");
                 request.setAttribute("lista2", usuarioJuegosDaos.listarVendidos(idCuenta1));
-
                 request.getRequestDispatcher("usuario/vendidosUsuariosOficial.jsp").forward(request, response);
                 break;
             case "comprados":
                 String idCuenta2 = request.getParameter("id");
+                String idCuenta7 = request.getParameter("id");
+
                 request.setAttribute("lista3", usuarioJuegosDaos.listarComprados(idCuenta2));
+
+                request.setAttribute("generoMasComprado",usuarioJuegosDaos.generoMasComprado(idCuenta7));
+
                 request.getRequestDispatcher("usuario/compradosUsuariosOficial.jsp").forward(request, response);
                 break;
             case  "perfil" :
@@ -81,13 +85,17 @@ public class UsuariosJuegosServlet extends HttpServlet {
             case "actualizarVenta":
                 String id3 =request.getParameter("id");
                 usuarioJuegosDaos.actualizarEstadoVenta(id3);
-                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos&id" );
+                HttpSession session = request.getSession();
+                Cuentas cuentas = (Cuentas) session.getAttribute("usuarioLog");
+
+
+                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos&id=" + cuentas.getIdCuentas() );
                 break;
 
             case "eliminarVenta":
                 String id4 =request.getParameter("id");
                 usuarioJuegosDaos.eliminarVenta(id4);
-                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos&id");
+                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos");
                 break;
 
             case "gc":
@@ -95,11 +103,15 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 String genero = request.getParameter("genero");
                 request.setAttribute("lista", usuarioJuegosDaos.generosyconsolas(consola,genero));
                 request.getRequestDispatcher("usuario/indexUsuarioOficial.jsp").forward(request, response);
+                break;
 
             case "verPrecio":
                 String id5 = request.getParameter("id");
                 request.setAttribute("verVenta", usuarioJuegosDaos.verVenta(id5));
-                request.getRequestDispatcher("usuario/editarPrecioJuego.jsp").forward(request, response);                break;
+                request.getRequestDispatcher("usuario/editarPrecioJuego.jsp").forward(request, response);
+                break;
+
+
 
             case "agregarjuego":
                 String id7 =request.getParameter("id");
@@ -154,7 +166,7 @@ public class UsuariosJuegosServlet extends HttpServlet {
             case "a":
                 VentaUsuario ventaUsuario = parseVentas(request);
                 usuarioJuegosDaos.actualizarPrecioVenta(ventaUsuario);
-                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet");
+                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos");
                 break;
 
             case "e":
