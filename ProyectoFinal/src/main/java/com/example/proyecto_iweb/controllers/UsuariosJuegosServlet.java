@@ -114,6 +114,12 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "usuario/editarPrecio.jsp");
                 break;
 
+            case "agregarjuego":
+                String id7 =request.getParameter("id");
+                request.setAttribute("verJuego", usuarioJuegosDaos.listar(Integer.parseInt(id7)));
+                response.sendRedirect(request.getContextPath() + "usuario/agregarjuegoexistente.jsp");
+                break;
+
         }
     }
 
@@ -141,7 +147,14 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 Cuentas cuentas = (Cuentas) session.getAttribute("usuarioLog");
                 usuarioJuegosDaos.guardar(juegos,cuentas.getIdCuentas());
                 response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar1");
+
+            case "e":
+                Juegos juegos1  = parseCuentas(request);
+                usuarioCuentasDaos.actualizar(cuentas);
+                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet");
                 break;
+                break;
+
 
             /*case "actualizar":
                 VentaUsuario ventaUsuario = parseVendidos(request);
