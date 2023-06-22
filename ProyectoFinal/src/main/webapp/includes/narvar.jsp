@@ -370,7 +370,7 @@
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
               <li class="dropdown-header">
                 <h6><%=usuarioLog.getNombre() + " " + usuarioLog.getApellido()%> </h6>
-                <span>Usuario</span>
+                <span>Administrador</span>
               </li>
               <li>
                 <hr class="dropdown-divider">

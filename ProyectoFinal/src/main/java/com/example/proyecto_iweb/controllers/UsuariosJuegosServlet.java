@@ -95,7 +95,10 @@ public class UsuariosJuegosServlet extends HttpServlet {
             case "eliminarVenta":
                 String id4 =request.getParameter("id");
                 usuarioJuegosDaos.eliminarVenta(id4);
-                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos");
+                HttpSession session2 = request.getSession();
+                Cuentas cuentas2 = (Cuentas) session2.getAttribute("usuarioLog");
+
+                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos&id=" + cuentas2.getIdCuentas());
                 break;
 
             case "gc":
