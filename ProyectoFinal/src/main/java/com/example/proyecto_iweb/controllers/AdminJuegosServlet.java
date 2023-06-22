@@ -3,6 +3,7 @@ package com.example.proyecto_iweb.controllers;
 import com.example.proyecto_iweb.models.beans.Juegos;
 import com.example.proyecto_iweb.models.daos.AdminCuentasDaos;
 import com.example.proyecto_iweb.models.daos.AdminJuegosDaos;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -88,6 +89,23 @@ public class AdminJuegosServlet extends HttpServlet {
 
 
             /** OSCAR COLOCAS AQUÍ TU CÓDIGO O LAS OPCIONES DE SERVLET QUE QUIERAS AÑADIR **/
+            case "listarcola":
+                request.setAttribute("lista", adminJuegosDaos.listarCola());
+                RequestDispatcher requestDispatcher2 = request.getRequestDispatcher("admin/juegosColaAdminOficial.jsp");
+                requestDispatcher2.forward(request, response);
+                break;
+
+            case "nuevos":
+                request.setAttribute("nuevos", adminJuegosDaos.listarnuevos());
+                request.getRequestDispatcher("admin/juegosNuevosAdminOficial.jsp").forward(request, response);
+                break;
+
+            case "existentes":
+                request.setAttribute("existentes", adminJuegosDaos.listarexistentes());
+                request.getRequestDispatcher("admin/juegosExistentesAdminOficial.jsp").forward(request, response);
+                break;
+
+
         }
 
 
@@ -104,7 +122,6 @@ public class AdminJuegosServlet extends HttpServlet {
 
         switch (action) {
             case "crear":
-                int idJuego = Integer.parseInt(request.getParameter("idJuego"));
                 String nombre = request.getParameter("nombre");
                 String descripcion = request.getParameter("descripcion");
                 double precio = Double.parseDouble(request.getParameter("precio"));
@@ -116,21 +133,22 @@ public class AdminJuegosServlet extends HttpServlet {
                     foto = "img/juegos/juegoNuevo.png";
                 }
 
-                Juegos juegos = adminJuegosDaos.obtenerJuego(String.valueOf(idJuego));
-                if(juegos == null){
-                    adminJuegosDaos.crearJuego(nombre, descripcion, precio, stock, consola, genero, foto);
-                }else {
-
-                   // adminJuegosDaos.actualizarJuego(nombre, descripcion, precio, stock, consola, genero, foto, idJuego);
-
-                }
-
-
+                adminJuegosDaos.crearJuego(nombre, descripcion, precio, stock, consola, genero, foto);
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
                 break;
 
-            case "a":
+            case "actualizar":
+                int idJuego = Integer.parseInt(request.getParameter("idJuego"));
+                String nombreAct = request.getParameter("nombre");
+                String descripcionAct = request.getParameter("descripcion");
+                double precioAct = Double.parseDouble(request.getParameter("precio"));
+                double descuentoAct = Double.parseDouble(request.getParameter("descuento"));
+                String consolaAct = request.getParameter("consola");
+                String generoAct = request.getParameter("genero");
+                int stockAct = Integer.parseInt(request.getParameter("stock"));
 
+                adminJuegosDaos.actualizarJuego(idJuego, nombreAct, descripcionAct, precioAct, descuentoAct, consolaAct, generoAct, stockAct);
+                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
                 break;
 
         }
