@@ -326,6 +326,7 @@
         <img src="img/sistema/pestania.png" alt="">
         <span class="d-none d-lg-block text-light">JA-VAGOS</span>
       </a>
+      <i class="bi bi-list toggle-sidebar-btn text-light"></i>
     </div>
     <!-- Parte superior medio (BUSCADOR) -->
     <div class="search-bar">
