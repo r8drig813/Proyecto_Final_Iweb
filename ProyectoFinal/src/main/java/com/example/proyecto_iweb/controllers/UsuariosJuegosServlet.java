@@ -130,6 +130,7 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 HttpSession session1 = request.getSession();
                 Cuentas cuentas1 = (Cuentas) session1.getAttribute("usuarioLog");
                 usuarioJuegosDaos.guardarCompra(idJuego,cuentas1.getIdCuentas(),precio,cuentas1.getDireccion());
+                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar");
                 break;
 
 

@@ -230,13 +230,68 @@ public class AdminJuegosDaos  extends DaoBase{
         return lista;
     }
 
+    public CompraUsuario comprados(int idVenta) {
+
+        CompraUsuario compraUsuario = null;
+
+        String sql1 = "SELECT * FROM comprausuario cu\n" +
+                "LEFT JOIN estados e ON cu.idEstados = e.idestados\n" +
+                "LEFT JOIN cuenta c ON cu.idUsuario = c.idCuenta\n" +
+                "LEFT JOIN juego j ON cu.idJuego = j.idJuego\n" +
+                "WHERE cu.idCompra = ?";  // Agregar condición para el idVenta
+
+        try (Connection connection = this.getConection();
+             PreparedStatement stmt = connection.prepareStatement(sql1)) {
+
+            stmt.setInt(1, idVenta);  // Establecer el valor del parámetro idVenta
+
+            try (ResultSet resultSet = stmt.executeQuery()) {
+                while (resultSet.next()) {
+                    compraUsuario = new CompraUsuario();
+                    compraUsuario.setIdCompra(resultSet.getInt(1));
+                    compraUsuario.setIdUsuario(resultSet.getInt(2));
+                    compraUsuario.setIdJuego(resultSet.getInt(3));
+                    compraUsuario.setCantidad(resultSet.getInt(4));
+                    compraUsuario.setFechaCompra(resultSet.getDate(5));
+                    compraUsuario.setDireccion(resultSet.getString(6));
+                    compraUsuario.setIdAdmin(resultSet.getInt(7));
+                    compraUsuario.setPrecioCompra(resultSet.getInt(8));
+                    compraUsuario.setIdEstados(resultSet.getInt(9));
+
+                    Cuentas cuentas = new Cuentas();
+                    cuentas.setIdCuentas(resultSet.getInt("c.idCuenta"));
+                    cuentas.setNombre(resultSet.getString("c.nombre"));
+                    cuentas.setApellido(resultSet.getString("c.apellido"));
+                    compraUsuario.setUsuario(cuentas);
+
+                    Estados estados = new Estados();
+                    estados.setIdEstados(resultSet.getInt("e.idestados"));
+                    estados.setEstados(resultSet.getString("e.nombreEstados"));
+                    compraUsuario.setEstados(estados);
+
+                    Juegos juegos = new Juegos();
+                    juegos.setIdJuegos(resultSet.getInt("j.idJuego"));
+                    juegos.setNombre(resultSet.getString("j.nombre"));
+                    compraUsuario.setJuegos(juegos);
+
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return compraUsuario;
+    }
+
+
+
     public ArrayList<VentaUsuario> juegosPropuestos(){
 
         ArrayList<VentaUsuario> lista = new ArrayList<>();
         String sql1 = "select * from ventausuario v \n" +
                 "left join estados e on v.idEstados = e.idestados \n" +
                 "left join cuenta c on v.idUsuario = c.idCuenta\n" +
-                "left join juego j on v.idJuego = j.idJuego where e.idestados in (1, 3, 4)";
+                "left join juego j on v.idJuego = j.idJuego where e.idestados in (1, 3)";
 
         try (Connection connection = this.getConection();
              Statement stmt = connection.createStatement();
@@ -275,63 +330,6 @@ public class AdminJuegosDaos  extends DaoBase{
 
         return lista;
     }
-    /*
-    public CompraUsuario listarCompra(String id) {
-
-        CompraUsuario compraUsuario = null;
-        String sql = "select * from comprausuario cu\n" +
-                "left join estados e on cu.idEstados = e.idestados \n" +
-                "left join cuenta c on cu.idUsuario = c.idCuenta\n" +
-                "left join juego j on cu.idJuego = j.idJuego";
-
-        try (Connection connection = this.getConection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-
-            preparedStatement.setString(1, id);
-
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    compraUsuario = new CompraUsuario();
-
-                    compraUsuario.setIdCompra(resultSet.getInt(1));
-                    compraUsuario.setIdUsuario(resultSet.getInt(2));
-                    compraUsuario.setIdJuego(resultSet.getInt(3));
-                    compraUsuario.setCantidad(resultSet.getInt(4));
-                    compraUsuario.setFechaCompra(resultSet.getDate(5));
-                    compraUsuario.setDireccion(resultSet.getString(6));
-                    compraUsuario.setIdAdmin(resultSet.getInt(7));
-                    compraUsuario.setPrecioCompra(resultSet.getInt(8));
-                    compraUsuario.setIdEstados(resultSet.getInt(9));
-
-                    Cuentas cuentas = new Cuentas();
-                    cuentas.setIdCuentas(resultSet.getInt("c.idCuenta"));
-                    cuentas.setNombre(resultSet.getString("c.nombre"));
-                    cuentas.setApellido(resultSet.getString("c.apellido"));
-                    compraUsuario.setUsuario(cuentas);
-
-                    Estados estados = new Estados();
-                    estados.setIdEstados(resultSet.getInt("e.idestados"));
-                    estados.setEstados(resultSet.getString("e.nombreEstados"));
-                    compraUsuario.setEstados(estados);
-
-                    Juegos juegos = new Juegos();
-                    juegos.setIdJuegos(resultSet.getInt("j.idJuego"));
-                    juegos.setNombre(resultSet.getString("j.nombre"));
-                    compraUsuario.setJuegos(juegos);
-
-                    lista.add(compraUsuario);
-                }
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        return juego;
-    }
-
-    **/
-
 
     /** Ofertas **/
     public ArrayList<Juegos> listarOfertas() {
@@ -407,6 +405,35 @@ public class AdminJuegosDaos  extends DaoBase{
             throw new RuntimeException(e);
         }
     }
+
+
+
+
+
+    public void aceptarUsuario(String id){
+
+        String sql = "UPDATE ventausuario SET idEstados = 2 WHERE idVenta = ?";
+        try (Connection connection = this.getConection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void rechazarUsuario(String id){
+
+        String sql = "UPDATE ventausuario SET idEstados = 4 WHERE idVenta = ?";
+        try (Connection connection = this.getConection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 
 
@@ -587,6 +614,7 @@ public class AdminJuegosDaos  extends DaoBase{
             throw new RuntimeException(e);
         }
     }
+
     public void dejarMensaje(String mensajeAdmin, String idventa){
         String sql = "UPDATE ventausuario SET mensajeAdmin = ? WHERE idVenta = ?";
         try (Connection connection = this.getConection()){

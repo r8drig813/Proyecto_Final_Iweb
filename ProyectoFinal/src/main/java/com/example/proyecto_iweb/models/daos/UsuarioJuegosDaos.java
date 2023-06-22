@@ -517,8 +517,8 @@ public class UsuarioJuegosDaos extends DaoBase {
 
             pstmt.setInt(1, idUsuario);
             pstmt.setInt(2,idJuego);
-            pstmt.setDouble(3, precio);
-            pstmt.setString(4,direccion);
+            pstmt.setString(3, direccion);
+            pstmt.setDouble(4,precio);
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
