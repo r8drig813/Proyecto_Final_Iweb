@@ -1,10 +1,22 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto_iweb.models.beans.Juegos" %>
 <%@ page import="com.example.proyecto_iweb.models.beans.CompraUsuario" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% ArrayList<Juegos> lista = (ArrayList<Juegos>) request.getAttribute("nuevos");
 %>
 <% ArrayList<CompraUsuario> lista1 = (ArrayList<CompraUsuario>) request.getAttribute("nuevos");
+%>
+<%
+    // Obtener la fecha actual
+    Date fechaActual = new Date();
+
+    // Crear un formateador de fechas
+    SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+
+    // Obtener la fecha actual en formato deseado
+    String fechaFormateada = formatoFecha.format(fechaActual);
 %>
 
 <!DOCTYPE html>
@@ -33,9 +45,9 @@
                         <div class="card-body">
                             <h5 class="card-title"><%=j.getNombre()%></h5>
                             <p class="card-text"><%=j.getDescripcion()%></p>
-                            <p class="card-text">Categoria: 1</p>
-                            <p class="card-text">Fecha Agregado:2023-05-31 </p>
-                            <p class="card-text">Estado: 1 </p>
+                            <p class="card-text">Categoria: <%=j.getGenero()%></p>
+                            <p class="card-text">Fecha Agregado: <%= fechaFormateada %> </p>
+                            <!-- <p class="card-text">Estado: 1 </p>-->
                         </div>
                     </div>
                 </div>

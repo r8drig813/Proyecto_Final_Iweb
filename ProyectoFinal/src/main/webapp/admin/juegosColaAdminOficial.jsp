@@ -52,7 +52,7 @@
                         <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=cambiarestadorechazar&idventa=<%=vu.getIdVenta()%>" class="btn btn-danger m-1">Rechazar</a>
 
                     </div>
-                </td>
+                <!--</td> -->
                 <!--MODAL DE ADVERTENCIA PARA TODOS-->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -69,7 +69,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Enviar</button>
+                                <button type="button" class="btn btn-success">Enviar</button>
                             </div>
                         </div>
                     </div>

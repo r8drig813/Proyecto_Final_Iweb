@@ -31,7 +31,7 @@
                             <h5 class="card-title"><%=j.getNombre()%></h5>
                             <p class="card-text"><%=j.getDescripcion()%></p>
                             <p class="card-text">Numero de Stock: <%=j.getStock()%></p>
-                            <p class="card-text">Registro de Venta: 912 </p>
+                            <p class="card-text">Registro de Venta: <%=j.getIdJuegos()%> </p>
                         </div>
                     </div>
                 </div>

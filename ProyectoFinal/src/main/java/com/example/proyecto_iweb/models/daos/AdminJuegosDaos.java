@@ -454,7 +454,7 @@ public class AdminJuegosDaos  extends DaoBase{
         return lista;
     }
 
-    public ArrayList<Juegos> listarnuevos(){
+    public ArrayList<Juegos> listarnuevos(){ //categoria, fecga agregado, estado
 
         ArrayList<Juegos> lista = new ArrayList<>();
 
@@ -477,6 +477,7 @@ public class AdminJuegosDaos  extends DaoBase{
                 juegos.setHabilitado(resultSet.getBoolean(8));
                 juegos.setConsola(resultSet.getString(9));
                 juegos.setGenero(resultSet.getString(10));
+
                 lista.add(juegos);
             }
 
@@ -487,7 +488,7 @@ public class AdminJuegosDaos  extends DaoBase{
         return lista;
     }
 
-    public ArrayList<Juegos> listarexistentes(){
+    public ArrayList<Juegos> listarexistentes(){ //num stock, reg venta
         ArrayList<Juegos> lista = new ArrayList<>();
 
         String sql =   "select * from juego where existente=1";
@@ -558,6 +559,45 @@ public class AdminJuegosDaos  extends DaoBase{
             preparedStatement.setString(1, idventa);
 
             preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void actualizarJuego1(int idJuego, String nombre, String descripcion, double precio, double descuento, String consola, String genero, int stock){
+        String sql = "UPDATE juego SET nombre = ?,descripcion = ?,precio = ?, descuento = ?, consola = ?, genero = ?, stock = ? WHERE idJuego = ?";
+        try (Connection connection = this.getConection()){
+
+            try (PreparedStatement pstmt = connection.prepareStatement(sql)){
+                pstmt.setString(1, nombre);
+                pstmt.setString(2, descripcion);
+                pstmt.setDouble(3, precio);
+                pstmt.setDouble(4, descuento);
+                pstmt.setString(5, consola);
+                pstmt.setString(6, genero);
+                pstmt.setInt(7, stock);
+                pstmt.setInt(8, idJuego);
+
+                pstmt.executeUpdate();
+            }
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void dejarMensaje(String mensajeAdmin, String idventa){
+        String sql = "UPDATE ventausuario SET mensajeAdmin = ? WHERE idVenta = ?";
+        try (Connection connection = this.getConection()){
+
+            try (PreparedStatement pstmt = connection.prepareStatement(sql)){
+                pstmt.setString(1, mensajeAdmin);
+                pstmt.setString(2, idventa);
+
+                pstmt.executeUpdate();
+            }
+
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

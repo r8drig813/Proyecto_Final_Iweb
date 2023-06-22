@@ -168,9 +168,13 @@ public class AdminJuegosServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
                 break;
 
+            case "dejarMensaje":
+                String mensajeAdmin = request.getParameter("mensajeAdmin");
+                String idVenta = request.getParameter("idVenta");
+
+                adminJuegosDaos.dejarMensaje(mensajeAdmin, idVenta);
+                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
+                break;
         }
-
-
-
     }
 }
