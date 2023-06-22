@@ -206,7 +206,7 @@
 
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="<%=request.getContextPath()%>/AdminJuegoServlet?a=Ofertas">
+            <a class="nav-link collapsed" href="<%=request.getContextPath()%>/AdminJuegosServlet?a=Ofertas">
                 <i class="bi bi-exclamation-square"></i>
                 <span>Ofertas</span>
             </a>
