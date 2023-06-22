@@ -37,6 +37,21 @@
   <!-- Option 1: Include in HTML -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
+  <style>
+    .boton-tachado {
+      position: relative;
+      overflow: hidden;
+      border: none;
+      background-color: transparent;
+      color: red !important;
+      text-decoration: line-through;
+    }
+
+    .boton-tachado:hover {
+      color: red !important;
+    }
+  </style>
+
 </head>
 
 <body>
@@ -98,7 +113,7 @@
               <div class="card-body">
                 <h4 class="card-title-danger"><%=j.getNombre()%></h4>
                 <h3 class="card-title-danger">Oferta: <%=j.getPrecio()*(j.getDescuento()/100)%></h3>
-                <h5 class="card-title-danger">Antes: <%=j.getPrecio()%></h5>
+                <h5 class="btn btn-custom boton-tachado">Antes: <%=j.getPrecio()%></h5>
               </div>
             </div>
           </div>
