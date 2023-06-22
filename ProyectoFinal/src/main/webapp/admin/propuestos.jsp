@@ -53,10 +53,11 @@
         <td><%=v.getMensajeAdmin()%></td>
         <td>
           <div class="d-flex justify-content-center">
-            <a href="<%=request.getContextPath()%>/AdminServlet?a=verPerfil" class="btn btn-primary m-1"><i class="bi bi-person-circle"></i></a>
-            <a href="#" class="btn btn-success m-1"><i class="bi bi-check-circle-fill"></i></a>
+            <a onclick="return confirm('¿Está seguro de aceptar al usuario:?')"
+               href="<%=request.getContextPath()%>/AdminJuegosServlet?a=aceptarUsuario&id=<%=v.getIdVenta()%>" class="btn btn-success m-1"><i class="bi bi-check-circle-fill"></i></a>
+
             <a onclick="return confirm('¿Está seguro de rechazar al usuario:?')" class="btn btn-danger m-1"
-               href="#"><i class="bi bi-x-circle-fill"></i></a>
+               href="<%=request.getContextPath()%>/AdminJuegosServlet?a=rechazarUsuario&id=<%=v.getIdVenta()%>"><i class="bi bi-x-circle-fill"></i></a>
 
           </div>
         </td>
@@ -64,16 +65,7 @@
       <% } %>
 
       </tbody>
-      <tfoot>
-      <tr>
-        <th>Name de usuario</th>
-        <th>Dirección</th>
-        <th>Nickname</th>
-        <th>Estado</th>
-        <th>Observación</th>
-        <th>Opciones</th>
-      </tr>
-      </tfoot>
+
     </table>
   </div>
 

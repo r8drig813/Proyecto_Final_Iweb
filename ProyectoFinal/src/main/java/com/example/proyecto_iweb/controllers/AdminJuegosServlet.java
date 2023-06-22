@@ -78,15 +78,25 @@ public class AdminJuegosServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=ofertas");
                 break;
 
-            /** ROMMEL SE QUEDO AQUÍ, TIENE QUE COLOCAR EL ID PARA OBTENER LA COMPRA Y OBTNEER SUS DETALLES **/
+
             case "detallesCompra":
                 String id4 = request.getParameter("id");
-                request.setAttribute("compra", adminJuegosDaos.compradosAndReservados());
+                request.setAttribute("compra", adminJuegosDaos.comprados(Integer.parseInt(id4)));
                 request.getRequestDispatcher("admin/detallesCompra.jsp").forward(request, response);
 
                 break;
 
+            case "aceptarUsuario":
+                String id9 = request.getParameter("id");
+                adminJuegosDaos.aceptarUsuario(id9);
+                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=propuestos");
+                break;
 
+            case "rechazarUsuario":
+                String id10 = request.getParameter("id");
+                adminJuegosDaos.rechazarUsuario(id10);
+                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=propuestos");
+                break;
 
             /** OSCAR COLOCAS AQUÍ TU CÓDIGO O LAS OPCIONES DE SERVLET QUE QUIERAS AÑADIR **/
             case "listarcola":
