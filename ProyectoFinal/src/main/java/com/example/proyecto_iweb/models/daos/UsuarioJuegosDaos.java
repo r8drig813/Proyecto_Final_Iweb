@@ -631,6 +631,4 @@ public class UsuarioJuegosDaos extends DaoBase {
         }
         return ventaUsuario;
     }
-
-
 }
