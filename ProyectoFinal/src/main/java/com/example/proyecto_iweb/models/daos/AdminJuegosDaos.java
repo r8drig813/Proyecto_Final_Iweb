@@ -411,21 +411,197 @@ public class AdminJuegosDaos  extends DaoBase{
 
 
     /** SECCIÓN DE OSCAR **/
+    public ArrayList<VentaUsuario> listarCola(){
+        ArrayList<VentaUsuario> lista = new ArrayList<>();
+
+        String sql =    "SELECT c.nombre, c.apellido, j.nombre, v.idEstados, j.existente , v.idVenta\n" +
+                        "FROM cuenta AS c\n" +
+                        "JOIN ventausuario AS v ON c.idCuenta = v.idUsuario\n" +
+                        "JOIN juego AS j ON v.idJuego = j.idJuego\n" +
+                        "WHERE v.idEstados = 1;";
+
+        try (Connection connection = this.getConection();
+             Statement stmt = connection.createStatement();
+             ResultSet resultSet = stmt.executeQuery(sql)) {
+
+            while(resultSet.next()){
+
+                VentaUsuario ventausuario = new VentaUsuario();
+
+                Cuentas cuenta = new Cuentas();
+                cuenta.setNombre(resultSet.getNString(1));
+                cuenta.setApellido(resultSet.getNString(2));
+                ventausuario.setUsuario(cuenta);
+
+                Juegos juegos = new Juegos();
+                juegos.setNombre(resultSet.getString(3));
+
+                ventausuario.setIdEstados(resultSet.getInt(4));
+
+                juegos.setExistente(resultSet.getBoolean(5));
+                ventausuario.setJuegos(juegos);
+
+                ventausuario.setIdVenta(resultSet.getInt(6));
 
 
+                lista.add(ventausuario);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return lista;
+    }
+
+    public ArrayList<Juegos> listarnuevos(){ //categoria, fecga agregado, estado
+
+        ArrayList<Juegos> lista = new ArrayList<>();
+
+        String sql =   "select * from juego where existente=0";
+
+        try (Connection connection = this.getConection();
+             Statement stmt = connection.createStatement();
+             ResultSet resultSet = stmt.executeQuery(sql)) {
+
+            while(resultSet.next()){
+                Juegos juegos = new Juegos();
+                juegos.setIdJuegos(resultSet.getInt(1));
+                juegos.setNombre(resultSet.getString(2));
+                juegos.setDescripcion(resultSet.getString(3));
+                juegos.setPrecio(resultSet.getDouble(4));
+                juegos.setDescuento(resultSet.getDouble(5));
+                juegos.setStock(resultSet.getInt(11));
+                juegos.setFoto(resultSet.getString(6));
+                juegos.setExistente(resultSet.getBoolean(7));
+                juegos.setHabilitado(resultSet.getBoolean(8));
+                juegos.setConsola(resultSet.getString(9));
+                juegos.setGenero(resultSet.getString(10));
+
+                lista.add(juegos);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return lista;
+    }
+
+    public ArrayList<Juegos> listarexistentes(){ //num stock, reg venta
+        ArrayList<Juegos> lista = new ArrayList<>();
+
+        String sql =   "select * from juego where existente=1";
+
+        String url = "jdbc:mysql://localhost:3306/mydb";
+        try (Connection connection = this.getConection();
+             Statement stmt = connection.createStatement();
+             ResultSet resultSet = stmt.executeQuery(sql)) {
+
+            while(resultSet.next()){
+                Juegos juegos = new Juegos();
+                juegos.setIdJuegos(resultSet.getInt(1));
+                juegos.setNombre(resultSet.getString(2));
+                juegos.setDescripcion(resultSet.getString(3));
+                juegos.setPrecio(resultSet.getDouble(4));
+                juegos.setDescuento(resultSet.getDouble(5));
+                juegos.setStock(resultSet.getInt(11));
+                juegos.setFoto(resultSet.getString(6));
+                juegos.setExistente(resultSet.getBoolean(7));
+                juegos.setHabilitado(resultSet.getBoolean(8));
+                juegos.setConsola(resultSet.getString(9));
+                juegos.setGenero(resultSet.getString(10));
+                lista.add(juegos);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return lista;
+    }
+    public void cambiarestadoaceptar(String idventa){
+
+        String sql = "UPDATE ventausuario SET idEstados = 2 WHERE idVenta = ?;";
+        try (Connection connection = this.getConection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, idventa);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void cambiarestadonoaceptar(String idventa){
+
+        String sql = "UPDATE ventausuario SET idEstados = 3 WHERE idVenta = ?;";
+        try (Connection connection = this.getConection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, idventa);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void cambiarestadorechazar(String idventa){
+
+        String sql = "UPDATE ventausuario SET idEstados = 4 WHERE idVenta = ?;";
+        try (Connection connection = this.getConection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, idventa);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void actualizarJuego1(int idJuego, String nombre, String descripcion, double precio, double descuento, String consola, String genero, int stock){
+        String sql = "UPDATE juego SET nombre = ?,descripcion = ?,precio = ?, descuento = ?, consola = ?, genero = ?, stock = ? WHERE idJuego = ?";
+        try (Connection connection = this.getConection()){
+
+            try (PreparedStatement pstmt = connection.prepareStatement(sql)){
+                pstmt.setString(1, nombre);
+                pstmt.setString(2, descripcion);
+                pstmt.setDouble(3, precio);
+                pstmt.setDouble(4, descuento);
+                pstmt.setString(5, consola);
+                pstmt.setString(6, genero);
+                pstmt.setInt(7, stock);
+                pstmt.setInt(8, idJuego);
+
+                pstmt.executeUpdate();
+            }
 
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void dejarMensaje(String mensajeAdmin, String idventa){
+        String sql = "UPDATE ventausuario SET mensajeAdmin = ? WHERE idVenta = ?";
+        try (Connection connection = this.getConection()){
+
+            try (PreparedStatement pstmt = connection.prepareStatement(sql)){
+                pstmt.setString(1, mensajeAdmin);
+                pstmt.setString(2, idventa);
+
+                pstmt.executeUpdate();
+            }
 
 
-
-
-
-
-
-
-
-
-
-
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

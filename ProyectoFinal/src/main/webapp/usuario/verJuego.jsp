@@ -71,19 +71,12 @@
 
                 <!-- Botón agregar al carrito -->
                 <%if(usuarioLog.getIdCuentas()==0){%>
-                <div class="row">
-                    <a  class="btn btn-success" href="<%=request.getContextPath()%>/loginPage.jsp" >Agregar al carrito</a>
-                </div>
                 <div class="row mt-1">
                     <button type="submit" class="btn btn-primary text-center">Comprar</button>
                 </div>
                 <%}else{%>
-                <div class="row">
-                    <a onclick="confirm('Se agrego al carrito')" class="btn btn-success"
-                       href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=carrito&id=<%=juegos.getIdJuegos()%>" >Agregar al carrito</a>
-                </div>
                 <div class="row mt-1">
-                    <button type="submit" class="btn btn-primary text-center">Comprar</button>
+                    <a class="btn btn-primary text-center" >Comprar</a>
                 </div>
                 <%}%>
             </div>

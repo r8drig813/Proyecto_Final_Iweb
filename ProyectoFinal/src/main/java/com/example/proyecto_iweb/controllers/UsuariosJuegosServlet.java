@@ -31,8 +31,7 @@ public class UsuariosJuegosServlet extends HttpServlet {
             case "listar":
                 request.setAttribute("lista", usuarioJuegosDaos.listarJuegos());
 
-                request.setAttribute("consolas", usuarioJuegosDaos.consolas());
-                request.setAttribute("generos", usuarioJuegosDaos.generos());
+
                 //request.setAttribute("perfil", usuarioCuentasDaos.perfil());
                 // request.setAttribute("lista4",usuarioJuegosDaos.listarNotificaciones());
 
@@ -87,6 +86,8 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 request.getRequestDispatcher("usuario/notificacionesUsuarioOficial.jsp").forward(request,response);
                 break;
             case "agregar":
+                request.setAttribute("consolas", usuarioJuegosDaos.consolas());
+                request.setAttribute("generos", usuarioJuegosDaos.generos());
                 request.getRequestDispatcher("usuario/agregarjuegonuevo.jsp").forward(request, response);
                 break;
             case "ofertas":
@@ -125,6 +126,12 @@ public class UsuariosJuegosServlet extends HttpServlet {
 
 
 
+            case "agregarjuego":
+                String id7 =request.getParameter("id");
+                request.setAttribute("verJuego", usuarioJuegosDaos.listar(Integer.parseInt(id7)));
+                request.getRequestDispatcher("usuario/agregarjuegoexistente.jsp").forward(request, response);
+                break;
+
         }
     }
 
@@ -150,8 +157,13 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 Juegos juegos = parseJuegosPosteadosNuevos(request);
                 HttpSession session = request.getSession();
                 Cuentas cuentas = (Cuentas) session.getAttribute("usuarioLog");
-                usuarioJuegosDaos.guardar(juegos,cuentas.getIdCuentas());
-                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar1");
+                if (juegos != null) {
+                    usuarioJuegosDaos.guardar(juegos, cuentas.getIdCuentas());
+                    response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar1");
+                }else{
+                    session.setAttribute("msg","El precio debe ser un numero");
+                    response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=agregar");
+                }
                 break;
             case "a":
                 VentaUsuario ventaUsuario = parseVentas(request);
@@ -159,6 +171,13 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos");
                 break;
 
+            case "e":
+                Juegos juegos1 = parseJuegos(request);
+                HttpSession session1 = request.getSession();
+                Cuentas cuentas1 = (Cuentas) session1.getAttribute("usuarioLog");
+                usuarioJuegosDaos.guardarVenta1(juegos1,cuentas1.getIdCuentas());
+                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar1");
+                break;
 
             /*case "actualizar":
                 VentaUsuario ventaUsuario = parseVendidos(request);
@@ -169,25 +188,6 @@ public class UsuariosJuegosServlet extends HttpServlet {
     }
 
 
-
-    /*public VentaUsuario parseVendidos(HttpServletRequest request)  {
-
-        VentaUsuario ventaUsuario = new VentaUsuario();
-        String idVenta = request.getParameter("idVenta") != null ? request.getParameter("idVentas") : "";
-        String idEstado = request.getParameter("idEstados");
-        try {
-            int id = Integer.parseInt(idVenta);
-            int id1 = Integer.parseInt(idEstado);
-            ventaUsuario.setIdVenta(id);
-            ventaUsuario.setIdEstados(id1);
-
-            return ventaUsuario;
-
-        } catch (NumberFormatException e) {
-
-        }
-        return ventaUsuario;
-    }*/
 
     public Juegos parseJuegosPosteadosNuevos(HttpServletRequest request) {
 
@@ -211,9 +211,8 @@ public class UsuariosJuegosServlet extends HttpServlet {
             return juegos;
 
         } catch (NumberFormatException e) {
-
+            return null;
         }
-        return juegos;
     }
 
     public VentaUsuario parseVentas(HttpServletRequest request)  {
@@ -238,4 +237,29 @@ public class UsuariosJuegosServlet extends HttpServlet {
         }
         return ventaUsuario;
     }
+
+    public Juegos parseJuegos(HttpServletRequest request)  {
+
+        Juegos juegos = new Juegos();
+        String idVenta = request.getParameter("idJuego") != null ? request.getParameter("idJuego") : "";
+        String precio = request.getParameter("precioVenta");
+
+
+        try {
+
+            int id = Integer.parseInt(idVenta);
+
+            juegos.setIdJuegos(id);
+            juegos.setPrecio(Double.parseDouble(precio));
+
+
+            return juegos;
+
+        } catch (NumberFormatException e) {
+
+        }
+        return juegos;
+    }
+
+
 }
