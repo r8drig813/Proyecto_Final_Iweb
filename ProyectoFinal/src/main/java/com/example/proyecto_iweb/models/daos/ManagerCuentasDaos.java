@@ -125,22 +125,14 @@ public class ManagerCuentasDaos extends DaoBase{
 
 
     /* ------------ botones de banear/despedir ------- */
+
     public void deshabilitarCuenta(String id) {
 
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        String url = "jdbc:mysql://localhost:3306/mydb";
-        String sql = "UPDATE cuenta SET desabilitado = 1 WHERE idCuenta = ?";
-        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+        String sql = "UPDATE cuenta SET desabilitado = 0 WHERE idCuenta = ?";
+        try (Connection connection = this.getConection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setString(1, id);
-
             pstmt.executeUpdate();
 
         } catch (SQLException e) {

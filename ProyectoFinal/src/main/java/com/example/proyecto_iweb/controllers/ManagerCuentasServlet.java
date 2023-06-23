@@ -43,14 +43,14 @@ public class ManagerCuentasServlet extends HttpServlet {
                 String id1 = request.getParameter("id1");
                 usuarioDao.deshabilitarCuenta(id1);
                 request.getSession().setAttribute("info","Usuario Baneado");
-                response.sendRedirect(request.getContextPath() + "/usuarioManager");
+                response.sendRedirect(request.getContextPath() + "/ManagerCuentasServlet?a=ListaUsuarios");
                 break;
 
             case "desbaneo":
                 String id2 = request.getParameter("id2");
                 usuarioDao.habilitarCuenta(id2);
                 request.getSession().setAttribute("info2","Usuario Desbaneado");
-                response.sendRedirect(request.getContextPath() + "/usuarioManager");
+                response.sendRedirect(request.getContextPath() + "/ManagerCuentasServlet?a=ListaUsuarios");
                 break;
 
             case "ListaEmpleados":
@@ -63,7 +63,7 @@ public class ManagerCuentasServlet extends HttpServlet {
                 String id4 = request.getParameter("id4");
                 usuarioDao.deshabilitarCuenta(id4);
                 request.getSession().setAttribute("info3","Trabajador Despedido");
-                response.sendRedirect(request.getContextPath() + "/usuarioManager?a=ListaEmpleados");
+                response.sendRedirect(request.getContextPath() + "/ManagerCuentasServlet?a=ListaEmpleados");
                 break;
 
 

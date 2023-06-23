@@ -68,14 +68,18 @@
         <tbody>
         <% for (UsuarioTabla u : listaUsuarios) { %>
         <tr>
-            <th scope="row"> <a href="<%=request.getContextPath()%>/usuarioManager?a=perfil&id=<%=u.getIdCuenta()%>"><%=u.getNombre()%></a></th>
+            <th scope="row"> <a href="<%=request.getContextPath()%>/ManagerCuentasServlet?a=perfil&id=<%=u.getIdCuenta()%>"><%=u.getNombre()%></a></th>
             <td><%=u.getJuegosComprados()%></td>
             <td><%=u.getJuegosVendidos()%></td>
             <td><%=u.getDineroGastado()%></td>
             <td><%=u.getDineroGanado()%></td>
             <td>
-                <button href="<%=request.getContextPath()%>/usuarioManager?a=baneo&id=<%=u.getIdCuenta()%>" type="button" class="btn btn-danger">Baneo</button>
-                <button href="<%=request.getContextPath()%>/usuarioManager?a=desbaneo&id=<%=u.getIdCuenta()%>" type="button" class="btn btn-success">Desbaneo</button>
+                <a onclick="return confirm('Esta seguro de desea Banear al usuario')" class="btn btn-danger"
+                   href="<%=request.getContextPath()%>/ManagerCuentasServlet?a=baneo&id1=<%=u.getIdCuenta()%>">Baneo</a>
+
+                <a onclick="return confirm('Esta seguro de desea Desbanear al usuario')" class="btn btn-success"
+                   href="<%=request.getContextPath()%>/ManagerCuentasServlet?a=desbaneo&id2=<%=u.getIdCuenta()%>">Desbaneo</a>
+
                 <button type="button" class="btn btn-primary">Descargar</button>
             </td>
         </tr>

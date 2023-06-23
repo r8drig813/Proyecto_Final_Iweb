@@ -32,9 +32,9 @@ public class ManagerJuegosServlet extends HttpServlet {
 
             case "eliminar":
                 String id2 = request.getParameter("id");
-                juegosDaos.eliminarJuego(id2);
+                juegosDaos.desabilitarJuego(id2);
                 request.getSession().setAttribute("info","Juego eliminado");
-                response.sendRedirect(request.getContextPath() + "/JuegosManager");
+                response.sendRedirect(request.getContextPath() + "/ManagerJuegosServlet");
                 break;
 
         }
