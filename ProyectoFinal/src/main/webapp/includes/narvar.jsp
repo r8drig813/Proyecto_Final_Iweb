@@ -630,14 +630,14 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link text-warning" href="<%=request.getContextPath()%>/usuarioManager">
+        <a class="nav-link text-warning" href="<%=request.getContextPath()%>/ManagerCuentasServlet">
           <i class="bi bi-person-circle text-warning"></i>
           <span>Usuarios</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="<%=request.getContextPath()%>/empleados">
+        <a class="nav-link collapsed" href="<%=request.getContextPath()%>/ManagerCuentasServlet?a=ListaEmpleados">
           <i class="bi bi-person-bounding-box"></i>
           <span>Administradores</span>
         </a>
@@ -645,7 +645,7 @@
 
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="<%=request.getContextPath()%>/JuegosManager">
+        <a class="nav-link collapsed" href="<%=request.getContextPath()%>/ManagerJuegosServlet">
           <i class="bi bi-playstation"></i>
           <span>Juegos</span>
         </a>

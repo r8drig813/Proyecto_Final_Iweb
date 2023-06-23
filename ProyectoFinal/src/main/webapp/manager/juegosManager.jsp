@@ -104,7 +104,7 @@
                   <div class="card-body">
                     <h5 class="card-title"><%=j.getNombre()%></h5>
                     <a onclick="return confirm('Esta seguro de desea retirar el juego')" class="btn btn-danger"
-                       href="<%=request.getContextPath()%>/JuegosManager?a=eliminar&id=<%=j.getIdJuegos()%>">Retirar juego</a>
+                       href="<%=request.getContextPath()%>/ManagerJuegosServlet?a=eliminar&id=<%=j.getIdJuegos()%>">Retirar juego</a>
                   </div>
                 </div>
               </div>

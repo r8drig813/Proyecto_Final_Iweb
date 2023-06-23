@@ -8,6 +8,9 @@
 <%    //ArrayList<CompraUsuario> listaNotificaciones = (ArrayList<CompraUsuario>) request.getAttribute("lista4");
   //ArrayList<VentaUsuario> listaNotificaciones1  = (ArrayList<VentaUsuario>) request.getAttribute("lista4");
 %>
+<jsp:useBean id="usuarioLog" scope="session" type="com.example.proyecto_iweb.models.beans.Cuentas"
+             class="com.example.proyecto_iweb.models.beans.Cuentas"/>
+
 <jsp:useBean id="cuentas" scope="request" type="com.example.proyecto_iweb.models.beans.Cuentas"/>
 
 <html lang="en">

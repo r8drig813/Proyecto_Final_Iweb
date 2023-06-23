@@ -72,7 +72,9 @@ public class UsuariosCuentasServlet extends HttpServlet {
             case "a":
                 Cuentas cuentas = parseCuentas(request);
                 usuarioCuentasDaos.actualizar(cuentas);
-                response.sendRedirect(request.getContextPath() + "/UsuarioCuentasServlet");
+                HttpSession session1 = request.getSession();
+                Cuentas cuentas2 = (Cuentas) session1.getAttribute("usuarioLog");
+                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=perfil&id="+ cuentas2.getIdCuentas());
                 break;
             case"guardar":
 
