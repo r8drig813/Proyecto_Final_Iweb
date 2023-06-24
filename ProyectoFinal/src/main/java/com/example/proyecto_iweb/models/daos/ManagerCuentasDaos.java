@@ -1,5 +1,6 @@
 package com.example.proyecto_iweb.models.daos;
 
+import com.example.proyecto_iweb.models.beans.Cuentas;
 import com.example.proyecto_iweb.models.dtos.EmpleadosTabla;
 import com.example.proyecto_iweb.models.dtos.UsuarioTabla;
 
@@ -123,6 +124,53 @@ public class ManagerCuentasDaos extends DaoBase{
     }
     /* ----------------------------------------------------------- */
 
+    public UsuarioTabla ListarRegistro(String id){
+        UsuarioTabla usuarioTabla = null ;
+
+        String sql = "SELECT\n" +
+                "  c.idCuenta,\n" +
+                "  CONCAT(c.nombre, \" \", c.apellido) AS \"Nombres\",\n" +
+                "  SUM(co.cantidad) AS \"Juegos vendidos\",\n" +
+                "  COUNT(DISTINCT v.idVenta) AS \"Juegos comprados\",\n" +
+                "  SUM(co.precioCompra) AS \"Dinero ganado\",\n" +
+                "  SUM(v.precioVenta) AS \"Dinero Gastado\",\n" +
+                "  c.foto\n" +
+                "FROM\n" +
+                "  cuenta c\n" +
+                "LEFT JOIN ventausuario v ON c.idCuenta = v.idAdmin AND v.idEstados = \"2\"\n" +
+                "LEFT JOIN comprausuario co ON c.idCuenta = co.idAdmin AND co.idEstados = \"2\"\n" +
+                "WHERE\n" +
+                "  c.idCuenta = ?\n" +
+                "GROUP BY\n" +
+                "  c.idCuenta,\n" +
+                "  c.nombre,\n" +
+                "  c.apellido,\n" +
+                "  c.foto";
+
+        try (Connection conn = this.getConection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, id);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    usuarioTabla = new UsuarioTabla();
+                    usuarioTabla.setIdCuenta(rs.getInt(1));
+                    usuarioTabla.setNombre(rs.getString(2));
+                    usuarioTabla.setJuegosVendidos(rs.getInt(3));
+                    usuarioTabla.setJuegosComprados(rs.getInt(4));
+                    usuarioTabla.setDineroGanado(rs.getDouble(5));
+                    usuarioTabla.setDineroGastado(rs.getDouble(6));
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return usuarioTabla;
+    }
+
 
     /* ------------ botones de banear/despedir ------- */
 
@@ -164,8 +212,40 @@ public class ManagerCuentasDaos extends DaoBase{
 
     /*------------------------------------------------*/
 
+    /* ---------------- Perfil -----------------------*/
+    public Cuentas listar(String id) {
+        Cuentas cuentas = null;
 
 
+        String sql = "select * from cuenta where idCuenta = ?";
+
+        try (Connection conn = this.getConection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, id);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    cuentas = new Cuentas();
+                    cuentas.setIdCuentas(rs.getInt(1));
+                    cuentas.setNombre(rs.getString(2));
+                    cuentas.setApellido(rs.getString(3));
+                    cuentas.setNickname(rs.getString(4));
+                    cuentas.setDireccion(rs.getString(5));
+                    cuentas.setCorreo(rs.getString(6));
+                    cuentas.setFoto(rs.getString(7));
+                    cuentas.setDescripcion(rs.getString(8));
+                    cuentas.setPasswordHashed(rs.getString(11));
+
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return cuentas;
+    }
 
 
 }

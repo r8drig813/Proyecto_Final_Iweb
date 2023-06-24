@@ -29,8 +29,8 @@ public class ManagerCuentasServlet extends HttpServlet {
 
             case "perfil":
                 String id = request.getParameter("id");
-                //perfil: request.setAttribute("listaUsuarios",employeeDao.perfil(id3));
-                request.getRequestDispatcher("manager/perfilUsuarioManager.jsp").forward(request, response);
+                request.setAttribute("cuentas", usuarioDao.listar(id));
+                request.getRequestDispatcher("manager/miPerfilManager.jsp").forward(request, response);
                 break;
 
             case "ListaUsuarios":
