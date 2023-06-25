@@ -22,10 +22,32 @@
 <!-- ======= Main ======= -->
 <main id="main" class="main">
     <div class="row">
-        <div class="col-md-1"></div>
+
         <div class="col-md-10">
             <% for (Juegos j : lista) { %>
-            <div class="card mb-10" style="max-width: 1500px;">
+            <% if (j.getDescuento()>0) {%>
+                <div class="card mb-10" style="max-width: 1500px;">
+                <div class="row g-0">
+                    <div class="col-md-5">
+                        <img src="<%=j.getFoto()%>" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card-body">
+                            <h3 class="card-title text-danger"><%=j.getNombre()%> </h3>
+                            <p class="card-text"><%=j.getDescripcion()%></p>
+                            <p class="card-text text-decoration-line-through">Precio: <%=j.getPrecio()%></p>
+                            <h5 class="card-text text-danger fw-bold">Oferta: <%=(j.getPrecio() - j.getPrecio()*j.getDescuento()/100)%></h5>
+                            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=editarJuego&id=<%=j.getIdJuegos()%>" class="btn btn-primary ml-5">Editar</a>
+                            <a onclick="return confirm('Esta seguro de desea eliminar el juego')" class="btn btn-danger"
+                               href="<%=request.getContextPath()%>/AdminJuegosServlet?a=deshabilitarJuego&id=<%=j.getIdJuegos()%>">Eliminar</a>
+                        </div>
+
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <% } else {%>
+                <div class="card mb-10" style="max-width: 1500px;">
                 <div class="row g-0">
                     <div class="col-md-5">
                         <img src="<%=j.getFoto()%>" class="img-fluid rounded-start" alt="...">
@@ -45,10 +67,16 @@
                 </div>
             </div>
             <% } %>
+            <% } %>
         </div>
-        <div class="col-md-1">
+        <div class="col-md-2">
+
             <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=crearJuego" class="btn btn-danger">+</a>
             <p>Añadir juego</p>
+            <div>
+                <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=crearJuego" class="btn btn-danger">+</a>
+                <p>Añadir juego</p>
+            </div>
         </div>
     </div>
 
