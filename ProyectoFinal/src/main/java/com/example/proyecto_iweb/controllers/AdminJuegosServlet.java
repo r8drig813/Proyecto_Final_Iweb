@@ -91,7 +91,7 @@ public class AdminJuegosServlet extends HttpServlet {
             case "detallesCompra":
                 String id100 = request.getParameter("id");
                 request.setAttribute("compra", adminJuegosDaos.comprados(Integer.parseInt(id100)));
-                request.getRequestDispatcher("admin/detallesCompra.jsp").forward(request, response);
+                request.getRequestDispatcher("admin/detallesCompras2.jsp").forward(request, response);
 
                 break;
 

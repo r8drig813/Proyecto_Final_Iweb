@@ -3,6 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto_iweb.models.beans.CompraUsuario" %>
+<%@ page import="java.time.*" %>
 
 <% ArrayList<CompraUsuario> lista = (ArrayList<CompraUsuario>) request.getAttribute("lista"); %>
 
@@ -34,6 +35,8 @@
                 <th>Juego</th>
                 <th>Fecha</th>
                 <th>Estado</th>
+                <th>Observación</th>
+                <th></th>
                 <th class="d-flex justify-content-center">Detalles</th>
             </tr>
             </thead>
@@ -45,12 +48,58 @@
                 <td><%=c.getJuegos().getNombre()%></td>
                 <td><%=c.getFechaCompra()%></td>
                 <td><%=c.getEstados().getEstados()%></td>
+                <!-- Observación EN DIAS -->
+                <% if (c.getEstados().getEstados().equals("Pendiente")) {%>
+                    <%
+                        LocalDate fecha1 = c.getFechaCompra().toLocalDate();
+                        LocalDate fecha2 = LocalDate.now();
+                        Period period = fecha1.until(fecha2);
+                        int diferenciaEnDias = period.getDays();
+                    %>
+
+                    <% if (diferenciaEnDias>3 && diferenciaEnDias<=10) {%>
+                        <td><p class="text-danger"> <%=diferenciaEnDias%> días</p></td>
+                    <%} else if (diferenciaEnDias>10) {%>
+                        <td><h4 class="fw-bold text-danger"> <%=diferenciaEnDias%> días</h4></td>
+                    <%} else {%>
+                        <td><p> <%=diferenciaEnDias%> días</p></td>
+                    <%}%>
+
+                <%} else {%>
+                    <td>
+                        <p>Completado</p>
+                    </td>
+                <%}%>
+
+                <!-- MENSAJE -->
+                <% if (c.getEstados().getEstados().equals("Pendiente")) {%>
+                    <%
+                        LocalDate fecha1 = c.getFechaCompra().toLocalDate();
+                        LocalDate fecha2 = LocalDate.now();
+                        Period period = fecha1.until(fecha2);
+                        int diferenciaEnDias = period.getDays();
+                    %>
+
+                    <% if (diferenciaEnDias>3 && diferenciaEnDias<=10) {%>
+                        <td><i class="bi bi-hourglass-split text-primary"></i></td>
+                    <%} else if (diferenciaEnDias>10) {%>
+                        <td><a class="bi bi-chat-square-text text-danger fw-bold"></a></td>
+                    <%} else {%>
+                        <td><i class="bi bi-hourglass-split text-primary"></i></td>
+                    <%}%>
+
+                <%} else {%>
+                    <td><i class="bi bi-check-square text-success"></i></td>
+                <%}%>
+
                 <td>
                     <div class="d-flex justify-content-center">
-                        <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=detallesCompra&id=<%=c.getIdCompra()%>" class="btn btn-primary m-1"><i class="bi bi-list-task"></i></a>
-
-
+                        <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=detallesCompra&id=<%=c.getIdCompra()%>"
+                           class="btn btn-primary m-1"><i class="bi bi-list-task"></i></a>
+                        <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=perfilUsuarios&id=<%=c.getIdCompra()%>"
+                           class="btn btn-primary m-1"><i class="bi bi-person-circle"></i></a>
                     </div>
+
                 </td>
             </tr>
             <% } %>

@@ -35,8 +35,8 @@
                         <div class="card-body">
                             <h3 class="card-title text-danger"><%=j.getNombre()%> </h3>
                             <p class="card-text"><%=j.getDescripcion()%></p>
-                            <p class="card-text text-decoration-line-through">Precio: <%=j.getPrecio()%></p>
-                            <h5 class="card-text text-danger fw-bold">Oferta: <%=(j.getPrecio() - j.getPrecio()*j.getDescuento()/100)%></h5>
+                            <p class="card-text text-decoration-line-through">Precio: $ <%=j.getPrecio()%></p>
+                            <h5 class="card-text text-danger fw-bold">Oferta: $ <%=(j.getPrecio() - j.getPrecio()*j.getDescuento()/100)%></h5>
 
                             <div>
                                 <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=editarJuego&id=<%=j.getIdJuegos()%>" class="btn btn-primary ml-5">Editar</a>
@@ -63,7 +63,7 @@
                         <div class="card-body">
                             <h5 class="card-title col-lg-8"><%=j.getNombre()%></h5>
                             <p class="card-text"><%=j.getDescripcion()%></p>
-                            <p class="card-text">Precio: <%=j.getPrecio()%></p>
+                            <p class="card-text">Precio: $ <%=j.getPrecio()%></p>
                             <div>
                                 <div class="derecha">
                                     <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=editarJuego&id=<%=j.getIdJuegos()%>" class="btn btn-primary ml-5">Editar</a>
