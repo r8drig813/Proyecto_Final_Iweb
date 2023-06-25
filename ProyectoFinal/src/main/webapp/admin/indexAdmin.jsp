@@ -37,9 +37,16 @@
                             <p class="card-text"><%=j.getDescripcion()%></p>
                             <p class="card-text text-decoration-line-through">Precio: <%=j.getPrecio()%></p>
                             <h5 class="card-text text-danger fw-bold">Oferta: <%=(j.getPrecio() - j.getPrecio()*j.getDescuento()/100)%></h5>
-                            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=editarJuego&id=<%=j.getIdJuegos()%>" class="btn btn-primary ml-5">Editar</a>
-                            <a onclick="return confirm('Esta seguro de desea eliminar el juego')" class="btn btn-danger"
-                               href="<%=request.getContextPath()%>/AdminJuegosServlet?a=deshabilitarJuego&id=<%=j.getIdJuegos()%>">Eliminar</a>
+
+                            <div>
+                                <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=editarJuego&id=<%=j.getIdJuegos()%>" class="btn btn-primary ml-5">Editar</a>
+                                <a onclick="return confirm('Esta seguro de desea eliminar el juego')" class="btn btn-danger"
+                                   href="<%=request.getContextPath()%>/AdminJuegosServlet?a=deshabilitarJuego&id=<%=j.getIdJuegos()%>">Eliminar</a>
+                                <div class="izquierda d-flex justify-content-end">
+                                    <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=ofertarJuego&id=<%=j.getIdJuegos()%>" class="btn btn-primary">Modificar Oferta</a>
+
+                                </div>
+                            </div>
                         </div>
 
                         <br>
@@ -54,12 +61,23 @@
                     </div>
                     <div class="col-md-7">
                         <div class="card-body">
-                            <h5 class="card-title"><%=j.getNombre()%></h5>
+                            <h5 class="card-title col-lg-8"><%=j.getNombre()%></h5>
                             <p class="card-text"><%=j.getDescripcion()%></p>
                             <p class="card-text">Precio: <%=j.getPrecio()%></p>
-                            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=editarJuego&id=<%=j.getIdJuegos()%>" class="btn btn-primary ml-5">Editar</a>
-                            <a onclick="return confirm('Esta seguro de desea eliminar el juego')" class="btn btn-danger"
-                               href="<%=request.getContextPath()%>/AdminJuegosServlet?a=deshabilitarJuego&id=<%=j.getIdJuegos()%>">Eliminar</a>
+                            <div>
+                                <div class="derecha">
+                                    <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=editarJuego&id=<%=j.getIdJuegos()%>" class="btn btn-primary ml-5">Editar</a>
+                                    <a onclick="return confirm('Esta seguro de desea eliminar el juego')" class="btn btn-danger"
+                                       href="<%=request.getContextPath()%>/AdminJuegosServlet?a=deshabilitarJuego&id=<%=j.getIdJuegos()%>">Eliminar</a>
+                                </div>
+
+                                <div class="izquierda d-flex justify-content-end">
+                                    <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=ofertarJuego&id=<%=j.getIdJuegos()%>" class="btn btn-primary">Ofertar</a>
+
+                                </div>
+
+                            </div>
+
                         </div>
 
                         <br>
@@ -70,14 +88,18 @@
             <% } %>
         </div>
         <div class="col-md-2">
+            <div class="position-fixed end-1">
 
-            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=crearJuego" class="btn btn-danger">+</a>
-            <p>Añadir juego</p>
-            <div>
-                <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=crearJuego" class="btn btn-danger">+</a>
-                <p>Añadir juego</p>
+                <div>
+                    <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=crearJuego" class="btn btn-danger d-flex align-items-center">
+                        <i class="bi bi-controller fs-4 me-2"></i>
+                        <span class="align-middle d-flex align-items-center">Juego Nuevo</span>
+                    </a>
+                </div>
+
             </div>
         </div>
+
     </div>
 
 </main>

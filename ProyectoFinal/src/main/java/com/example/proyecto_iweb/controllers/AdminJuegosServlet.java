@@ -78,10 +78,19 @@ public class AdminJuegosServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=ofertas");
                 break;
 
+            case "ofertarJuego":
+                String id4 = request.getParameter("id");
+                request.setAttribute("juego", adminJuegosDaos.obtenerJuego(id4));
+                request.setAttribute("consolas", adminJuegosDaos.consolas());
+                request.setAttribute("generos", adminJuegosDaos.generos());
+                request.getRequestDispatcher("admin/ofertarJuego.jsp").forward(request, response);
+                break;
+
+
 
             case "detallesCompra":
-                String id4 = request.getParameter("id");
-                request.setAttribute("compra", adminJuegosDaos.comprados(Integer.parseInt(id4)));
+                String id100 = request.getParameter("id");
+                request.setAttribute("compra", adminJuegosDaos.comprados(Integer.parseInt(id100)));
                 request.getRequestDispatcher("admin/detallesCompra.jsp").forward(request, response);
 
                 break;
@@ -175,6 +184,13 @@ public class AdminJuegosServlet extends HttpServlet {
                 int stockAct = Integer.parseInt(request.getParameter("stock"));
 
                 adminJuegosDaos.actualizarJuego(idJuego, nombreAct, descripcionAct, precioAct, descuentoAct, consolaAct, generoAct, stockAct);
+                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
+                break;
+
+            case "ofertar":
+                int idJuego1 = Integer.parseInt(request.getParameter("idJuego"));
+                double descuento = Double.parseDouble(request.getParameter("descuento"));
+                adminJuegosDaos.ofertarJuego(idJuego1, descuento);
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
                 break;
 

@@ -406,6 +406,19 @@ public class AdminJuegosDaos  extends DaoBase{
         }
     }
 
+    public void ofertarJuego(int id, double descuento){
+
+        String sql = "UPDATE juego SET descuento = ? WHERE idJuego = ?";
+        try (Connection connection = this.getConection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, String.valueOf(descuento));
+            pstmt.setString(2, String.valueOf(id));
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 
 
