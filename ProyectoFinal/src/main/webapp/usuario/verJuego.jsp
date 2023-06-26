@@ -40,6 +40,14 @@
     <!-- Option 1: Include in HTML -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
+    <style>
+        .juego-imagen {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -56,32 +64,31 @@
         <div class="row">
             <div class="col-7">
                 <div class="container">
-                    <img src="<%=juegos.getFoto()%>" class="img-fluid" alt="Imagen">
+                    <img src="<%= juegos.getFoto() %>" class="img-fluid juego-imagen" alt="Imagen">
                 </div>
             </div>
             <div class="col-5">
                 <div class="row">
-                    <h3><%=juegos.getNombre()%></h3>
-                    <div id="descripcion_juego">
-                        <p><%=juegos.getDescripcion()%></p>
-                        <p>Precio: <%= juegos.getPrecio()%></p>
-                        <p>Stock: <%=juegos.getStock()%></p>
+                    <h2 class="text-primary"><%= juegos.getNombre() %></h2>
+                    <div class="mb-4" id="descripcion_juego">
+                        <p class="lead"><%= juegos.getDescripcion() %></p>
+                        <p class="font-weight-bold">Precio: <%= juegos.getPrecio() %></p>
+                        <p class="font-weight-bold">Stock: <%= juegos.getStock() %></p>
                     </div>
+                    <% if (usuarioLog.getIdCuentas() == 0) { %>
+                    <div class="row mt">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Comprar</button>
+                    </div>
+                    <% } else { %>
+                    <div class="row mt-3">
+                        <a class="btn btn-primary btn-lg btn-block" href="<%= request.getContextPath() %>/UsuariosJuegosServlet?a=comprar&id=<%= juegos.getIdJuegos() %>&precio=<%= juegos.getPrecio() %>">Comprar</a>
+                    </div>
+                    <% } %>
                 </div>
-
-                <!-- Botón agregar al carrito -->
-                <%if(usuarioLog.getIdCuentas()==0){%>
-                <div class="row mt-1">
-                    <button type="submit" class="btn btn-primary text-center">Comprar</button>
-                </div>
-                <%}else{%>
-                <div class="row mt-1">
-                    <a class="btn btn-primary text-center" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=comprar&id=<%=juegos.getIdJuegos()%>&precio=<%=juegos.getPrecio()%>">Comprar</a>
-                </div>
-                <%}%>
             </div>
         </div>
     </div>
+
 
     <div class="container">
         <div class="row mt-3">

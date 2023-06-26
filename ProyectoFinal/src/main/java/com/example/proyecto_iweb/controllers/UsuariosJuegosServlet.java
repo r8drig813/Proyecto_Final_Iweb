@@ -160,10 +160,16 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 HttpSession session = request.getSession();
                 Cuentas cuentas = (Cuentas) session.getAttribute("usuarioLog");
                 if (juegos != null) {
-                    usuarioJuegosDaos.guardar(juegos, cuentas.getIdCuentas());
-                    response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar1");
+                    String precioString = String.valueOf(juegos.getPrecio());
+                    if (juegos.getNombre().isEmpty() || precioString.isEmpty() || juegos.getDescripcion().isEmpty() || juegos.getPrecio()<0) {
+                        session.setAttribute("msg1","");
+                        response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=agregar");
+                    }else{
+                        usuarioJuegosDaos.guardar(juegos, cuentas.getIdCuentas());
+                        response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar1");
+                    }
                 }else{
-                    session.setAttribute("msg","El precio debe ser un numero");
+                    session.setAttribute("msg","");
                     response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=agregar");
                 }
                 break;
