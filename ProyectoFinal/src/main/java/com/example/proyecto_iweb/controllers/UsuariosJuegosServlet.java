@@ -25,6 +25,8 @@ public class UsuariosJuegosServlet extends HttpServlet {
 
         UsuarioJuegosDaos usuarioJuegosDaos = new UsuarioJuegosDaos();
         UsuarioCuentasDaos usuarioCuentasDaos = new UsuarioCuentasDaos();
+        HttpSession session6 = request.getSession();
+        Cuentas cuentas = (Cuentas) session6.getAttribute("usuarioLog");
 
         switch (action) {
 
@@ -44,23 +46,19 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 request.getRequestDispatcher("usuario/verJuego.jsp").forward(request, response);
                 break;
             case "vendidos":
-                String idCuenta1 = request.getParameter("id");
-                request.setAttribute("lista2", usuarioJuegosDaos.listarVendidos(idCuenta1));
+
+                request.setAttribute("lista2", usuarioJuegosDaos.listarVendidos(cuentas.getIdCuentas()));
                 request.getRequestDispatcher("usuario/vendidosUsuariosOficial.jsp").forward(request, response);
                 break;
             case "comprados":
-                String idCuenta2 = request.getParameter("id");
-                String idCuenta7 = request.getParameter("id");
 
-                request.setAttribute("lista3", usuarioJuegosDaos.listarComprados(idCuenta2));
-
-                request.setAttribute("generoMasComprado",usuarioJuegosDaos.generoMasComprado(idCuenta7));
-
+                request.setAttribute("lista3", usuarioJuegosDaos.listarComprados(cuentas.getIdCuentas()));
+                request.setAttribute("generoMasComprado",usuarioJuegosDaos.generoMasComprado(cuentas.getIdCuentas()));
                 request.getRequestDispatcher("usuario/compradosUsuariosOficial.jsp").forward(request, response);
                 break;
             case  "perfil" :
                 String id = request.getParameter("id");
-                request.setAttribute("cuentas", usuarioCuentasDaos.listar(id));
+                request.setAttribute("cuentas", usuarioCuentasDaos.listar(cuentas.getIdCuentas()));
                 request.getRequestDispatcher("usuario/miPerfilOficial.jsp").forward(request, response);
                 break;
             case "borrar":
@@ -69,8 +67,8 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet");
                 break;
             case "listarNotificaciones":
-                String idCuenta3 = request.getParameter("id");
-                request.setAttribute("notificaciones", usuarioJuegosDaos.listarNotificaciones(idCuenta3));
+
+                request.setAttribute("notificaciones", usuarioJuegosDaos.listarNotificaciones(cuentas.getIdCuentas()));
                 request.getRequestDispatcher("usuario/notificacionesUsuarioOficial.jsp").forward(request,response);
                 break;
             case "agregar":
@@ -85,11 +83,7 @@ public class UsuariosJuegosServlet extends HttpServlet {
             case "actualizarVenta":
                 String id3 =request.getParameter("id");
                 usuarioJuegosDaos.actualizarEstadoVenta(id3);
-                HttpSession session = request.getSession();
-                Cuentas cuentas = (Cuentas) session.getAttribute("usuarioLog");
-
-
-                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos&id=" + cuentas.getIdCuentas() );
+                          response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos" );
                 break;
 
             case "eliminarVenta":
@@ -98,7 +92,7 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 HttpSession session2 = request.getSession();
                 Cuentas cuentas2 = (Cuentas) session2.getAttribute("usuarioLog");
 
-                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos&id=" + cuentas2.getIdCuentas());
+                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos");
                 break;
 
             case "gc":
