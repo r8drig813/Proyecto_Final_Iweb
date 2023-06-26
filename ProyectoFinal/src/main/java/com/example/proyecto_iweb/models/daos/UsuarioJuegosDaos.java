@@ -409,15 +409,9 @@ public class UsuarioJuegosDaos extends DaoBase {
 
     public void borrar(String id)  {
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
 
-        String url = "jdbc:mysql://localhost:3306/mydb";
         String sql = "UPDATE compraUsuario SET `idEstados` = '5' WHERE (`idCompra` = '1');\n";
-        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+        try (Connection connection = this.getConection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setString(1, id);
@@ -511,7 +505,8 @@ public class UsuarioJuegosDaos extends DaoBase {
             e.printStackTrace();
         }
         String url = "jdbc:mysql://localhost:3306/mydb";
-        String sql = "INSERT INTO comprausuario (idUsuario,idJuego,cantidad,fechaCompra,direccion,idAdmin,precioCompra,idEstados) VALUES (?,?,1,current_date(),?,10,?,1)";
+        String sql = "INSERT INTO comprausuario (idUsuario,idJuego,cantidad,fechaCompra,direccion,idAdmin,precioCompra,idEstados) " +
+                "VALUES (?,?,1,current_date(),?,10,?,1)";
         try (Connection connection = DriverManager.getConnection(url, "root", "root");
              PreparedStatement pstmt = connection.prepareStatement(sql)){
 
