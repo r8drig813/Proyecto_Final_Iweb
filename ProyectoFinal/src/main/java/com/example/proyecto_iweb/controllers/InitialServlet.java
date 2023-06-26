@@ -1,4 +1,4 @@
-/*package com.example.proyecto_iweb.controllers;
+package com.example.proyecto_iweb.controllers;
 
 import com.example.proyecto_iweb.models.daos.UsuarioJuegosDaos;
 import jakarta.servlet.RequestDispatcher;
@@ -32,4 +32,4 @@ public class InitialServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
     }
-}*/
+}
