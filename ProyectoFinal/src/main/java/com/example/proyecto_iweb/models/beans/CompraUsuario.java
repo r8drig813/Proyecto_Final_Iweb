@@ -10,13 +10,15 @@ public class CompraUsuario {
     private int cantidad;
     private Date fechaCompra;
     private String direccion;
-    private int idAdmin;
+    private int idAdminAsignado;
     private Estados estados;
     private int idEstados;
     private Juegos juegos;
     private double precioCompra;
     private Cuentas usuario;
     private Cuentas admin;
+    private Date fechaEntrega;
+    private int raiting;
 
     public int getIdCompra() {
         return idCompra;
@@ -56,14 +58,6 @@ public class CompraUsuario {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
-    }
-
-    public int getIdAdmin() {
-        return idAdmin;
-    }
-
-    public void setIdAdmin(int idAdmin) {
-        this.idAdmin = idAdmin;
     }
 
     public Estados getEstados() {
@@ -122,4 +116,27 @@ public class CompraUsuario {
         this.juegos = juegos;
     }
 
+    public int getIdAdminAsignado() {
+        return idAdminAsignado;
+    }
+
+    public void setIdAdminAsignado(int idAdminAsignado) {
+        this.idAdminAsignado = idAdminAsignado;
+    }
+
+    public Date getFechaEntrega() {
+        return fechaEntrega;
+    }
+
+    public void setFechaEntrega(Date fechaEntrega) {
+        this.fechaEntrega = fechaEntrega;
+    }
+
+    public int getRaiting() {
+        return raiting;
+    }
+
+    public void setRaiting(int raiting) {
+        this.raiting = raiting;
+    }
 }
