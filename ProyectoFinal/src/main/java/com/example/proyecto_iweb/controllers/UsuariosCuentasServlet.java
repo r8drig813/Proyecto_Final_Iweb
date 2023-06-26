@@ -20,6 +20,8 @@ public class UsuariosCuentasServlet extends HttpServlet {
 
         UsuarioCuentasDaos usuarioCuentasDaos = new UsuarioCuentasDaos();
         UsuarioJuegosDaos usuarioJuegosDaos = new UsuarioJuegosDaos();
+        HttpSession session = request.getSession();
+        Cuentas cuentas = (Cuentas) session.getAttribute("usuarioLog");
         RequestDispatcher view;
 
         String action = request.getParameter("a") == null ? "listar" : request.getParameter("a");
@@ -27,7 +29,7 @@ public class UsuariosCuentasServlet extends HttpServlet {
         switch (action) {
             case  "perfil" :
                 String id = request.getParameter("id");
-                request.setAttribute("cuentas", usuarioCuentasDaos.listar(id));
+                request.setAttribute("cuentas", usuarioCuentasDaos.listar(cuentas.getIdCuentas()));
                 //request.setAttribute("lista4",usuarioJuegosDaos.listarNotificaciones());
                 request.getRequestDispatcher("usuario/miPerfilOficial.jsp").forward(request, response);
                 break;
@@ -40,20 +42,11 @@ public class UsuariosCuentasServlet extends HttpServlet {
                 break;
             case "vendidos":
 
-                HttpSession session5 = request.getSession();
-                Cuentas cuentas5 = (Cuentas) session5.getAttribute("usuarioLog");
-                request.setAttribute("listar2", usuarioJuegosDaos.listarVendidos(cuentas5.getIdCuentas()));
-                //request.setAttribute("perfil", usuarioCuentasDaos.perfil());
-
+                request.setAttribute("listar2", usuarioJuegosDaos.listarVendidos(cuentas.getIdCuentas()));
                 request.getRequestDispatcher("usuario/vendidosUsuariosOficial.jsp").forward(request, response);
                 break;
             case "comprados":
-                HttpSession session6 = request.getSession();
-                Cuentas cuentas6 = (Cuentas) session6.getAttribute("usuarioLog");
-
-                request.setAttribute("listar3", usuarioJuegosDaos.listarComprados(cuentas6.getIdCuentas()));
-                //request.setAttribute("perfil", usuarioCuentasDaos.perfil());
-
+                request.setAttribute("listar3", usuarioJuegosDaos.listarComprados(cuentas.getIdCuentas()));
                 request.getRequestDispatcher("usuario/compradosUsuariosOficial.jsp").forward(request, response);
                 break;
             case"agregar":

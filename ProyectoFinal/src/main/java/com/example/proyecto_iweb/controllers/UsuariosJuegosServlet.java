@@ -58,7 +58,7 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 break;
             case  "perfil" :
                 String id = request.getParameter("id");
-                request.setAttribute("cuentas", usuarioCuentasDaos.listar(id));
+                request.setAttribute("cuentas", usuarioCuentasDaos.listar(cuentas.getIdCuentas()));
                 request.getRequestDispatcher("usuario/miPerfilOficial.jsp").forward(request, response);
                 break;
             case "borrar":
