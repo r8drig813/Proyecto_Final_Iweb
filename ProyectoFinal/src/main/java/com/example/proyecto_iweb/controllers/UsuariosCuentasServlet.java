@@ -39,15 +39,19 @@ public class UsuariosCuentasServlet extends HttpServlet {
 
                 break;
             case "vendidos":
-                String idCuenta1 = request.getParameter("id");
-                request.setAttribute("listar2", usuarioJuegosDaos.listarVendidos(idCuenta1));
+
+                HttpSession session5 = request.getSession();
+                Cuentas cuentas5 = (Cuentas) session5.getAttribute("usuarioLog");
+                request.setAttribute("listar2", usuarioJuegosDaos.listarVendidos(cuentas5.getIdCuentas()));
                 //request.setAttribute("perfil", usuarioCuentasDaos.perfil());
 
                 request.getRequestDispatcher("usuario/vendidosUsuariosOficial.jsp").forward(request, response);
                 break;
             case "comprados":
-                String idCuenta2 = request.getParameter("id");
-                request.setAttribute("listar3", usuarioJuegosDaos.listarComprados(idCuenta2));
+                HttpSession session6 = request.getSession();
+                Cuentas cuentas6 = (Cuentas) session6.getAttribute("usuarioLog");
+
+                request.setAttribute("listar3", usuarioJuegosDaos.listarComprados(cuentas6.getIdCuentas()));
                 //request.setAttribute("perfil", usuarioCuentasDaos.perfil());
 
                 request.getRequestDispatcher("usuario/compradosUsuariosOficial.jsp").forward(request, response);

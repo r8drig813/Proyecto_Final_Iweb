@@ -110,6 +110,7 @@
                                         <p class="card-text"> Precio : $ <%=cu.getPrecioCompra()%> </p>
                                         <p class="fw-bold"> Estado :  <%=cu.getEstados().getEstados()%> </p>
                                         <!--<a href="<%=request.getContextPath()%>/JuegosServlet?a=verjuego&id=<%=cu.getJuegos().getIdJuegos()%>" class="btn btn-dark">Ver juego</a>-->
+                                    </div>
                                 </div>
                             </div>
                         </div>

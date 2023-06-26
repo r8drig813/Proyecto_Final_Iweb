@@ -228,7 +228,7 @@ public class UsuarioJuegosDaos extends DaoBase {
         return lista;
     }
 
-    public ArrayList<VentaUsuario> listarVendidos(String id) {
+    public ArrayList<VentaUsuario> listarVendidos(int id) {
 
         ArrayList<VentaUsuario> lista2 = new ArrayList<>();
 
@@ -241,7 +241,7 @@ public class UsuarioJuegosDaos extends DaoBase {
         try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, id);
+            pstmt.setInt(1, id);
 
             try (ResultSet rs = pstmt.executeQuery()){
                 while (rs.next()) {
@@ -272,7 +272,7 @@ public class UsuarioJuegosDaos extends DaoBase {
         return lista2;
     }
 
-    public ArrayList<CompraUsuario> listarComprados(String id) {
+    public ArrayList<CompraUsuario> listarComprados(int id) {
 
         ArrayList<CompraUsuario> lista3 = new ArrayList<>();
 
@@ -285,7 +285,7 @@ public class UsuarioJuegosDaos extends DaoBase {
         try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, id);
+            pstmt.setInt(1, id);
 
             try(ResultSet rs = pstmt.executeQuery()){
 
@@ -322,7 +322,7 @@ public class UsuarioJuegosDaos extends DaoBase {
         return lista3;
     }
 
-    public ArrayList<VentaUsuario> listarNotificaciones(String id) {
+    public ArrayList<VentaUsuario> listarNotificaciones(int id) {
 
         ArrayList<VentaUsuario> lista = new ArrayList<>();
 
@@ -334,7 +334,7 @@ public class UsuarioJuegosDaos extends DaoBase {
         try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, id);
+            pstmt.setInt(1, id);
 
             try (ResultSet rs = pstmt.executeQuery()){
                 while (rs.next()) {
@@ -691,7 +691,7 @@ public class UsuarioJuegosDaos extends DaoBase {
         }
     }
 
-    public ArrayList<GeneroMasComprado> generoMasComprado(String id) {
+    public ArrayList<GeneroMasComprado> generoMasComprado(int id) {
 
         ArrayList<GeneroMasComprado> lista = new ArrayList<>();
 
@@ -706,7 +706,7 @@ public class UsuarioJuegosDaos extends DaoBase {
         try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql)){
 
-            pstmt.setString(1, id);
+            pstmt.setInt(1, id);
 
             try(ResultSet rs = pstmt.executeQuery()){
                 while (rs.next()) {
