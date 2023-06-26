@@ -284,7 +284,6 @@ public class AdminJuegosDaos  extends DaoBase{
     }
 
 
-
     public ArrayList<VentaUsuario> juegosPropuestos(){
 
         ArrayList<VentaUsuario> lista = new ArrayList<>();
@@ -330,6 +329,55 @@ public class AdminJuegosDaos  extends DaoBase{
 
         return lista;
     }
+
+
+    /**
+    public ArrayList<Cuentas> perfilUsuario(String id){
+        ArrayList<VentaUsuario> lista = new ArrayList<>();
+        String sql1 = "select * from ventausuario v \n" +
+                "left join estados e on v.idEstados = e.idestados \n" +
+                "left join cuenta c on v.idUsuario = c.idCuenta\n" +
+                "left join juego j on v.idJuego = j.idJuego where e.idestados in (1, 3)";
+
+        try (Connection connection = this.getConection();
+             Statement stmt = connection.createStatement();
+             ResultSet resultSet = stmt.executeQuery(sql1)) {
+
+            while(resultSet.next()){
+                VentaUsuario ventaUsuario = new VentaUsuario();
+                ventaUsuario.setIdVenta(resultSet.getInt(1));
+                ventaUsuario.setIdUsuario(resultSet.getInt(2));
+                ventaUsuario.setIdJuego(resultSet.getInt(3));
+                ventaUsuario.setPrecioVenta(resultSet.getDouble(4));
+                ventaUsuario.setMensajeAdmin(resultSet.getString(5));
+                ventaUsuario.setIdEstados(resultSet.getInt(7));
+
+                Cuentas cuentas = new Cuentas();
+                cuentas.setIdCuentas(resultSet.getInt("c.idCuenta"));
+                cuentas.setNombre(resultSet.getString("c.nombre"));
+                ventaUsuario.setUsuario(cuentas);
+
+                Estados estados = new Estados();
+                estados.setIdEstados(resultSet.getInt("e.idestados"));
+                estados.setEstados(resultSet.getString("e.nombreEstados"));
+                ventaUsuario.setEstados(estados);
+
+                Juegos juegos = new Juegos();
+                juegos.setIdJuegos(resultSet.getInt("j.idJuego"));
+                juegos.setNombre(resultSet.getString("j.nombre"));
+                ventaUsuario.setJuegos(juegos);
+
+                lista.add(ventaUsuario);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return lista;
+    }
+
+
+
 
     /** Ofertas **/
     public ArrayList<Juegos> listarOfertas() {

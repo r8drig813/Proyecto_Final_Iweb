@@ -86,13 +86,15 @@ public class AdminJuegosServlet extends HttpServlet {
                 request.getRequestDispatcher("admin/ofertarJuego.jsp").forward(request, response);
                 break;
 
-
-
             case "detallesCompra":
                 String id100 = request.getParameter("id");
                 request.setAttribute("compra", adminJuegosDaos.comprados(Integer.parseInt(id100)));
                 request.getRequestDispatcher("admin/detallesCompras2.jsp").forward(request, response);
+                break;
 
+            case "perfilUsuarios":
+                String id101 = request.getParameter("id");
+                request.getRequestDispatcher("admin/perfilUsuarios.jsp").forward(request, response);
                 break;
 
             case "aceptarUsuario":
@@ -106,6 +108,8 @@ public class AdminJuegosServlet extends HttpServlet {
                 adminJuegosDaos.rechazarUsuario(id10);
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=propuestos");
                 break;
+
+
 
             /** OSCAR COLOCAS AQUÍ TU CÓDIGO O LAS OPCIONES DE SERVLET QUE QUIERAS AÑADIR **/
             case "listarcola":
