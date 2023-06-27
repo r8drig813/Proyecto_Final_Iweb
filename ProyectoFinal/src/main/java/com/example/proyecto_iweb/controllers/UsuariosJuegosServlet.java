@@ -7,6 +7,7 @@ import com.example.proyecto_iweb.models.beans.Juegos;
 import com.example.proyecto_iweb.models.beans.VentaUsuario;
 import com.example.proyecto_iweb.models.daos.UsuarioCuentasDaos;
 import com.example.proyecto_iweb.models.daos.UsuarioJuegosDaos;
+import com.mysql.cj.jdbc.Blob;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;

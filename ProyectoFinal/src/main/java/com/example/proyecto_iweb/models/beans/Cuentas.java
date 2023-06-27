@@ -1,5 +1,7 @@
 package com.example.proyecto_iweb.models.beans;
 
+import com.mysql.cj.jdbc.Blob;
+
 public class Cuentas {
 
     private int idCuentas;
@@ -23,6 +25,7 @@ public class Cuentas {
     public Blob getFoto() {
         return foto;
     }
+
 
     public void setFoto(Blob foto) {
         this.foto = foto;
