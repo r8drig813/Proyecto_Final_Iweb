@@ -66,7 +66,9 @@ public class ManagerCuentasServlet extends HttpServlet {
                 break;
 
             case "eliminar":
+
                 String id4 = request.getParameter("id4");
+                System.out.printf(id4);
                 usuarioDao.deshabilitarCuenta(id4);
                 request.getSession().setAttribute("info3","Trabajador Despedido");
                 response.sendRedirect(request.getContextPath() + "/ManagerCuentasServlet?a=ListaEmpleados");

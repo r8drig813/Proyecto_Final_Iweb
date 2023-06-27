@@ -69,7 +69,7 @@
                 <input type="text" class="form-control" name="descripcion" id="descripcion">
             </div>
             <div class="mb-3">
-                <label class="form-label" for="consola">Job ID</label>
+                <label class="form-label" for="consola">Consola</label>
                 <select name="consola" id="consola" class="form-select">
                     <% for (Consolas c : consolas) {%>
                     <option value="<%=c.getNombre()%>"><%=c.getNombre()%>
@@ -78,7 +78,7 @@
                 </select>
             </div>
             <div class="mb-3">
-                <label class="form-label" for="genero">Job ID</label>
+                <label class="form-label" for="genero">Genero</label>
                 <select name="genero" id="genero" class="form-select">
                     <% for (Generos g : generos) {%>
                     <option value="<%=g.getNombre()%>"><%=g.getNombre()%>
@@ -94,6 +94,9 @@
             <button type="submit" class="btn btn-primary">Subir Juego</button>
             <% if (session.getAttribute("msg") != null) {%>
             <div class="form-group text-danger mb-3">Debe ingresar un precio correcto</div>
+            <% }%>
+            <% if (session.getAttribute("msg1") != null) {%>
+            <div class="form-group text-danger mb-3">Debe llenar las casillas correctamnente</div>
             <% }%>
         </form>
     </div>

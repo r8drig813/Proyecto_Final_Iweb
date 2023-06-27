@@ -228,7 +228,7 @@ public class UsuarioJuegosDaos extends DaoBase {
         return lista;
     }
 
-    public ArrayList<VentaUsuario> listarVendidos(String id) {
+    public ArrayList<VentaUsuario> listarVendidos(int id) {
 
         ArrayList<VentaUsuario> lista2 = new ArrayList<>();
 
@@ -241,7 +241,7 @@ public class UsuarioJuegosDaos extends DaoBase {
         try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, id);
+            pstmt.setInt(1, id);
 
             try (ResultSet rs = pstmt.executeQuery()){
                 while (rs.next()) {
@@ -272,7 +272,7 @@ public class UsuarioJuegosDaos extends DaoBase {
         return lista2;
     }
 
-    public ArrayList<CompraUsuario> listarComprados(String id) {
+    public ArrayList<CompraUsuario> listarComprados(int id) {
 
         ArrayList<CompraUsuario> lista3 = new ArrayList<>();
 
@@ -285,7 +285,7 @@ public class UsuarioJuegosDaos extends DaoBase {
         try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, id);
+            pstmt.setInt(1, id);
 
             try(ResultSet rs = pstmt.executeQuery()){
 
@@ -322,7 +322,7 @@ public class UsuarioJuegosDaos extends DaoBase {
         return lista3;
     }
 
-    public ArrayList<VentaUsuario> listarNotificaciones(String id) {
+    public ArrayList<VentaUsuario> listarNotificaciones(int id) {
 
         ArrayList<VentaUsuario> lista = new ArrayList<>();
 
@@ -334,7 +334,7 @@ public class UsuarioJuegosDaos extends DaoBase {
         try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, id);
+            pstmt.setInt(1, id);
 
             try (ResultSet rs = pstmt.executeQuery()){
                 while (rs.next()) {
@@ -409,15 +409,9 @@ public class UsuarioJuegosDaos extends DaoBase {
 
     public void borrar(String id)  {
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
 
-        String url = "jdbc:mysql://localhost:3306/mydb";
         String sql = "UPDATE compraUsuario SET `idEstados` = '5' WHERE (`idCompra` = '1');\n";
-        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+        try (Connection connection = this.getConection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setString(1, id);
@@ -511,7 +505,8 @@ public class UsuarioJuegosDaos extends DaoBase {
             e.printStackTrace();
         }
         String url = "jdbc:mysql://localhost:3306/mydb";
-        String sql = "INSERT INTO comprausuario (idUsuario,idJuego,cantidad,fechaCompra,direccion,idAdmin,precioCompra,idEstados) VALUES (?,?,1,current_date(),?,10,?,1)";
+        String sql = "INSERT INTO comprausuario (idUsuario,idJuego,cantidad,fechaCompra,direccion,idAdmin,precioCompra,idEstados) " +
+                "VALUES (?,?,1,current_date(),?,10,?,1)";
         try (Connection connection = DriverManager.getConnection(url, "root", "root");
              PreparedStatement pstmt = connection.prepareStatement(sql)){
 
@@ -691,7 +686,7 @@ public class UsuarioJuegosDaos extends DaoBase {
         }
     }
 
-    public ArrayList<GeneroMasComprado> generoMasComprado(String id) {
+    public ArrayList<GeneroMasComprado> generoMasComprado(int id) {
 
         ArrayList<GeneroMasComprado> lista = new ArrayList<>();
 
@@ -706,7 +701,7 @@ public class UsuarioJuegosDaos extends DaoBase {
         try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql)){
 
-            pstmt.setString(1, id);
+            pstmt.setInt(1, id);
 
             try(ResultSet rs = pstmt.executeQuery()){
                 while (rs.next()) {

@@ -1,7 +1,5 @@
 package com.example.proyecto_iweb.models.beans;
 
-import java.sql.Blob;
-
 public class Cuentas {
 
     private int idCuentas;
@@ -10,12 +8,25 @@ public class Cuentas {
     private String nickname;
     private String direccion;
     private String correo;
-    private String foto;
+    private String fotoNombre;
+    private String fotoExtension;
+    private Blob foto;
     private String descripcion;
     private Boolean desabilitado;
     private int idRol;
     private Roles roles;
     private String passwordHashed;
+    private String passwordText;
+    private double latitud;
+    private double longitud;
+
+    public Blob getFoto() {
+        return foto;
+    }
+
+    public void setFoto(Blob foto) {
+        this.foto = foto;
+    }
 
     public String getPasswordHashed() {
         return passwordHashed;
@@ -91,14 +102,6 @@ public class Cuentas {
     }
 
 
-    public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
-    }
-
     public String getDescripcion() {
         return descripcion;
     }
@@ -113,5 +116,46 @@ public class Cuentas {
 
     public void setDesabilitado(Boolean desabilitado) {
         this.desabilitado = desabilitado;
+    }
+
+
+    public String getFotoNombre() {
+        return fotoNombre;
+    }
+
+    public void setFotoNombre(String fotoNombre) {
+        this.fotoNombre = fotoNombre;
+    }
+
+    public String getFotoExtension() {
+        return fotoExtension;
+    }
+
+    public void setFotoExtension(String fotoExtension) {
+        this.fotoExtension = fotoExtension;
+    }
+
+    public String getPasswordText() {
+        return passwordText;
+    }
+
+    public void setPasswordText(String passwordText) {
+        this.passwordText = passwordText;
+    }
+
+    public double getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(double latitud) {
+        this.latitud = latitud;
+    }
+
+    public double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(double longitud) {
+        this.longitud = longitud;
     }
 }

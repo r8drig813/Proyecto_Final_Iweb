@@ -10,11 +10,22 @@ public class Juegos {
      private double precio;
      private double descuento;
      private int stock;
-     private String foto;
+     private String fotoNombre;
+     private String fotoExtension;
+     private Blob foto;
      private boolean habilitado;
      private boolean existente;
      private String consola;
      private String genero;
+     private int idAdmin;
+
+    public int getIdAdmin() {
+        return idAdmin;
+    }
+
+    public void setIdAdmin(int idAdmin) {
+        this.idAdmin = idAdmin;
+    }
 
     public int getIdJuegos() {
         return idJuegos;
@@ -64,13 +75,6 @@ public class Juegos {
         this.stock = stock;
     }
 
-    public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
-    }
 
     public boolean isHabilitado() {
         return habilitado;
@@ -102,5 +106,29 @@ public class Juegos {
 
     public void setGenero(String genero) {
         this.genero = genero;
+    }
+
+    public String getFotoNombre() {
+        return fotoNombre;
+    }
+
+    public void setFotoNombre(String fotoNombre) {
+        this.fotoNombre = fotoNombre;
+    }
+
+    public String getFotoExtension() {
+        return fotoExtension;
+    }
+
+    public void setFotoExtension(String fotoExtension) {
+        this.fotoExtension = fotoExtension;
+    }
+
+    public Blob getFoto() {
+        return foto;
+    }
+
+    public void setFoto(Blob foto) {
+        this.foto = foto;
     }
 }

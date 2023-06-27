@@ -10,7 +10,7 @@ public class VentaUsuario {
     private String mensajeAdmin;
     private int idEstados;
     private Estados estados;
-    private boolean idAdmin;
+    private int idAdmin;
     private Cuentas usuario;
     private Cuentas admin;
 
@@ -94,11 +94,11 @@ public class VentaUsuario {
         this.estados = estados;
     }
 
-    public boolean isIdAdmin() {
+    public int getIdAdmin() {
         return idAdmin;
     }
 
-    public void setIdAdmin(boolean idAdmin) {
+    public void setIdAdmin(int idAdmin) {
         this.idAdmin = idAdmin;
     }
 }

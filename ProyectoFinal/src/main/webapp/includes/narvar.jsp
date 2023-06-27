@@ -198,7 +198,7 @@
             <!-- ICONO DE TIENDA Y NOTIFICACI?N-->
 
             <li class="nav-item dropdown">
-              <a class="nav-link nav-icon" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones&id=<%=usuarioLog.getIdCuentas()%>" data-bs-toggle="dropdown">
+              <a class="nav-link nav-icon" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones" data-bs-toggle="dropdown">
                 <i class="bi bi-chat-left-text text-light"></i>
                 <span class="badge bg-danger badge-number"></span>
               </a>
@@ -206,7 +206,7 @@
               <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
 
                 <li class="dropdown-footer">
-                  <a  href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones&id=<%=usuarioLog.getIdCuentas()%>">Ver todo los mensajes</a>
+                  <a  href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones">Ver todo los mensajes</a>
                 </li>
 
               </ul>
@@ -227,7 +227,7 @@
               </li>
 
               <li>
-                <a class="dropdown-item d-flex align-items-center" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=perfil&id=<%=usuarioLog.getIdCuentas()%>">
+                <a class="dropdown-item d-flex align-items-center" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=perfil">
                   <i class="bi bi-person"></i>
                   <span>Mi Perfil</span>
 
@@ -280,14 +280,14 @@
 
 
       <li class="nav-item">
-        <a class="nav-link  collapsed<%=currentPage.equals("vendidos") ? "active" : ""%> " href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=vendidos&id=<%=usuarioLog.getIdCuentas()%>">
+        <a class="nav-link  collapsed<%=currentPage.equals("vendidos") ? "active" : ""%> " href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=vendidos">
           <i class="bi bi-bag"></i>
           <span>Vendidos</span>
         </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed<%=currentPage.equals("comprados") ? "active" : ""%> " href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=comprados&id=<%=usuarioLog.getIdCuentas()%>">
+        <a class="nav-link collapsed<%=currentPage.equals("comprados") ? "active" : ""%> " href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=comprados">
           <i class="bi bi-shop"></i>
           <span>Comprados</span>
         </a>
@@ -342,7 +342,7 @@
             <!-- ICONO DE TIENDA Y NOTIFICACI?N-->
 
             <li class="nav-item dropdown">
-              <a class="nav-link nav-icon" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones&id=<%=usuarioLog.getIdCuentas()%>" data-bs-toggle="dropdown">
+              <a class="nav-link nav-icon" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones" data-bs-toggle="dropdown">
                 <i class="bi bi-chat-left-text text-light"></i>
                 <span class="badge bg-danger badge-number"></span>
               </a>
@@ -350,7 +350,7 @@
               <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
 
                 <li class="dropdown-footer">
-                  <a  href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones&id=<%=usuarioLog.getIdCuentas()%>">Ver todo los mensajes</a>
+                  <a  href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones">Ver todo los mensajes</a>
                 </li>
 
               </ul>
